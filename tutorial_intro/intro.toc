@@ -1,0 +1,11 @@
+\select@language {english}
+\contentsline {section}{\numberline {1}General Introduction}{3}{section.1}
+\contentsline {subsection}{\numberline {1.1}Download and Install}{3}{subsection.1.1}
+\contentsline {section}{\numberline {2}Reconstruction of a viral capsid}{3}{section.2}
+\contentsline {subsection}{\numberline {2.1}Getting started}{3}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Preprocessing}{3}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}Import micrographs}{3}{subsubsection.2.2.1}
+\contentsline {subsubsection}{\numberline {2.2.2}Downsampling micrographs}{4}{subsubsection.2.2.2}
+\contentsline {subsubsection}{\numberline {2.2.3}CTF estimation}{6}{subsubsection.2.2.3}
+\contentsline {subparagraph}{CTFFind}{7}{section*.9}
+\contentsline {subparagraph}{Xmipp CTF estimation}{7}{section*.11}

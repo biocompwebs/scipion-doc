@@ -267,17 +267,14 @@ CTF of all the micrographs and different parameters}
 
 In order to estimate the CTF with CTFFind, you will need some parameters
 describing the frequency region to be analyzed. The parameters shown in
-figure~\ref{CTFFind} are the adequate ones for this example. Note that
-
-
-Note: In a real case, the limit values from frequencies must be adequate
-so that all zeros of the psd are contained within those frequencies.
-There is a wizard (figure 7, right) to choose those frequencies. The range of defocus to search is usually larger than the ones used in this example and according to your data set.
+figure~\ref{CTFFind} 7 are the adequate ones for this example.
+Note: In a real case, the limit values from frequencies must be adequate so that all zeros of the psd are contained within those frequencies. There is a wizard (figure 7, right) to choose those frequencies. The range of defocus to search is usually larger than the ones used in this example and according to your data set.
 
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{{images/04.CTFFind}.png}
-\caption{Ctffind protocol GUI}
+\caption{Output visualization of CTFFind protocol that shows the
+CTF of all the micrographs and different parameters}
 \label{CTFFind}
 \end{figure}
 
