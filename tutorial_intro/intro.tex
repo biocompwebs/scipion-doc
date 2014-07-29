@@ -133,7 +133,7 @@ giving a pixel
 size of 1.237 \AA  \citep{Wolf2010}. The data have been kindly
 provided by \href{http://grigoriefflab.janelia.org/}{Dr.~Grigorieff’s Lab}.
 
-\subsection{Getting started}
+\subsection{Getting Started}
 
 You can download the data with the following command:
 
@@ -156,7 +156,7 @@ corresponding GUI.
 
 \subsection{Preprocessing}
 
-\subsubsection{Import micrographs}
+\subsubsection{Importing Micrographs}
 
 The first step is to import the micrographs to your scipion project. To do this,
 press on \textbf{Import Micrographs} button. In \textit{Pattern}  you must indicate
@@ -189,7 +189,7 @@ us the different imported micrographs (not shown)
 \label{ProjectGUI}
 \end{figure}
 
-\subsubsection{Downsampling micrographs}
+\subsubsection{Downsampling Micrographs}
 
 After importing the micrographs to your Scipion project, you can perform the
 next processing step that consists in preprocess micrographs. This protocol
@@ -204,7 +204,7 @@ Please, put the values as same as figure~\ref{Preprocess}.
 \label{Preprocess}
 \end{figure}
 
-\subsubsection{CTF estimation}
+\subsubsection{CTF Estimation}
 The next step is to estimate the CTF of the micrographs. In Scipion you can
 estimate the CTF with (at the moment) CTFFind  \citep{Mindell2003} and Xmipp
 CTF estimation. You don't have to do anything extra, e.g. change the extension of
@@ -281,7 +281,7 @@ CTF of all the micrographs and different parameters}
 \label{CTFResult}
 \end{figure}
 
-\subsubsection{Particle picking}
+\subsubsection{Particle Picking}
 Now you are ready to pick the particles. You can pick the particles in the
 micrographs with either Xmipp manual picking, Eman boxer or bshow protocol.
 This protocols are in interactive mode, i.e: you can create different set of
@@ -393,7 +393,7 @@ In order to select particles:
  large Zscore are outliers. Press Analyse Results button in the main Scipion project
  GUI to check the extracted and normalized images.
 
-\subsubsection{Particles selection}
+\subsubsection{Particles Selection}
 By default, the visualization of the particles are sorted by zScore. If you
 want to remove some particles because they are outliers, particle press
 \textbf{Right} button on it and select Disable. When you have finished the
@@ -407,7 +407,7 @@ selection press \textbf{Particles} button to create a new SetOfParticles
   \label{SubsetSelection}
  \end{figure}
 
-\subsection{3D reconstruction: projection matching}
+\subsection{3D Reconstruction: Projection Matching}
 
 Having the right angles of each projection is crucial for making a 3D reconstruction.
 However, in 3DEM you don’t know a priori the angles and you have to estimate them as
@@ -493,7 +493,7 @@ checkbox (figure~\ref{volChimera}).
   \label{volChimera}
  \end{figure}
 
-\subsection{Frealign refinement}
+\subsection{Frealign Refinement}
 
  If you want to refine the output volume of projection matching, you can
  use Frealign refinement protocol. First, you need the "same" SetOfParticles
