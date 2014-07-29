@@ -405,18 +405,171 @@ In order to select particles:
  large Zscore are outliers. Press Analyse Results button in the main Scipion project
  GUI to check the extracted and normalized images.
 
-\subsection{Particles selection}
-If we want to disable some particles because they are outliers, click on the icon and
-then click in the menu bar Display->Render images. A GUI as the one shown in Fig. 21,
-will appear. Note that you can sort the particles taking into account their Zscore.
-To disable a particle press Right button on it and select Disable.
+\subsubsection{Particles selection}
+By default, the visualization of the particles are sorted by zScore. If you
+want to remove some particles because they are outliers, particle press
+\textbf{Right} button on it and select Disable. When you have finished the
+selection press \textbf{Particles} button to create a new SetOfParticles
+(figure~\ref{SubsetSelection}).
+
+ \begin{figure}
+  \centering
+  \includegraphics[width=0.75\textwidth]{{images/08.ImgsSelection}.png}
+  \caption{Analyze results window of Extract Particle protocol.}
+  \label{SubsetSelection}
+ \end{figure}
 
 \subsection{3D reconstruction: projection matching}
 
-\subsection{Subset selection}
+Having the right angles of each projection is crucial for making a 3D reconstruction.
+However, in 3DEM you don’t know a priori the angles and you have to estimate them as
+part of the problem. The most popular way of estimating them is by comparing somehow
+the projections of a volume that is similar to the volume to be reconstructed
+(initial model) with the images obtained from the microscope. A possible approach
+consists in generating equidistant projections from the initial model. The experimental
+data set is then compared (for example, by cross correlation) to each reference projection.
+A “similarity” coefficient (for example, crosscorrelation coefficient) is generated
+between each experimental particle and reference projection. Each individual experimental
+particle is matched to the reference projection that gave the highest “similarity”
+coefficient. Therefore, it is assumed that this experimental particle was projected with
+the same Euler angles as the reference projection.
+
+As is necessary an initial map, you need to import a volume. Press on \textbf{Import Volume}
+and set in \textit{Pattern} parameter the following path:
+
+\emph {\$SCIPION\_HOME/data\/tests/xmipp\_tutorial/micrographs/BPV\_scale\_filtered\_windowed\_110.vol}.
+
+Please, set 6.185 on \textit{sampling rate} parameter.
+
+In order to lauch the projection matching protocol click on 
+\textbf{refine > projection matching} and set the parameters as
+the ones shown in figures \ref{ProjMatchA}, 
+\ref{ProjMatchB}, \ref{ProjMatchC} and \ref{ProjMatchD}. Choose the SetOfParticles
+that has been selected previously in subset selection protocol.
+
+ \begin{figure}
+  \centering
+  \includegraphics[width=0.75\textwidth]{{images/09.ProjMatchA}.png}
+  \caption{Projection matching parameters I}
+  \label{ProjMatchA}
+ \end{figure}
+
+ \begin{figure}
+  \centering
+  \includegraphics[width=0.75\textwidth]{{images/09.ProjMatchB}.png}
+  \caption{Projection matching parameters II}
+  \label{ProjMatchB}
+ \end{figure}
+
+  \begin{figure}
+  \centering
+  \includegraphics[width=0.75\textwidth]{{images/09.ProjMatchC}.png}
+  \caption{Projection matching parameters III}
+  \label{ProjMatchC}
+ \end{figure}
+
+  \begin{figure}
+  \centering
+  \includegraphics[width=0.75\textwidth]{{images/09.ProjMatchD}.png}
+  \caption{Projection matching parameters IV}
+  \label{ProjMatchD}
+ \end{figure}
+
+Finally, in order to visualize the obtained results click on
+\textbf{Analyze Results} button. You will see a GUI as the one shown in
+figure~\ref{ProjMatchViewer}.
+
+ \begin{figure}
+  \centering
+  \includegraphics[width=0.75\textwidth]{{images/11.ProjMatchViewer}.png}
+  \caption{Projection matching viewer}
+  \label{ProjMatchViewer}
+ \end{figure}
+
+To see the volumes you can press \textbf{eye} button in the field
+\textit{Display reconstructed volume?} and you will see the reconstructed
+volume as shown in figure~\ref{volShowj} or in chimera if you select Chimera
+checkbox (figure~\ref{volChimera}).
+
+ \begin{figure}
+  \centering
+  \includegraphics[width=0.75\textwidth]{{images/12.VolumeGalleries}.png}
+  \caption{reconstructed volume}
+  \label{volShowj}
+ \end{figure}
+
+ \begin{figure}
+  \centering
+  \includegraphics[width=0.75\textwidth]{{images/12.VolumeChimera}.png}
+  \caption{reconstructed volume with chimera}
+  \label{volChimera}
+ \end{figure}
 
 \subsection{Frealign refinement}
 
+ If you want to refine the output volume of projection matching, you can
+ use Frealign refinement protocol. First, you need the "same" SetOfParticles
+ that has been processes with Projection matching, but with the features needed
+ to Frealign.
+
+ \begin{description}
+  \item [Subset selection:]  To do this, the firs step is extract the particles
+  again, but Preprocess tab changed as shown in figure~\ref{ExtractForFrealign}.
+  
+  \begin{figure}
+   \centering
+   \includegraphics[width=0.75\textwidth]{{images/06.Extract_ParticlesC}.png}
+   \caption{GUI of Extract Particles protocol II}
+   \label{ExtractForFrealign}
+ \end{figure}
+ 
+ Once the particles are extracted, press on \textbf{Set operations -> intersect sets}
+ button. In first place, you set the last Extracted particles, and in second place
+ the particles selected that has been used to refine a 3D reconstruction.
+  \end{description}
+
+ 
+The new SetOfParticles is the input of Frealign refinement protocol. Please, set the parameters
+as shown in figures \ref{FrealignA}, \ref{FrealignB}, \ref{FrealignC} and \ref{FrealignD}
+
+ \begin{figure}
+  \centering
+  \includegraphics[width=0.75\textwidth]{{images/19.FrealignA}.png}
+  \caption{Frealign parameters I}
+  \label{FrealignA}
+ \end{figure}
+
+ \begin{figure}
+  \centering
+  \includegraphics[width=0.75\textwidth]{{images/19.FrealignB}.png}
+  \caption{Frealign parameters II}
+  \label{FrealignB}
+ \end{figure}
+
+  \begin{figure}
+  \centering
+  \includegraphics[width=0.75\textwidth]{{images/19.FrealignC}.png}
+  \caption{Frealign parameters III}
+  \label{FrealignC}
+ \end{figure}
+
+  \begin{figure}
+  \centering
+  \includegraphics[width=0.75\textwidth]{{images/19.FrealignD}.png}
+  \caption{Frealign parameters IV}
+  \label{FrealignD}
+ \end{figure}
+ 
+Again, in order to visualize the obtained results click on
+\textbf{Analyze Results} button. You will see a GUI as the one shown in
+figure~\ref{FrealignViewer}.
+
+ \begin{figure}
+ \centering
+ \includegraphics[width=0.75\textwidth]{{images/20.FrealignViewer}.png}
+ \caption{Frealign viewer}
+ \label{FrealignViewer}
+ \end{figure}
 
 \bibliographystyle{apalike}
 \bibliography{../tutorial_common/em.bib}
