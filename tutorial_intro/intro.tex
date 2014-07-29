@@ -1,15 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Simple Sectioned Essay Template
-% LaTeX Template
-%
-% This template has been downloaded from:
-% http://www.latextemplates.com
-%
-% Note:
-% The \lipsum[#] commands throughout this template generate dummy text
-% to fill the template out. These commands should all be removed when 
-% writing essay content.
-%
+% Design based on a template by Roberto and following the format of
+% the xmipp tutorials. In turn, they seem to be based on a template
+% from http://www.latextemplates.com
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %----------------------------------------------------------------------------------------
@@ -22,7 +14,6 @@
 \usepackage{listings}
 \usepackage{color}
 \usepackage{caption}
-%\usepackage[dvips]{graphicx}
 \usepackage{geometry} % Required to change the page size to A4
 %\geometry{a4paper} % Set the page size to be A4 as opposed to the default US Letter
 \usepackage{framed}
@@ -30,26 +21,25 @@
 \usepackage{graphicx} % Required for including pictures
 \usepackage{natbib}
 \usepackage{float} % Allows putting an [H] in \begin{figure} to specify the exact location of the figure
-%\usepackage{wrapfig} % Allows in-line images such as the example fish picture
 \usepackage{hyperref}
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[RO]{{Introductory Tutorial}} 
+\fancyhead[RO]{{Introductory Tutorial}}
 \fancyhead[LO]{Scipion}
-%\fancyhead[RO]{{\leftmark}} 
+%\fancyhead[RO]{{\leftmark}}
 \fancyfoot[LE,RO]{{ \thepage }}
 
-%\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
 \definecolor{grey}{rgb}{0.9,0.9,0.9}
 
 \linespread{1.2} % Line spacing
 
 %\setlength\parindent{0pt} % Uncomment to remove all indentation from paragraphs
 
-\newcounter{ejercicioNo}
+
 \begin{document}
+
 
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
@@ -57,42 +47,23 @@
 
 \begin{titlepage}
 
-\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+% New command for horizontal lines. Change thickness here.
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 
 \center % Center everything on the page
 
 \includegraphics{../tutorial_common/images/scipion_logo.png}
 
-\textsc{\large Scipion Tutorial Series}\\[1.0cm] % Minor heading such as course title
+{\large Scipion Tutorial Series}\\[1.0cm]
 
+\textsc{\LARGE National Center for Biotechnology}\\[0.5cm]
+\textsc{\Large Biocomputing Unit}\\[0.5cm]
 
-\textsc{\LARGE National Center for Biotechnology} \\[0.5cm] % Name of your university/college
-%\textsc{\Large Proyecto de Sistemas Informaticos}\\[0.5cm] % Major heading such as course name
-%\textsc{\large Departamento de Informática}\\[0.5cm] % Minor heading such as course title
-\textsc{\Large Biocomputing Unit}\\[0.5cm] % Minor heading such as course title
-
-\HRule \\[0.4cm]
+\HRule\\[0.4cm]
 { \huge \bfseries Introductory Tutorial}\\[0.4cm] % Title of your document
 \HRule \\[1.5cm]
 
-%\begin{minipage}{0.4\textwidth}
-%\begin{flushleft}
-% \large
-%\emph{Author:}\\
-%Roberto  \textsc{Marabini Ruiz} % Your name
-%\end{flushleft}
-%\end{minipage}
-
-%\begin{minipage}{0.4\textwidth}
-%\begin{flushright} \large
-%\emph{Supervisor:} \\
-%Dr. James \textsc{Smith} % Supervisor's Name
-%\end{flushright}
-%\end{minipage}\\[4cm]
-
 %{\large \today}\\[3cm] % Date, change the \today to a set date if you want to be precise
-
-%\includegraphics{Logo}\\[1cm] % Include a department/university logo - this will require the graphicx package
 
 \includegraphics[width=0.5\textwidth]{{images/13.VolumeChimeraAndProjections}.png}
 
@@ -113,14 +84,13 @@
 %----------------------------------------------------------------------------------------
 
 
-
 \subsection*{Intended audience}
 
 This tutorial provides a general introduction to Scipion, an image
 processing framework to obtain 3D models of macromolecular complexes
 using Electron Microscopy (EM). It is designed to introduce 3D image
 processing in EM to people without any prior knowledge of Scipion,
-only limited knowledge about 3D-EM image processing, and with basic
+some limited knowledge about 3D-EM image processing, and basic
 computer skills.
 
 \subsection*{We'd like to hear from you}
@@ -129,17 +99,19 @@ We have tested and verified the different steps described in this demo
 to the best of our knowledge, but since our programs are in continuous
 development you may find inaccuracies and errors in this text. Please,
 let us know about any error you find, as well as your suggestions for
-future editions by writing to
+future editions, by writing to
 \href{mailto:scipion@cnb.csic.es}{scipion@cnb.csic.es}.
 
 \newpage
+
+
 %----------------------------------------------------------------------------------------
 %	TABLE OF CONTENTS
 %----------------------------------------------------------------------------------------
 
 \tableofcontents % Include a table of contents
 
-\newpage % Begins the essay on a new page instead of on the same page as the table of contents 
+\newpage % Begins the essay on a new page instead of on the same page as the table of contents
 
 
 \section{General Introduction}
@@ -147,7 +119,7 @@ future editions by writing to
 \subsection{Download and Install}
 
 The first step before start working on your projects is to download and
-install Scipion and all the related programs. At \href{http://scipionwiki.cnb.csic.es}{Scipion's website} 
+install Scipion and all the related programs. At \href{http://scipionwiki.cnb.csic.es}{Scipion's website}
 there is all the information needed to download and install the package.
 
 \section{Reconstruction of a viral capsid}
@@ -167,7 +139,7 @@ The data you will work on may be downloaded using the following command:
 The data will be download in \emph {scipion\_folder/data}. After download, you must
 launch the MAIN GUI by typing: \verb+scipion+
 
-Then, create a new project by clicking \textbf{Create project} button, type a 
+Then, create a new project by clicking \textbf{Create project} button, type a
 \textit{project name} and click OK. The GUI main project window will be launched.
 The left panel contains different protocols grouped in categories. Clicking on
 a group will display a menu with protocols that can be selected to launch the
@@ -179,7 +151,7 @@ corresponding GUI.
 
 The first step is to import the micrographs to your scipion project. To do this,
 press on \textbf{Import Micrographs} button. In \textit{Pattern}  you must indicate
-where your micrograph files are stored (clicking on \textbf{browse} button). The 
+where your micrograph files are stored (clicking on \textbf{browse} button). The
 complete pattern are:
 (\emph {\$SCIPION\_HOME/data/tests/xmipp\_tutorial/micrographs/*.mrc}).
 
@@ -377,21 +349,21 @@ In order to select particles:
  of your picked particles, among other processes. Modify the parameters of the
  Extract Particle Protocol according to the parameters shown in figure~\ref{Extract}
  and figure~\ref{ExtractParams}.
- 
+
  \begin{figure}
   \centering
   \includegraphics[width=0.75\textwidth]{{images/06.Extract_Particles}.png}
   \caption{GUI of Extract Particles protocol}
   \label{XmippPP}
  \end{figure}
- 
+
  \begin{figure}
   \centering
   \includegraphics[width=0.75\textwidth]{{images/06.Extract_ParticlesB}.png}
   \caption{GUI of Extract Particles protocol II}
   \label{ExtractParams}
  \end{figure}
- 
+
  \begin{itemize}
   \item The protocol extracts the particles from the micrographs using the coordinates
         determined in the previous step. You must indicate the SetOfCordinates and the
@@ -404,9 +376,9 @@ In order to select particles:
   \item If the \textit{Invert contrast} is set to Yes then bright regions become dark
         regions and the opposite. This flag should be set so that the extracted particles
         are white over a dark background.
-  
+
  \end{itemize}
- 
+
  The protocol also sorts the particles based on general statistics assigning to each
  particle a Zscore value. Particles with low Zscore are reliable and the ones with
  large Zscore are outliers. Press Analyse Results button in the main Scipion project
@@ -448,9 +420,9 @@ and set in \textit{Pattern} parameter the following path:
 
 Please, set 6.185 on \textit{sampling rate} parameter.
 
-In order to lauch the projection matching protocol click on 
+In order to lauch the projection matching protocol click on
 \textbf{refine > projection matching} and set the parameters as
-the ones shown in figures \ref{ProjMatchA}, 
+the ones shown in figures \ref{ProjMatchA},
 \ref{ProjMatchB}, \ref{ProjMatchC} and \ref{ProjMatchD}. Choose the SetOfParticles
 that has been selected previously in subset selection protocol.
 
@@ -522,20 +494,20 @@ checkbox (figure~\ref{volChimera}).
  \begin{description}
   \item [Subset selection:]  To do this, the firs step is extract the particles
   again, but Preprocess tab changed as shown in figure~\ref{ExtractForFrealign}.
-  
+
   \begin{figure}
    \centering
    \includegraphics[width=0.75\textwidth]{{images/06.Extract_ParticlesC}.png}
    \caption{GUI of Extract Particles protocol II}
    \label{ExtractForFrealign}
  \end{figure}
- 
+
  Once the particles are extracted, press on \textbf{Set operations $\rightarrow$ intersect sets}
  button. In first place, you set the last Extracted particles, and in second place
  the particles selected that has been used to refine a 3D reconstruction.
   \end{description}
 
- 
+
 The new SetOfParticles is the input of Frealign refinement protocol. Please, set the parameters
 as shown in figures \ref{FrealignA}, \ref{FrealignB}, \ref{FrealignC} and \ref{FrealignD}
 
@@ -566,7 +538,7 @@ as shown in figures \ref{FrealignA}, \ref{FrealignB}, \ref{FrealignC} and \ref{F
   \caption{Frealign parameters IV}
   \label{FrealignD}
  \end{figure}
- 
+
 Again, in order to visualize the obtained results click on
 \textbf{Analyze Results} button. You will see a GUI as the one shown in
 figure~\ref{FrealignViewer}.
