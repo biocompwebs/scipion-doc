@@ -172,10 +172,13 @@ in order to get different views of the specimen and estimate the tilt angle.
 
 The data you will work on may be downloaded using the following command:
 
-\verb+scipion testdata --download+ \newline
-The data will be download in \emph {scipion\_folder/data}.
+\begin{verbatim}
+scipion testdata --download
+\end{verbatim}
 
-After download, you must launch the MAIN GUI by typing: \verb+scipion+ \newline
+The data will be download in \verb+scipion_folder/data+.
+
+After download, you must launch the MAIN GUI by typing: \verb+scipion+
 Then, create a new project by clicking \textbf{Create project} button, type a 
 \textit{project name} and click OK. The GUI main project window will be launched.
 On the left panel a view can be selected which contains different protocols grouped in categories. 
@@ -188,12 +191,14 @@ To follow the tutorial you should select the \textbf{Random Conical Tilt} view o
 The first step is to import the tilted pairs micrographs to your scipion project. To do this,
 press on \textbf{Import Micrographs pairs} protocol. 
 In \textit{Pattern untilted} and \textit{Pattern tilted}  you must indicate where your untilted 
-and tilted micrograph files are stored (clicking on \textbf{browse} button). 
-The complete patterns are:
+and tilted micrograph files are stored (clicking on \textbf{browse} button). The complete patterns are:
 
-(\emph {\$SCIPION\_HOME/data/tests/rct/micrographs/F\_rct\_u\_*.tif}).
+\begin{verbatim}
+$SCIPION_HOME/data/tests/rct/micrographs/F_rct_u_*.tif
 
-(\emph {\$SCIPION\_HOME/data/tests/rct/micrographs/F\_rct\_t\_*.tif}).
+$SCIPION_HOME/data/tests/rct/micrographs/F_rct_t_*.tif
+\end{verbatim}
+
 
 In this first version pairs assignment is done by micrograph order but in next versions a wizard 
 will be provided.
@@ -255,7 +260,9 @@ be 2000 particles.
 However if you don't feel like picking manually thousands of particles you can import the already picked 
 particles by clicking on \textbf{File/Import coordinates} and specifying the following path.
 
-(\emph {\$SCIPION\_HOME/data/tests/rct/positions}).
+\begin{verbatim}
+$SCIPION_HOME/data/tests/rct/positions
+\end{verbatim}
 
 Take into account that the protocol status will not changed to \textbf{Finished} but remain as \textbf{Interactive}.
 This allows you to execute it again if you wish to pick more particles.
@@ -277,7 +284,8 @@ This allows you to execute it again if you wish to pick more particles.
 \subsection{Extract particles pairs}
 Now that coordinates pairs are picked they have to be extracted as particle pairs.
 To do so select the \textbf{Extract particles pairs} protocol and fill in the parameters as shown in figure~\ref{ExtractPairs}.
-Although particles were picked with a size of 120 pixels the extract will downsample them on a factor of two to speed up next steps.\newline
+Although particles were picked with a size of 120 pixels the extract will downsample them on a factor of two to speed up next steps.
+
 Once the protocol has finished you can review the particles by clicking on the \textbf{Analyze results} button as seen in figure~\ref{ExtractResults}.
 If you don't like some of the particles you can disable them and create a subset with the good ones. Just click on the \textbf{TiltPairs} red button 
 and give the subset a name.
@@ -368,6 +376,17 @@ will show up.
 \includegraphics[width=0.75\textwidth]{{images/11.RCTresults}.png}
 \caption{RCT output: Filtered volume.}
 \label{RCTresults}
+\end{figure}
+
+This is enough to have our initial volume, but for having a better and more defined volume, we can also re-filter it 
+by running the Xmipp Filter volumes protocol found under \textbf{3D - Preprocess} on the \textbf{Protocols SPA} view.
+Protocol parameters are shown on figure ~\ref{VolFilter}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.75\textwidth]{{images/12.FilterVolsProtocol}.png}
+\caption{Filter volume protocol.}
+\label{VolFilter}
 \end{figure}
 
 \bibliographystyle{apalike}
