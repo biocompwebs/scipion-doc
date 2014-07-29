@@ -28,7 +28,7 @@
 \fancyhead[RO]{{Introductory Tutorial}}
 \fancyhead[LO]{Scipion}
 %\fancyhead[RO]{{\leftmark}}
-\fancyfoot[L,RO]{\thepage}
+\fancyfoot[RO]{\thepage}
 
 \linespread{1.2} % Line spacing
 
@@ -136,12 +136,10 @@ provided by \href{http://grigoriefflab.janelia.org/}{Dr.~Grigorieff’s Lab}.
 You can download the data with the following command:
 
 \begin{command}
-scipion testdata --download
+scipion testdata --download xmipp\_tutorial
 \end{command}
 
-% TODO: the name of the dataset appears missing
-
-It will be downloaded in \verb+$SCIPION_HOME/data/tests+. After download, you must
+It will be downloaded to \verb+$SCIPION_HOME/data/tests+. After download, you must
 launch the MAIN GUI by typing: \comm{scipion}
 
 % TODO: ``MAIN GUI''? Isn't it better ``browser''?
@@ -157,25 +155,24 @@ corresponding GUI.
 \subsubsection{Importing Micrographs}
 
 The first step is to import the micrographs to your scipion project. To do this,
-press on \textbf{Import Micrographs} button. In \textit{Pattern}  you must indicate
-where your micrograph files are stored (clicking on \textbf{browse} button). The
-complete pattern are:
-(\emph {\$SCIPION\_HOME/data/tests/xmipp\_tutorial/micrographs/*.mrc}).
+press on the \textbf{Import Micrographs} button. In \textit{Pattern}  you must indicate
+where your micrograph files are stored (clicking on the \textbf{browse} button). The
+complete pattern is: \verb+$SCIPION_HOME/data/tests/xmipp_tutorial/micrographs/*.mrc+
 
 Modify the parameters of the Import Micrographs protocol according to the ones
-shown in figure~\ref{ImportMics}.
+shown in figure (\ref{fig:ImportMics}).
 
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]
 {{images/01.Import_Mics}.png}
 \caption{Import Micrographs protocol GUI.}
-\label{ImportMics}
+\label{fig:ImportMics}
 \end{figure}
 
 When you have completed the form, click on the \textbf{Save \& Execute} button. After
 executing the protocol, it will appear in the main Scipion project GUI the new
-information shown in figure~\ref{ProjectGUI}
+information shown in figure (\ref{ProjectGUI}).
 
 If we press in the \textbf{Analyze results} button it will appear a new pop-up GUI that shows
 us the different imported micrographs (not shown)
