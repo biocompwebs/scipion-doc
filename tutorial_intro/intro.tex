@@ -11,8 +11,7 @@
 \documentclass[12pt]{article} % Default font size is 12pt, it can be changed here
 \usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
-\usepackage{listings}
-\usepackage{color}
+\usepackage{listings} % To include source code
 \usepackage{caption}
 \usepackage{geometry} % Required to change the page size to A4
 %\geometry{a4paper} % Set the page size to be A4 as opposed to the default US Letter
@@ -29,13 +28,15 @@
 \fancyhead[RO]{{Introductory Tutorial}}
 \fancyhead[LO]{Scipion}
 %\fancyhead[RO]{{\leftmark}}
-\fancyfoot[LE,RO]{{ \thepage }}
-
-\definecolor{grey}{rgb}{0.9,0.9,0.9}
+\fancyfoot[L,RO]{\thepage}
 
 \linespread{1.2} % Line spacing
 
 %\setlength\parindent{0pt} % Uncomment to remove all indentation from paragraphs
+
+\newcommand{\scipion}{\textsc{Scipion} }
+\newenvironment{command}{\tt\begin{quote}}{\end{quote}}
+\newcommand{\comm}[1]{\texttt{#1}}
 
 
 \begin{document}
@@ -97,8 +98,8 @@ computer skills.
 
 We have tested and verified the different steps described in this demo
 to the best of our knowledge, but since our programs are in continuous
-development you may find inaccuracies and errors in this text. Please,
-let us know about any error you find, as well as your suggestions for
+development you may find inaccuracies and errors in this text. Please
+let us know about any errors, as well as your suggestions for
 future editions, by writing to
 \href{mailto:scipion@cnb.csic.es}{scipion@cnb.csic.es}.
 
@@ -111,33 +112,37 @@ future editions, by writing to
 
 \tableofcontents % Include a table of contents
 
-\newpage % Begins the essay on a new page instead of on the same page as the table of contents
+\newpage % Begins on a new page instead of on the same page as the table of contents
 
 
 \section{General Introduction}
 
-\subsection{Download and Install}
+\subsection{Download and Installation}
 
-The first step before start working on your projects is to download and
-install Scipion and all the related programs. At \href{http://scipionwiki.cnb.csic.es}{Scipion's website}
-there is all the information needed to download and install the package.
+The first step before starting to work on your projects is to download
+and install \scipion and all the related software. At the
+\href{http://scipionwiki.cnb.csic.es}{\scipion website} there is all
+the needed information.
 
-\section{Reconstruction of a viral capsid}
+\section{Reconstruction of a Viral Capsid}
 
-In this demo, we have used the single particle analysis approach to obtain
-a 3D reconstruction of a {\emph Bovine Papillomavirus}. The EM images have been
-collected at 300 kV and a calibrated magnification of 56,588, giving a pixel
-size  of 1.237 \AA  \citep{Wolf2010}. Data have been kindly
-provided by \href{http://grigoriefflab.janelia.org/}{Dr. Grigorieff’s Lab}.
+In this demo, we have used the \emph{single particle analysis} approach to obtain
+a 3D reconstruction of a \emph{Bovine Papillomavirus}. The EM images have been
+collected at 300 $kV$ and a calibrated magnification of 56,588,  % TODO: check format of number
+giving a pixel
+size of 1.237 \AA  \citep{Wolf2010}. The data have been kindly
+provided by \href{http://grigoriefflab.janelia.org/}{Dr.~Grigorieff’s Lab}.
 
 \subsection{Getting started}
 
-The data you will work on may be downloaded using the following command:
+You can download the data with the following command:
 
-\verb+scipion testdata --download+
+\begin{command}
+scipion testdata --download
+\end{command}
 
-The data will be download in \emph {scipion\_folder/data}. After download, you must
-launch the MAIN GUI by typing: \verb+scipion+
+It will be downloaded in \verb+$SCIPION_HOME/data/tests+. After download, you must
+launch the MAIN GUI by typing: \comm{scipion}
 
 Then, create a new project by clicking \textbf{Create project} button, type a
 \textit{project name} and click OK. The GUI main project window will be launched.
@@ -313,7 +318,7 @@ will launch a window as shown in figure~\ref{PickingParticles}
 \centering
 \includegraphics[width=0.75\textwidth]{{images/12-xmipp_manual_picking_protocol}.png}
 \caption{GUI for Xmipp manual picking}
-\label{XmippPP}
+\label{fig:xmipp_manual_picking}
 \end{figure}
 
 \begin{figure}
@@ -347,7 +352,7 @@ In order to select particles:
  Click on Extract Particles protocol. This will launch the GUI of the next
  protocol that will allow you to extract, normalize and correct the CTF-phase
  of your picked particles, among other processes. Modify the parameters of the
- Extract Particle Protocol according to the parameters shown in figure~\ref{Extract}
+ Extract Particle Protocol according to the parameters shown in figure~\ref{XmippPP}
  and figure~\ref{ExtractParams}.
 
  \begin{figure}
