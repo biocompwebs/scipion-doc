@@ -228,6 +228,35 @@ estimate the parameters of the CTF (defocus U, defocus V, defocus angle, etc).
 They cut the micrographs into a plenty of images with a desire size. After that,
 calculate the Fourier transform to each image and averaged.
 
+\begin{description}
+\item [CTFFind:] in order to estimate the CTF with CTFFind, you will need
+some parameters describing the frequency region to be analyzed. The parameters
+shown in figure~\ref{CTFFind} are the adequate ones for this example.
+The limit values from frequencies must be adequate so that all zeros of
+the psd are contained within those frequencies. There is a wizard, shown
+in figure~\ref{CTFwizard}, to choose those frequencies. The range of
+defocus to search is usually larger than the ones used in this example
+and according to your data set.
+
+\item [Xmipp CTF estimation:] if you prefer, you can estimate the CTF with
+Xmipp CTF estimation. The parameters used in this protocol are the same as
+CTFFind protocol, explained above.
+
+\end{description}
+
+\begin{figure}
+\minipage{0.47\textwidth}
+  \includegraphics[width=\linewidth]{{images/04.CTFFind}.png}
+  \caption{Ctffind protocol GUI}
+  \label{CTFFind}
+\endminipage\hfill
+\minipage{0.51\textwidth}
+  \includegraphics[width=\linewidth]{{images/16.CTFWizard}.png}
+  \caption{wizard of the frequencies}
+  \label{CTFwizard}
+\endminipage\hfill
+\end{figure}
+
 The CTFs of good micrographs typically have multiple concentric rings, shown
 in figure ~\ref{CTFs} left, extending from the image center towards its edges.
 Bad micrographs may lack rings or have very few rings that hardly extend from
@@ -235,10 +264,11 @@ the image center. A reason to discard micrographs may be the presence of
 strongly asymmetric rings (astigmatism, figure ~\ref{CTFs} center) or rings
 that fade in a particular direction (drift, figure ~\ref{CTFs} right).
 
-When the protocol is finished you may click on \textbf{Analyze Result} button
-(figure \ref{CTFResult}). To discard micrographs with bad CTFs you may click
-with the mouse right button and press \textbf{Discard} button. Once you finish
-the selection, press on \textbf{Micrographs} button (figure~\ref{CTFResult}).
+When the protocol, either CTFFind or Xmipp CTF estimation, is finished you may
+click on \textbf{Analyze Result} button (figure \ref{CTFResult}). To discard
+micrographs with bad CTFs you may click with the mouse right button and press
+\textbf{Discard} button. Once you finish the selection, press on \textbf{Micrographs}
+button (figure~\ref{CTFResult}).
 
 Sometimes, the CTF estimation algorithm may fail to find the rings even
 if they can be seen by eye. If this is the case, you may help the algorithm
@@ -263,25 +293,129 @@ CTF of all the micrographs and different parameters}
 \label{CTFResult}
 \end{figure}
 
-\subparagraph{CTFFind}
+\subsubsection{Particle picking}
+Now you are ready to pick the particles. You can pick the particles in the
+micrographs with either Xmipp manual picking, Eman boxer or bshow protocol.
+This protocols are in interactive mode, i.e: you can create different set of
+coordinates in the same protocol.
 
-In order to estimate the CTF with CTFFind, you will need some parameters
-describing the frequency region to be analyzed. The parameters shown in
-figure~\ref{CTFFind} are the adequate ones for this example. Note that
 
-
-Note: In a real case, the limit values from frequencies must be adequate
-so that all zeros of the psd are contained within those frequencies.
-There is a wizard (figure 7, right) to choose those frequencies. The range of defocus to search is usually larger than the ones used in this example and according to your data set.
+\begin{description}
+\item [EMAN boxer:] Click on eman2 boxer and will launch a window as shown
+in figure~\ref{EmanProtocol}. Set the paramaters as shown in figure~\ref{EmanProtocol}
 
 \begin{figure}
 \centering
-\includegraphics[width=0.75\textwidth]{{images/04.CTFFind}.png}
-\caption{Ctffind protocol GUI}
-\label{CTFFind}
+\includegraphics[width=0.75\textwidth]{{images/18.EmanPP}.png}
+\caption{EMAN boxer protocol launch GUI}
+\label{EmanProtocol}
 \end{figure}
 
-\subparagraph{Xmipp CTF estimation}
+Once you press \textbf{Execute} button, a several windows will open
+(figure~\ref{EmanPP}). This protocol has several modes of selection,
+please visit it's \href{http://blake.bcm.edu/emanwiki/EMAN2}{webpage}
+to futher information. When you are done picking particles press
+\textbf{Done} and you will be asked if you want to create the output.
+If you choose \textbf{No} you can keep picking later and selected
+particles will be added to the same Set until you say \textbf{Yes}.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.75\textwidth]{{images/05.EmanPicking}.png}
+\caption{GUI for EMAN boxer}
+\label{EmanPP}
+\end{figure}
+
+\item [Xmipp particle picking:] If you want, click on xmipp-manual picking
+protocol and will launch a window as shown in figure~\ref{XmippPP}. This
+will launch a window as shown in figure~\ref{PickingParticles}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.75\textwidth]{{images/12-xmipp_manual_picking_protocol}.png}
+\caption{GUI for Xmipp manual picking}
+\label{XmippPP}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.75\textwidth]{{images/15.PartPickingXmipp}.png}
+\caption{GUI for Xmipp Manual Particle Picking}
+\label{PickingParticles}
+\end{figure}
+
+In order to select particles:
+
+  \begin{itemize}
+   \item Use Shift+Middle Mouse Button in the overview window to Zoom-in and Zoom-out.
+   \item Mark particles with the left mouse button in the zoom windows. You may move
+         its position by clicking the left mouse button on the selected particle and
+         drag it to the new position.
+   \item Use Shift+Left Mouse Button over a selected particle in order to remove it.
+   \item You can apply filters to the micrographs, so that you may see the particles
+         better. Filters are added into a queue, so whenever you change the visualized
+         area, they are applied again. Select the menu filter in the overview window
+         and add as many filters as you like.
+   \item You can clean the filter queue, if you want to return to the original image
+   \item You can create the set of coordinates or just save the picked particles to
+         continue picking later.
+  \end{itemize}
+
+\end{description}
+
+\subsection{Extract Particles}
+
+ Click on Extract Particles protocol. This will launch the GUI of the next
+ protocol that will allow you to extract, normalize and correct the CTF-phase
+ of your picked particles, among other processes. Modify the parameters of the
+ Extract Particle Protocol according to the parameters shown in figure~\ref{Extract}
+ and figure~\ref{ExtractParams}.
+ 
+ \begin{figure}
+  \centering
+  \includegraphics[width=0.75\textwidth]{{images/06.Extract_Particles}.png}
+  \caption{GUI of Extract Particles protocol}
+  \label{XmippPP}
+ \end{figure}
+ 
+ \begin{figure}
+  \centering
+  \includegraphics[width=0.75\textwidth]{{images/06.Extract_ParticlesB}.png}
+  \caption{GUI of Extract Particles protocol II}
+  \label{ExtractParams}
+ \end{figure}
+ 
+ \begin{itemize}
+  \item The protocol extracts the particles from the micrographs using the coordinates
+        determined in the previous step. You must indicate the SetOfCordinates and the
+        Particle Box size in pixels (in this case 110 px).
+  \item If the \textit{Normalize} flag is set to Yes (recommended), the particles are
+        normalized to have zero mean and a standard deviation of unity for the
+        background pixels.
+  \item If the \textit{Phase flipping} is set to Yes (recommended), the protocol corrects
+        the CTF-phase of your particles.
+  \item If the \textit{Invert contrast} is set to Yes then bright regions become dark
+        regions and the opposite. This flag should be set so that the extracted particles
+        are white over a dark background.
+  
+ \end{itemize}
+ 
+ The protocol also sorts the particles based on general statistics assigning to each
+ particle a Zscore value. Particles with low Zscore are reliable and the ones with
+ large Zscore are outliers. Press Analyse Results button in the main Scipion project
+ GUI to check the extracted and normalized images.
+
+\subsection{Particles selection}
+If we want to disable some particles because they are outliers, click on the icon and
+then click in the menu bar Display->Render images. A GUI as the one shown in Fig. 21,
+will appear. Note that you can sort the particles taking into account their Zscore.
+To disable a particle press Right button on it and select Disable.
+
+\subsection{3D reconstruction: projection matching}
+
+\subsection{Subset selection}
+
+\subsection{Frealign refinement}
 
 
 \bibliographystyle{apalike}
