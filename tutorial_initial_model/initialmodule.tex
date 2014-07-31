@@ -394,7 +394,7 @@ In this section, we present how to use 3D-RANSAC approach, which can obtain a re
 from sets of macromolecular projection images without a priori information ( Vargas et al. (2014)). 
 
 \subsection{Initial volume generation with 3D Ransac}
-First change to the \textbf{Protocols SPA} view, go to \textbf{3D - Initial Volume} and click on xmipp - ransac protocol. 
+Change to the \textbf{Protocols SPA} view if you are not already there, go to \textbf{3D - Initial Volume} and click on \textbf{xmipp - ransac} protocol. 
 As input we will use the classes obtained on Random Conical Tilted section so we can compare the generated volumes using different 
 techniques. Also, fill in the other form parameters as shown in figure~\ref{RansacProtocol} and explained below. 
 There is not symmetry so leave c1 and the angular sampling, in degrees, defines how fine the projection gallery from the volume is explored. 
@@ -412,10 +412,18 @@ on \textbf{Analyze Results} button.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.75\textwidth]{{images/13.RansacProtocol}.png}
+\includegraphics[width=0.75\textwidth]{{images/15.RansacProtocol}.png}
 \caption{Ransac protocol.}
 \label{RansacProtocol}
 \end{figure}
+
+\section{Eman}
+In this section we present how to obtain an initial module in Scipion using Eman package.
+
+\subsection{Initial volume generation with Eman}
+Change to the \textbf{Protocols SPA} view if you are not already there, go to \textbf{3D - Initial Volume} and click on \textbf{eman2 - initial model} protocol. 
+As we did before use the classes obtained on Random Conical Tilted section as input so we can compare the generated volumes using different 
+techniques. Also, fill in the other form parameters as shown in figure~\ref{RansacProtocol}
 
 \bibliographystyle{apalike}
 \bibliography{../tutorial_initial_model/em.bib}
