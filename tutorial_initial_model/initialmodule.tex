@@ -380,13 +380,41 @@ will show up.
 
 This is enough to have our initial volume, but for having a better and more defined volume, we can also re-filter it 
 by running the Xmipp Filter volumes protocol found under \textbf{3D - Preprocess} on the \textbf{Protocols SPA} view.
-Protocol parameters are shown on figure ~\ref{VolFilter}
+Protocol parameters are shown on figure~\ref{VolFilter}
 
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{{images/12.FilterVolsProtocol}.png}
 \caption{Filter volume protocol.}
 \label{VolFilter}
+\end{figure}
+
+\section{3D Ransac}
+In this section, we present how to use 3D-RANSAC approach, which can obtain a reliable low resolution initial volume 
+from sets of macromolecular projection images without a priori information ( Vargas et al. (2014)). 
+
+\subsection{Initial volume generation with 3D Ransac}
+First change to the \textbf{Protocols SPA} view, go to \textbf{3D - Initial Volume} and click on xmipp - ransac protocol. 
+As input we will use the classes obtained on Random Conical Tilted section so we can compare the generated volumes using different 
+techniques. Also, fill in the other form parameters as shown in figure~\ref{RansacProtocol} and explained below. 
+There is not symmetry so leave c1 and the angular sampling, in degrees, defines how fine the projection gallery from the volume is explored. 
+The number of RANSAC iterations are the number of random volumes which are generated. 
+We select performing dimensionality reduction, with a number of grids per dimension equal to 5, and therefore each
+random volume is generated from 36 (6x6) classes. 
+The inlier threshold is a correlation based cutoff to determine if a class is an inlier of the generated random volume or not. 
+Note that in cases where the classes have very low noise this value must be increased ( 0.8-0.95) and, on the other hand, 
+in cases with high noise, this value must be decreased. 
+The \textbf{Number of best volumes to refine} are the number of volumes, among all the generated ones (in this case 100), that
+are going to be further refined using a projection matching approach by the selected \textbf{Number of iterations to perform to refine the volumes}. 
+Finally, \textbf{Max frequency of the initial volume} is the maximum frequency of the initial volume in Angstroms. 
+If we press the \textbf{Execute} button, after approximately 15 minutes, the protocol will finish and output volumes could be visualize by clicking 
+on \textbf{Analyze Results} button.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.75\textwidth]{{images/13.RansacProtocol}.png}
+\caption{Ransac protocol.}
+\label{RansacProtocol}
 \end{figure}
 
 \bibliographystyle{apalike}
