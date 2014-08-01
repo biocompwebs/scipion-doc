@@ -133,12 +133,6 @@ future editions by writing to
 
 \section{General Introduction}
 
-\subsection{Download and Install}
-
-The first step before start working on your projects is to download and
-install Scipion and all the related programs. At \href{http://scipionwiki.cnb.csic.es}{Scipion's website} 
-there is all the information needed to download and install the package.
-
 \subsection{Initial Volume estimation}
 
 Single Particle Analysis (SPA) techniques can obtain three-dimensional (3D) maps of biological complexes 
@@ -146,9 +140,29 @@ at near atomic resolution by combining tens of thousands of projection images ob
 Transmission Electron Microscopy (TEM). In general, the reconstruction process leading to the final 3D map 
 requires the use of an approximate low resolution initial model to be refined in further steps. 
 In this tutorial we present different methods to obtain this initial model using Scipion, 
-which are Random Conical Tilt, 3D-RANSAC and Eman.
+which are Xmipp Random Conical Tilt, Xmipp 3D-RANSAC and Eman Initial Model.
 
-\section{Random Conical Tilt}
+\subsection{Download and Install}
+
+The first step before start working on your projects is to download and
+install Scipion and all the related programs. At \href{http://scipionwiki.cnb.csic.es}{Scipion's website} 
+there is all the information needed to download and install the application.
+
+\subsection{Getting started}
+
+First start by downloading the data you will work with using the following command:
+
+\begin{verbatim}
+scipion testdata --download rct
+\end{verbatim}
+
+The data will be download in \verb+scipion_folder/data/tests/rct+.
+
+After download, you must launch the MAIN GUI by typing: \verb+scipion+
+Then, create a new project by clicking \textbf{Create project} button, type a 
+\textit{project name} and click OK. The GUI main project window will be launched.
+
+\section{Xmipp Random Conical Tilt}
 
 One of the most widespread Single Particle Analysis (SPA) techniques, inside the Transmission
 Electron Microscopy (TEM) field, is the Random Conical Tilt (RCT) (see Radermacher et al. (1987)). 
@@ -168,37 +182,21 @@ in order to get different views of the specimen and estimate the tilt angle.
 \label{RCTprojection}
 \end{figure}
 
-\subsection{Getting started}
-
-The data you will work on may be downloaded using the following command:
-
-\begin{verbatim}
-scipion testdata --download rct
-\end{verbatim}
-
-The data will be download in \verb+scipion_folder/data/tests/sct+.
-
-After download, you must launch the MAIN GUI by typing: \verb+scipion+
-Then, create a new project by clicking \textbf{Create project} button, type a 
-\textit{project name} and click OK. The GUI main project window will be launched.
-On the left panel a view can be selected which contains different protocols grouped in categories. 
-Clicking on a group will display a menu with protocols that can be selected to launch the
-corresponding GUI.
-To follow the tutorial you should select the \textbf{Random Conical Tilt} view on the upper left corner.
-
 \subsection{Import tilted pairs micrographs}
+
+Go to the view selection menu on the top left panel and select the \textbf{Random Conical Tilt} view.
 
 The first step is to import the tilted pairs micrographs to your scipion project. To do this,
 press on \textbf{Import Micrographs pairs} protocol. 
 In \textit{Pattern untilted} and \textit{Pattern tilted}  you must indicate where your untilted 
-and tilted micrograph files are stored (clicking on \textbf{browse} button). The complete patterns are:
+and tilted micrograph files are stored (clicking on \textbf{browse} button). 
+The complete patterns are:
 
 \begin{verbatim}
 $SCIPION_HOME/data/tests/rct/micrographs/F_rct_u_*.tif
 
 $SCIPION_HOME/data/tests/rct/micrographs/F_rct_t_*.tif
 \end{verbatim}
-
 
 In this first version pairs assignment is done by micrograph order but in next versions a wizard 
 will be provided.
@@ -216,7 +214,7 @@ shown in figure~\ref{ImportMics}.
 
 When you have completed the form, click on the \textbf{Execute} button. 
 
-Once the protocol has finished you can press the \textbf{Analyze results} button and a new pop-up GUI will open
+Once the protocol has finished you can press on the \textbf{Analyze results} button and a new pop-up GUI will open
 where you can see the imported micrographs pairs as shown in figure ~\ref{ImportResults}.
 
 \begin{figure}
@@ -228,8 +226,9 @@ where you can see the imported micrographs pairs as shown in figure ~\ref{Import
 \end{figure}
 
 \subsection{Particle Picking}
+
 Once the micrographs have been imported you need to pick tilted and untilted particle pairs.
-Press on \textbf{Picking micrographs pairs} protocol  and form shown in figure~\ref{PickingProtocol} 
+Press on \textbf{Picking micrographs pairs} protocol  and a form as shown in figure~\ref{PickingProtocol} 
 will appear. Select the Micrographs Tilt Pair object produced by the import protocol as input and 
 click on the \textbf{Execute} button. The Xmipp particle picking GUI will open.
 
@@ -264,7 +263,7 @@ particles by clicking on \textbf{File/Import coordinates} and specifying the fol
 $SCIPION_HOME/data/tests/rct/positions
 \end{verbatim}
 
-Take into account that the protocol status will not changed to \textbf{Finished} but remain as \textbf{Interactive}.
+Take into account that the protocol status will not changed to \textbf{Finished} but will remain as \textbf{Interactive}.
 This allows you to execute it again if you wish to pick more particles.
 
 \begin{figure}
@@ -282,13 +281,13 @@ This allows you to execute it again if you wish to pick more particles.
 \end{figure}
 
 \subsection{Extract particles pairs}
+
 Now that coordinates pairs are picked they have to be extracted as particle pairs.
 To do so select the \textbf{Extract particles pairs} protocol and fill in the parameters as shown in figure~\ref{ExtractPairs}.
-Although particles were picked with a size of 120 pixels the extract will downsample them on a factor of two to speed up next steps.
+Although particles were picked with a size of 120 pixels the extract will downsample them by a factor of two to speed up next steps.
 
 Once the protocol has finished you can review the particles by clicking on the \textbf{Analyze results} button as seen in figure~\ref{ExtractResults}.
-If you don't like some of the particles you can disable them and create a subset with the good ones. Just click on the \textbf{TiltPairs} red button 
-and give the subset a name.
+%If you don't like some of the particles you can disable them and create a subset with the good ones. Just click on the \textbf{TiltPairs} red button and give the subset a name.
 
 \begin{figure}
 \centering
@@ -304,38 +303,33 @@ and give the subset a name.
 \label{ExtractResults}
 \end{figure}
 
-\subsection{Classification with CL2D}
+\subsection{Classification with Xmipp CL2D}
 Once the particles are extracted, they have to be classified, in order to group those belonging to different state of the particle 
-or even those which represent an error in the picking. For this tutorial you will perform a CL2D classification from Xmipp package.
+or even those which represent an error in the picking. 
 
-Since this protocol is not exclusive of RCT you have to change view on the upper left menu and select \textbf{Protocols SPA}.
-CL2D protocol is found under \textbf{2D - Classify}.
+For this tutorial you will perform a CL2D classification from Xmipp package but you could choose any other 2D classification protocol, 
+which can be found under the \textbf{Protocols SPA} view grouped as \textbf{2D - Classify}.
 
-Select the set of untilted particles produced by the previous step or the ones on the subset if you chose to remove some of the particles.
-Fill in the rest of the parameters as shown in figure~\ref{CL2D} and press \textbf{Execute}.
+Select the set of untilted particles produced by the previous step and  %or the ones on the subset if you chose to remove some of the particles.fill in the rest of the parameters as shown in figure~\ref{CL2D} and press \textbf{Execute}.
 
-This protocol will take some time to finish (depending on your computer power and number of mpis choosen). Once it has finished you can 
-visualize the classes obtained by clicking on \textbf{Analyze results} button.
+This protocol will take some time to finish (depending on your computer power and number of \textbf{mpis} choosen). 
+Once it has finished you can visualize the classes obtained by clicking on \textbf{Analyze results} button.
 
-This classes show mean images that represent your particles, but to be sure that they’re representing with fidelity your particle, 
+This classes show mean images that represent your particles, but to be sure that they are representing with fidelity your particle, 
 at least some basic assessment steps are needed. 
-
-Be sure you’re using the stable core classes. These are composed by those particles that have stayed through all iterations together. 
 
 Each class should contain between 100 and 200 particles more or less. Less than 100 will result in reconstructions of low quality, 
 so the estimation is not being properly done. Also, more than 200-250 particles would result in a wrong estimation because particles 
 very different could be mixing in the same class. 
 
-Some extra assessment can be done using the Principal Component Analysis (PCA) of the class images. 
-PCA can be calculated by right clicking in the desired class and selecting “Open images”.
-After that, images will show up (TODO: Ask AIREN how to perform this with showj if possible).
-
 Apart from that, there is also a subjective assessment, and it comes from what the user is looking for. 
 Each class shows you a mean image that can give you an idea of what you will find if you start a reconstruction with those images. 
-The user must select those volumes that are more promising. In our case, we can discard, using this criteria, classes 3 and 7, 
+The user must select those volumes that are more promising. In the case shown on our figures, classes 3 and 7 have been discarded, 
 that seem to show particles in a top view (or just one part of the particle).
 Then, as done with particles extracted, you should create a subset of classes to be used as input for next step, 
 as shown on figure~\ref{CL2Dresults}
+
+Be sure you are using the stable core classes. These are composed by those particles that have stayed through all iterations together. 
 
 \begin{figure}
 \centering
@@ -352,14 +346,14 @@ as shown on figure~\ref{CL2Dresults}
 \end{figure}
 
 \subsection{Initial volume generation with Random Conical Tilt}
-Once you have the desired classes, only the RCT reconstruction step is left. 
-Select \textbf{Random Conical Tilt} and fill in the form as shown in figure~\ref{RCTprotocol}.
-You have to provide the particles tilt pair object produced by the extraction (or a subset) and the particles or classes 
-you want to reconstruct. However if you choose particles they should contain alignment information.
 
+Once you have the desired classes, only the RCT reconstruction step is left. 
+
+Select protocol \textbf{Random Conical Tilt} and fill in the form as shown in figure~\ref{RCTprotocol}.
+You have to provide the particles tilt pair object produced by the extraction (or a subset) and the particles or classes 
+you want to reconstruct. Take into account that if you choose particles they should contain alignment information.
 The \textbf{Thin Object} option must be set to “Yes” if the particle is not more or less spherical. 
 When the object is going to change its width significantly between the untilted and the tilted image, we can considered this a “thin object”. 
-
 Reconstruction can also low-pass filter the volumes after the process is done, producing both filtered and not filtered volumes as output.
 In order to visualize the volumes click on \textbf{Analyze results} after the protocol has finished, and a window as the one on figure~\ref{RCTresults} 
 will show up.
@@ -378,28 +372,19 @@ will show up.
 \label{RCTresults}
 \end{figure}
 
-This is enough to have our initial volume, but for having a better and more defined volume, we can also re-filter it 
-by running the Xmipp Filter volumes protocol found under \textbf{3D - Preprocess} on the \textbf{Protocols SPA} view.
-Protocol parameters are shown on figure~\ref{VolFilter}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.75\textwidth]{{images/12.FilterVolsProtocol}.png}
-\caption{Filter volume protocol.}
-\label{VolFilter}
-\end{figure}
-
 \section{3D Ransac}
-In this section, we present how to use 3D-RANSAC approach, which can obtain a reliable low resolution initial volume 
+In this section, we present how to use Xmipp 3D-RANSAC approach, which can obtain a reliable low resolution initial volume 
 from sets of macromolecular projection images without a priori information ( Vargas et al. (2014)). 
 
 \subsection{Initial volume generation with 3D Ransac}
+
 Change to the \textbf{Protocols SPA} view if you are not already there, go to \textbf{3D - Initial Volume} and click on \textbf{xmipp - ransac} protocol. 
+
 As input we will use the classes obtained on Random Conical Tilted section so we can compare the generated volumes using different 
 techniques. Also, fill in the other form parameters as shown in figure~\ref{RansacProtocol} and explained below. 
 There is not symmetry so leave c1 and the angular sampling, in degrees, defines how fine the projection gallery from the volume is explored. 
-The number of RANSAC iterations are the number of random volumes which are generated. 
-We select performing dimensionality reduction, with a number of grids per dimension equal to 5, and therefore each
+The number of RANSAC iterations are the number of random volumes which are generated, in our case 100. 
+We select performing dimensionality reduction, with a number of grids per dimension equal to 6, and therefore each
 random volume is generated from 36 (6x6) classes. 
 The inlier threshold is a correlation based cutoff to determine if a class is an inlier of the generated random volume or not. 
 Note that in cases where the classes have very low noise this value must be increased ( 0.8-0.95) and, on the other hand, 
@@ -407,7 +392,7 @@ in cases with high noise, this value must be decreased.
 The \textbf{Number of best volumes to refine} are the number of volumes, among all the generated ones (in this case 100), that
 are going to be further refined using a projection matching approach by the selected \textbf{Number of iterations to perform to refine the volumes}. 
 Finally, \textbf{Max frequency of the initial volume} is the maximum frequency of the initial volume in Angstroms. 
-If we press the \textbf{Execute} button, after approximately 15 minutes, the protocol will finish and output volumes could be visualize by clicking 
+Press the \textbf{Execute} button and wait until the protocol has finished when output volumes could be visualize by clicking 
 on \textbf{Analyze Results} button.
 
 \begin{figure}
@@ -417,13 +402,21 @@ on \textbf{Analyze Results} button.
 \label{RansacProtocol}
 \end{figure}
 
-\section{Eman}
-In this section we present how to obtain an initial module in Scipion using Eman package.
+\section{Eman initial model}
+
+In this section we present how to obtain an initial module in Scipion using Eman initial model.
 
 \subsection{Initial volume generation with Eman}
 Change to the \textbf{Protocols SPA} view if you are not already there, go to \textbf{3D - Initial Volume} and click on \textbf{eman2 - initial model} protocol. 
 As we did before use the classes obtained on Random Conical Tilted section as input so we can compare the generated volumes using different 
-techniques. Also, fill in the other form parameters as shown in figure~\ref{RansacProtocol}
+techniques. Also, fill in the other form parameters as shown in figure~\ref{EmanProtocol}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.75\textwidth]{{images/17.EmanProtocol}.png}
+\caption{Eman protocol.}
+\label{EmanProtocol}
+\end{figure}
 
 \bibliographystyle{apalike}
 \bibliography{../tutorial_initial_model/em.bib}
