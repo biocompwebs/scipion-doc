@@ -118,9 +118,51 @@ future editions, by writing to
 \section{Software Installation}
 
 The first step before starting to work on your projects is to download
-and install \scipion and all the related software. You can find all
-the needed information at its website:
-\url{http://scipionwiki.cnb.csic.es/bin/view/TWiki/NewInstallation}
+and install \scipion and related software packages. We describe
+briefly the process in the next sections. For the full documentation please refer to
+\url{http://scipionwiki.cnb.csic.es/bin/view/TWiki/NewInstallation}.
+
+\subsection{Xmipp}
+
+One of the main components of \scipion is the Xmipp package. To get
+the latest version:
+
+\begin{command}
+git clone http://git.code.sf.net/p/newxmipp/code xmipp
+\end{command}
+
+\noindent
+then change to the \verb+xmipp+ directory, and move to branch \verb+xmipp_scipion+ with
+
+\begin{command}
+git checkout xmipp\_scipion
+\end{command}
+
+Finally, run the installation with
+
+\begin{command}
+./install.sh
+\end{command}
+
+\subsection{Scipion and Extra Packages}
+
+To get the latest version of \scipion run
+
+\begin{command}
+git clone http://git.code.sf.net/p/pyworkflow/code scipion
+\end{command}
+
+\noindent
+and then change into the \verb+scipion+ directory. Finally run:
+
+\begin{command}
+./scipion install --with-all-packages --with-xmipp=\$XMIPP\_HOME
+\end{command}
+
+\noindent
+where \verb+$XMIPP_HOME+ points to the directory with your local
+installation of Xmipp.
+
 
 \section{Reconstruction of a Viral Capsid}
 
@@ -172,7 +214,7 @@ shown in figure (\ref{fig:ImportMics}).
 
 When you have completed the form, click on the \textbf{Save \& Execute} button. After
 executing the protocol, it will appear in the main Scipion project GUI the new
-information shown in figure (\ref{ProjectGUI}).
+information shown in figure (\ref{fig:ProjectGUI}).
 
 If we press in the \textbf{Analyze results} button it will appear a new pop-up GUI that shows
 us the different imported micrographs (not shown)
@@ -181,7 +223,7 @@ us the different imported micrographs (not shown)
 \centering
 \includegraphics[width=0.9\textwidth]{{images/02.Project_GUI}.png}
 \caption{Scipion project GUI after processing Import Micrograph protocol.}
-\label{ProjectGUI}
+\label{fig:ProjectGUI}
 \end{figure}
 
 \subsubsection{Downsampling Micrographs}
@@ -189,14 +231,14 @@ us the different imported micrographs (not shown)
 After importing the micrographs to your Scipion project, you can perform the
 next processing step that consists in preprocess micrographs. This protocol
 uses several xmipp programs in order to perform several operations over the
-micrographs. In this example we use the options shown in figure~\ref{Preprocess}.
-Please, put the values as same as figure~\ref{Preprocess}.
+micrographs. In this example we use the options shown in figure (\ref{fig:Preprocess}).
+Please, put the values as same as figure (\ref{fig:Preprocess}).
 
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{{images/03.Downsampling_Mics}.png}
 \caption{Preprocess Micrographs GUI.}
-\label{Preprocess}
+\label{fig:Preprocess}
 \end{figure}
 
 \subsubsection{CTF Estimation}
@@ -214,10 +256,10 @@ calculate the Fourier transform to each image and averaged.
 \begin{description}
 \item [CTFFind:] in order to estimate the CTF with CTFFind, you will need
 some parameters describing the frequency region to be analyzed. The parameters
-shown in figure~\ref{CTFFind} are the adequate ones for this example.
+shown in figure (\ref{fig:CTFFind}) are the adequate ones for this example.
 The limit values from frequencies must be adequate so that all zeros of
 the psd are contained within those frequencies. There is a wizard, shown
-in figure~\ref{CTFwizard}, to choose those frequencies. The range of
+in figure (\ref{fig:CTFwizard}), to choose those frequencies. The range of
 defocus to search is usually larger than the ones used in this example
 and according to your data set.
 
@@ -231,27 +273,27 @@ CTFFind protocol, explained above.
 \minipage{0.47\textwidth}
   \includegraphics[width=\linewidth]{{images/04.CTFFind}.png}
   \caption{Ctffind protocol GUI}
-  \label{CTFFind}
+  \label{fig:CTFFind}
 \endminipage\hfill
 \minipage{0.51\textwidth}
   \includegraphics[width=\linewidth]{{images/16.CTFWizard}.png}
   \caption{wizard of the frequencies}
-  \label{CTFwizard}
+  \label{fig:CTFwizard}
 \endminipage\hfill
 \end{figure}
 
 The CTFs of good micrographs typically have multiple concentric rings, shown
-in figure ~\ref{CTFs} left, extending from the image center towards its edges.
+in figure ~\ref{fig:CTFs} left, extending from the image center towards its edges.
 Bad micrographs may lack rings or have very few rings that hardly extend from
 the image center. A reason to discard micrographs may be the presence of
-strongly asymmetric rings (astigmatism, figure ~\ref{CTFs} center) or rings
-that fade in a particular direction (drift, figure ~\ref{CTFs} right).
+strongly asymmetric rings (astigmatism, figure ~\ref{fig:CTFs} center) or rings
+that fade in a particular direction (drift, figure ~\ref{fig:CTFs} right).
 
 When the protocol, either CTFFind or Xmipp CTF estimation, is finished you may
-click on \textbf{Analyze Result} button (figure \ref{CTFResult}). To discard
+click on \textbf{Analyze Result} button (figure \ref{fig:CTFResult}). To discard
 micrographs with bad CTFs you may click with the mouse right button and press
 \textbf{Discard} button. Once you finish the selection, press on \textbf{Micrographs}
-button (figure~\ref{CTFResult}).
+button (figure (\ref{fig:CTFResult})).
 
 Sometimes, the CTF estimation algorithm may fail to find the rings even
 if they can be seen by eye. If this is the case, you may help the algorithm
@@ -259,13 +301,13 @@ to find the rings by clicking with the mouse right button and pressing
 \textbf{Recalculate CTF} in the corresponding row of the Output visualization.
 A graphical interface will help you to correctly identify the CTF. You must
 provide the first CTF zero and the limits and press OK. When you finish, press
-\textbf{Recalculate CTFs} button (figure \ref{CTFResult}).
+\textbf{Recalculate CTFs} button (figure \ref{fig:CTFResult}).
 
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{images/images-016.jpg}
 \caption{CTF of good, astigmatic and drift micrographs respectively}
-\label{CTFs}
+\label{fig:CTFs}
 \end{figure}
 
 \begin{figure}
@@ -273,7 +315,7 @@ provide the first CTF zero and the limits and press OK. When you finish, press
 \includegraphics[width=0.75\textwidth]{{images/17.CTFREsults}.png}
 \caption{Output visualization of CTFFind protocol that shows the
 CTF of all the micrographs and different parameters}
-\label{CTFResult}
+\label{fig:CTFResult}
 \end{figure}
 
 \subsubsection{Particle Picking}
@@ -285,17 +327,17 @@ coordinates in the same protocol.
 
 \begin{description}
 \item [EMAN boxer:] Click on eman2 boxer and will launch a window as shown
-in figure~\ref{EmanProtocol}. Set the paramaters as shown in figure~\ref{EmanProtocol}
+in figure (\ref{fig:EmanProtocol}). Set the paramaters as shown in figure (\ref{fig:EmanProtocol}).
 
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{{images/18.EmanPP}.png}
 \caption{EMAN boxer protocol launch GUI}
-\label{EmanProtocol}
+\label{fig:EmanProtocol}
 \end{figure}
 
 Once you press \textbf{Execute} button, a several windows will open
-(figure~\ref{EmanPP}). This protocol has several modes of selection,
+(figure (\ref{fig:EmanPP})). This protocol has several modes of selection,
 please visit it's \href{http://blake.bcm.edu/emanwiki/EMAN2}{webpage}
 to futher information. When you are done picking particles press
 \textbf{Done} and you will be asked if you want to create the output.
@@ -306,12 +348,12 @@ particles will be added to the same Set until you say \textbf{Yes}.
 \centering
 \includegraphics[width=0.75\textwidth]{{images/05.EmanPicking}.png}
 \caption{GUI for EMAN boxer}
-\label{EmanPP}
+\label{fig:EmanPP}
 \end{figure}
 
 \item [Xmipp particle picking:] If you want, click on xmipp-manual picking
-protocol and will launch a window as shown in figure~\ref{XmippPP}. This
-will launch a window as shown in figure~\ref{PickingParticles}
+protocol and will launch a window as shown in figure (\ref{fig:XmippPP}). This
+will launch a window as shown in figure (\ref{fig:PickingParticles})
 
 \begin{figure}
 \centering
@@ -324,7 +366,7 @@ will launch a window as shown in figure~\ref{PickingParticles}
 \centering
 \includegraphics[width=0.75\textwidth]{{images/15.PartPickingXmipp}.png}
 \caption{GUI for Xmipp Manual Particle Picking}
-\label{PickingParticles}
+\label{fig:PickingParticles}
 \end{figure}
 
 In order to select particles:
@@ -351,21 +393,21 @@ In order to select particles:
  Click on Extract Particles protocol. This will launch the GUI of the next
  protocol that will allow you to extract, normalize and correct the CTF-phase
  of your picked particles, among other processes. Modify the parameters of the
- Extract Particle Protocol according to the parameters shown in figure~\ref{XmippPP}
- and figure~\ref{ExtractParams}.
+ Extract Particle Protocol according to the parameters shown in figure (\ref{fig:XmippPP})
+ and figure (\ref{fig:ExtractParams}).
 
  \begin{figure}
   \centering
   \includegraphics[width=0.75\textwidth]{{images/06.Extract_Particles}.png}
   \caption{GUI of Extract Particles protocol}
-  \label{XmippPP}
+  \label{fig:XmippPP}
  \end{figure}
 
  \begin{figure}
   \centering
   \includegraphics[width=0.75\textwidth]{{images/06.Extract_ParticlesB}.png}
   \caption{GUI of Extract Particles protocol II}
-  \label{ExtractParams}
+  \label{fig:ExtractParams}
  \end{figure}
 
  \begin{itemize}
@@ -393,13 +435,13 @@ By default, the visualization of the particles are sorted by zScore. If you
 want to remove some particles because they are outliers, particle press
 \textbf{Right} button on it and select Disable. When you have finished the
 selection press \textbf{Particles} button to create a new SetOfParticles
-(figure~\ref{SubsetSelection}).
+(figure (\ref{fig:SubsetSelection})).
 
  \begin{figure}
   \centering
   \includegraphics[width=0.75\textwidth]{{images/08.ImgsSelection}.png}
   \caption{Analyze results window of Extract Particle protocol.}
-  \label{SubsetSelection}
+  \label{fig:SubsetSelection}
  \end{figure}
 
 \subsection{3D Reconstruction: Projection Matching}
@@ -420,72 +462,75 @@ the same Euler angles as the reference projection.
 As is necessary an initial map, you need to import a volume. Press on \textbf{Import Volume}
 and set in \textit{Pattern} parameter the following path:
 
-\emph {\$SCIPION\_HOME/data\/tests/xmipp\_tutorial/micrographs/BPV\_scale\_filtered\_windowed\_110.vol}.
+\begin{verbatim}
+$SCIPION_HOME/data/tests/xmipp_tutorial/micrographs/BPV_scale_filtered_windowed_110.vol
+\end{verbatim}
 
-Please, set 6.185 on \textit{sampling rate} parameter.
+Please, set 6.185 on the \textit{sampling rate} parameter.
 
 In order to lauch the projection matching protocol click on
-\textbf{refine > projection matching} and set the parameters as
-the ones shown in figures \ref{ProjMatchA},
-\ref{ProjMatchB}, \ref{ProjMatchC} and \ref{ProjMatchD}. Choose the SetOfParticles
-that has been selected previously in subset selection protocol.
+\textbf{refine > projection matching} and set the parameters as the
+ones shown in figures (\ref{fig:ProjMatchA}), (\ref{fig:ProjMatchB}),
+(\ref{fig:ProjMatchC}) and (\ref{fig:ProjMatchD}). Choose the
+SetOfParticles that has been selected previously in subset selection
+protocol.
 
  \begin{figure}
   \centering
   \includegraphics[width=0.75\textwidth]{{images/09.ProjMatchA}.png}
   \caption{Projection matching parameters I}
-  \label{ProjMatchA}
+  \label{fig:ProjMatchA}
  \end{figure}
 
  \begin{figure}
   \centering
   \includegraphics[width=0.75\textwidth]{{images/09.ProjMatchB}.png}
   \caption{Projection matching parameters II}
-  \label{ProjMatchB}
+  \label{fig:ProjMatchB}
  \end{figure}
 
   \begin{figure}
   \centering
   \includegraphics[width=0.75\textwidth]{{images/09.ProjMatchC}.png}
   \caption{Projection matching parameters III}
-  \label{ProjMatchC}
+  \label{fig:ProjMatchC}
  \end{figure}
 
   \begin{figure}
   \centering
   \includegraphics[width=0.75\textwidth]{{images/09.ProjMatchD}.png}
   \caption{Projection matching parameters IV}
-  \label{ProjMatchD}
+  \label{fig:ProjMatchD}
  \end{figure}
 
 Finally, in order to visualize the obtained results click on
 \textbf{Analyze Results} button. You will see a GUI as the one shown in
-figure~\ref{ProjMatchViewer}.
+figure (\ref{fig:ProjMatchViewer}).
 
  \begin{figure}
   \centering
   \includegraphics[width=0.75\textwidth]{{images/11.ProjMatchViewer}.png}
   \caption{Projection matching viewer}
-  \label{ProjMatchViewer}
+  \label{fig:ProjMatchViewer}
  \end{figure}
 
 To see the volumes you can press \textbf{eye} button in the field
 \textit{Display reconstructed volume?} and you will see the reconstructed
-volume as shown in figure~\ref{volShowj} or in chimera if you select Chimera
-checkbox (figure~\ref{volChimera}).
+volume as shown in figure (\ref{fig:volShowj}) or in chimera if you select Chimera
+checkbox (figure (\ref{fig:volChimera})).
 
  \begin{figure}
   \centering
   \includegraphics[width=0.75\textwidth]{{images/12.VolumeGalleries}.png}
   \caption{reconstructed volume}
-  \label{volShowj}
+  \label{fig:volShowj}
  \end{figure}
 
  \begin{figure}
   \centering
   \includegraphics[width=0.75\textwidth]{{images/12.VolumeChimera}.png}
   \caption{reconstructed volume with chimera}
-  \label{volChimera}
+  \label{fig:volChimera}
  \end{figure}
 
 \subsection{Frealign Refinement}
@@ -497,13 +542,13 @@ checkbox (figure~\ref{volChimera}).
 
  \begin{description}
   \item [Subset selection:]  To do this, the firs step is extract the particles
-  again, but Preprocess tab changed as shown in figure~\ref{ExtractForFrealign}.
+  again, but Preprocess tab changed as shown in figure (\ref{fig:ExtractForFrealign}).
 
   \begin{figure}
    \centering
    \includegraphics[width=0.75\textwidth]{{images/06.Extract_ParticlesC}.png}
    \caption{GUI of Extract Particles protocol II}
-   \label{ExtractForFrealign}
+   \label{fig:ExtractForFrealign}
  \end{figure}
 
  Once the particles are extracted, press on \textbf{Set operations $\rightarrow$ intersect sets}
@@ -512,46 +557,48 @@ checkbox (figure~\ref{volChimera}).
   \end{description}
 
 
-The new SetOfParticles is the input of Frealign refinement protocol. Please, set the parameters
-as shown in figures \ref{FrealignA}, \ref{FrealignB}, \ref{FrealignC} and \ref{FrealignD}
+The new SetOfParticles is the input of Frealign refinement
+protocol. Please, set the parameters as shown in figures
+(\ref{fig:FrealignA}), (\ref{fig:FrealignB}), (\ref{fig:FrealignC})
+and (\ref{fig:FrealignD}).
 
  \begin{figure}
   \centering
   \includegraphics[width=0.75\textwidth]{{images/19.FrealignA}.png}
   \caption{Frealign parameters I}
-  \label{FrealignA}
+  \label{fig:FrealignA}
  \end{figure}
 
  \begin{figure}
   \centering
   \includegraphics[width=0.75\textwidth]{{images/19.FrealignB}.png}
   \caption{Frealign parameters II}
-  \label{FrealignB}
+  \label{fig:FrealignB}
  \end{figure}
 
   \begin{figure}
   \centering
   \includegraphics[width=0.75\textwidth]{{images/19.FrealignC}.png}
   \caption{Frealign parameters III}
-  \label{FrealignC}
+  \label{fig:FrealignC}
  \end{figure}
 
   \begin{figure}
   \centering
   \includegraphics[width=0.75\textwidth]{{images/19.FrealignD}.png}
   \caption{Frealign parameters IV}
-  \label{FrealignD}
+  \label{fig:FrealignD}
  \end{figure}
 
 Again, in order to visualize the obtained results click on
 \textbf{Analyze Results} button. You will see a GUI as the one shown in
-figure~\ref{FrealignViewer}.
+figure (\ref{fig:FrealignViewer}).
 
  \begin{figure}
  \centering
  \includegraphics[width=0.75\textwidth]{{images/20.FrealignViewer}.png}
  \caption{Frealign viewer}
- \label{FrealignViewer}
+ \label{fig:FrealignViewer}
  \end{figure}
 
 \bibliographystyle{apalike}
