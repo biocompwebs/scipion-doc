@@ -38,7 +38,6 @@
 \newenvironment{command}{\tt\begin{quote}}{\end{quote}}
 \newcommand{\comm}[1]{\texttt{#1}}
 
-
 \begin{document}
 
 
@@ -168,7 +167,7 @@ installation of Xmipp.
 
 In this demo, we have used the \emph{single particle analysis} approach to obtain
 a 3D reconstruction of a \emph{Bovine Papillomavirus}. The EM images have been
-collected at 300 $kV$ and a calibrated magnification of 56,588,  % TODO: check format of number
+collected at 300 $kV$ and a calibrated magnification of 56,588,
 giving a pixel
 size of 1.237 \AA  \citep{Wolf2010}. The data have been kindly
 provided by \href{http://grigoriefflab.janelia.org/}{Dr.~Grigorieff’s Lab}.
@@ -181,12 +180,10 @@ You can download the data with the following command:
 scipion testdata --download xmipp\_tutorial
 \end{command}
 
-It will be downloaded to \verb+$SCIPION_HOME/data/tests+. After download, you must
-launch the MAIN GUI by typing: \comm{scipion}
+It will be downloaded to \verb+$SCIPION_HOME/data/tests+. After downloading,
+launch the scipion browser by typing: \comm{scipion}
 
-% TODO: ``MAIN GUI''? Isn't it better ``browser''?
-
-Then, create a new project by clicking the \textbf{Create Project} button, type a
+Then create a new project by clicking the \textbf{Create Project} button, type a
 \textit{project name} and click OK. The main project window will be launched.
 The left panel contains different protocols grouped in categories. Clicking on
 a group will display a menu with protocols that can be selected to launch the
@@ -196,28 +193,26 @@ corresponding GUI.
 
 \subsubsection{Importing Micrographs}
 
-The first step is to import the micrographs to your scipion project. To do this,
-press on the \textbf{Import Micrographs} button. In \textit{Pattern}  you must indicate
-where your micrograph files are stored (clicking on the \textbf{browse} button). The
-complete pattern is: \verb+$SCIPION_HOME/data/tests/xmipp_tutorial/micrographs/*.mrc+
+The first step is to import the micrographs to your scipion
+project. To do this, double-click the \textbf{Import Micrographs}
+button. In \textit{Pattern} indicate where your micrograph files are
+stored (for example by clicking on the \textbf{browse} button, the one
+that looks like a folder). The complete pattern
+is:\\ \verb+$SCIPION_HOME/data/tests/xmipp_tutorial/micrographs/*.mrc+
 
-Modify the parameters of the Import Micrographs protocol according to the ones
-shown in figure (\ref{fig:ImportMics}).
+Modify the parameters of the Import Micrographs protocol according to
+the ones shown in figure (\ref{fig:ImportMics}).  Then click on the
+\textbf{Save} and \textbf{Execute} buttons. After executing the
+protocol, the project window will present the new information as shown in
+figure (\ref{fig:ProjectGUI}).
 
 \begin{figure}
 \centering
-\includegraphics[width=0.75\textwidth]
+\includegraphics[width=0.7\textwidth]
 {{images/01.Import_Mics}.png}
-\caption{Import Micrographs protocol GUI.}
+\caption{Import Micrographs protocol dialog.}
 \label{fig:ImportMics}
 \end{figure}
-
-When you have completed the form, click on the \textbf{Save \& Execute} button. After
-executing the protocol, it will appear in the main Scipion project GUI the new
-information shown in figure (\ref{fig:ProjectGUI}).
-
-If we press in the \textbf{Analyze results} button it will appear a new pop-up GUI that shows
-us the different imported micrographs (not shown)
 
 \begin{figure}
 \centering
@@ -226,18 +221,23 @@ us the different imported micrographs (not shown)
 \label{fig:ProjectGUI}
 \end{figure}
 
+If we press the \textbf{Analyze Results} button a new dialog will
+appear that shows the different imported micrographs (not shown).
+
 \subsubsection{Downsampling Micrographs}
 
-After importing the micrographs to your Scipion project, you can perform the
-next processing step that consists in preprocess micrographs. This protocol
-uses several xmipp programs in order to perform several operations over the
-micrographs. In this example we use the options shown in figure (\ref{fig:Preprocess}).
-Please, put the values as same as figure (\ref{fig:Preprocess}).
+After importing the micrographs to your \scipion project, you can
+perform the next step: \textbf{Preprocess Micrographs}. This protocol
+uses several xmipp programs in order to perform several operations
+over the micrographs. Double-click on the protocol name and fill the
+dialog with the options shown in figure (\ref{fig:Preprocess}). To
+fill the \textit{Input micrographs} field, simply click on the
+magnifying glass button and select the output from the previous step.
 
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{{images/03.Downsampling_Mics}.png}
-\caption{Preprocess Micrographs GUI.}
+\caption{Preprocess Micrographs dialog.}
 \label{fig:Preprocess}
 \end{figure}
 
