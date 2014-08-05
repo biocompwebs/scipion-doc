@@ -228,7 +228,7 @@ appear that shows the different imported micrographs (not shown).
 
 After importing the micrographs to your \scipion project, you can
 perform the next step: \textbf{Preprocess Micrographs}. This protocol
-uses several xmipp programs in order to perform several operations
+combines multiple Xmipp programs in order to perform several operations
 over the micrographs. Double-click on the protocol name and fill the
 dialog with the options shown in figure (\ref{fig:Preprocess}). To
 fill the \textit{Input micrographs} field, simply click on the
@@ -242,16 +242,20 @@ magnifying glass button and select the output from the previous step.
 \end{figure}
 
 \subsubsection{CTF Estimation}
-The next step is to estimate the CTF of the micrographs. In Scipion you can
-estimate the CTF with (at the moment) CTFFind  \citep{Mindell2003} and Xmipp
-CTF estimation. You don't have to do anything extra, e.g. change the extension of
-the micrographs, to use both programs because in Scipion the inputs and
-outputs that belongs to same type of protocols are standarized.
 
-This protocols estimate the PSD (Power Spectrum density) of the micrographs to
-estimate the parameters of the CTF (defocus U, defocus V, defocus angle, etc).
-They cut the micrographs into a plenty of images with a desire size. After that,
-calculate the Fourier transform to each image and averaged.
+The next step is to estimate the CTFs (Contrast Transfer Functions) of
+the micrographs. There are currently two protocols in \scipion to
+estimate the CTF: \textit{CTFFind} \citep{Mindell2003} and
+\textit{Xmipp CTF estimation}. You don't need to do extra work to use
+both programs, like change the extension of the micrographs, because
+in \scipion the inputs and outputs that belong to the same type of
+protocols are standarized.
+
+These protocols estimate the PSD (Power Spectral Density) of the
+micrographs to then estimate the parameters of the CTF (defocus U,
+defocus V, defocus angle, etc).  They cut the micrographs into plenty
+of images with the desired size. After that, they compute the Fourier
+Transform of each image and make an average.
 
 \begin{description}
 \item [CTFFind:] in order to estimate the CTF with CTFFind, you will need
