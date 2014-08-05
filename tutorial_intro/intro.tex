@@ -258,30 +258,34 @@ of images with the desired size. After that, they compute the Fourier
 Transform of each image and make an average.
 
 \begin{description}
-\item [CTFFind:] in order to estimate the CTF with CTFFind, you will need
-some parameters describing the frequency region to be analyzed. The parameters
-shown in figure (\ref{fig:CTFFind}) are the adequate ones for this example.
-The limit values from frequencies must be adequate so that all zeros of
-the psd are contained within those frequencies. There is a wizard, shown
-in figure (\ref{fig:CTFwizard}), to choose those frequencies. The range of
-defocus to search is usually larger than the ones used in this example
-and according to your data set.
 
-\item [Xmipp CTF estimation:] if you prefer, you can estimate the CTF with
+\item[CTFFind] \hfill \\
+To estimate the CTF with CTFFind, you will need
+some parameters describing the frequency region to be analyzed. The parameters
+shown in figure (\ref{fig:CTFFind}) are the proper ones for this example.
+The limiting frequencies must be such that all zeros of
+the PSD are contained within those frequencies. There is a wizard, shown
+in figure (\ref{fig:CTFwizard}), that helps in choosing those frequencies.
+Please note that the range of
+defocus search is usually larger than the one used in this example, and it must
+be chosen according to your data set.
+
+\item[Xmipp CTF estimation] \hfill \\
+If you prefer, you can estimate the CTF with
 Xmipp CTF estimation. The parameters used in this protocol are the same as
-CTFFind protocol, explained above.
+the ones in the CTFFind protocol, explained above.
 
 \end{description}
 
 \begin{figure}
 \minipage{0.47\textwidth}
   \includegraphics[width=\linewidth]{{images/04.CTFFind}.png}
-  \caption{Ctffind protocol GUI}
+  \caption{CTFFind protocol dialog}
   \label{fig:CTFFind}
 \endminipage\hfill
 \minipage{0.51\textwidth}
   \includegraphics[width=\linewidth]{{images/16.CTFWizard}.png}
-  \caption{wizard of the frequencies}
+  \caption{Wizard to choose the frequencies}
   \label{fig:CTFwizard}
 \endminipage\hfill
 \end{figure}
