@@ -246,10 +246,10 @@ magnifying glass button and select the output from the previous step.
 The next step is to estimate the CTFs (Contrast Transfer Functions) of
 the micrographs. There are currently two protocols in \scipion to
 estimate the CTF: \textit{CTFFind} \citep{Mindell2003} and
-\textit{Xmipp CTF estimation}. You don't need to do extra work to use
-both programs, like change the extension of the micrographs, because
+\textit{Xmipp CTF estimation}. You don't need to do any extra work to use
+both programs, like changing the extension of the micrographs, because
 in \scipion the inputs and outputs that belong to the same type of
-protocols are standarized.
+protocol are standarized.
 
 These protocols estimate the PSD (Power Spectral Density) of the
 micrographs to then estimate the parameters of the CTF (defocus U,
@@ -260,18 +260,19 @@ Transform of each image and make an average.
 \begin{description}
 
 \item[CTFFind] \hfill \\
-To estimate the CTF with CTFFind, you will need
-some parameters describing the frequency region to be analyzed. The parameters
-shown in figure (\ref{fig:CTFFind}) are the proper ones for this example.
-The limiting frequencies must be such that all zeros of
-the PSD are contained within those frequencies. There is a wizard, shown
-in figure (\ref{fig:CTFwizard}), that helps in choosing those frequencies.
-Please note that the range of
-defocus search is usually larger than the one used in this example, and it must
-be chosen according to your data set.
+To estimate the CTF with CTFFind, you will need some parameters
+describing the frequency region to be analyzed. The parameters shown
+in figure (\ref{fig:CTFFind}) are the proper ones for this example.
+The limiting frequencies must be such that all zeros of the PSD are
+contained within those frequencies. There is a wizard, shown in figure
+(\ref{fig:CTFwizard}), that helps in choosing those frequencies. To
+see the full available options, choose the \verb+expert level+ in the
+dropdown menu.  Please note that the range of defocus search is
+usually larger than the one used in this example, and it must be
+chosen according to your data set.
 
 \item[Xmipp CTF estimation] \hfill \\
-If you prefer, you can estimate the CTF with
+If you prefer, you can estimate the CTF with the
 Xmipp CTF estimation. The parameters used in this protocol are the same as
 the ones in the CTFFind protocol, explained above.
 
@@ -280,28 +281,37 @@ the ones in the CTFFind protocol, explained above.
 \begin{figure}
 \minipage{0.47\textwidth}
   \includegraphics[width=\linewidth]{{images/04.CTFFind}.png}
-  \caption{CTFFind protocol dialog}
+  \caption{CTFFind protocol dialog.}
   \label{fig:CTFFind}
 \endminipage\hfill
 \minipage{0.51\textwidth}
   \includegraphics[width=\linewidth]{{images/16.CTFWizard}.png}
-  \caption{Wizard to choose the frequencies}
+  \caption{Wizard to choose the frequencies.}
   \label{fig:CTFwizard}
 \endminipage\hfill
 \end{figure}
 
 The CTFs of good micrographs typically have multiple concentric rings, shown
-in figure ~\ref{fig:CTFs} left, extending from the image center towards its edges.
+in figure (\ref{fig:CTFs}) left, extending from the image center towards its edges.
 Bad micrographs may lack rings or have very few rings that hardly extend from
 the image center. A reason to discard micrographs may be the presence of
-strongly asymmetric rings (astigmatism, figure ~\ref{fig:CTFs} center) or rings
-that fade in a particular direction (drift, figure ~\ref{fig:CTFs} right).
+strongly asymmetric rings (astigmatism, figure (\ref{fig:CTFs}) center) or rings
+that fade in a particular direction (drift, figure (\ref{fig:CTFs}) right).
 
-When the protocol, either CTFFind or Xmipp CTF estimation, is finished you may
-click on \textbf{Analyze Result} button (figure \ref{fig:CTFResult}). To discard
-micrographs with bad CTFs you may click with the mouse right button and press
-\textbf{Discard} button. Once you finish the selection, press on \textbf{Micrographs}
-button (figure (\ref{fig:CTFResult})).
+\begin{figure}
+\centering
+\includegraphics[width=0.75\textwidth]{images/images-016.jpg}
+\caption{CTFs of good, astigmatic and drift micrographs respectively.}
+\label{fig:CTFs}
+\end{figure}
+
+When the protocol (either CTFFind or Xmipp CTF estimation) is finished
+you may click on the \textbf{Analyze Result} button (figure
+\ref{fig:CTFResult}). To discard micrographs with bad CTFs you may
+click with the mouse right button and press \textbf{Disable}. Once you
+finish the selection, press on the \textbf{Micrographs} button to
+create your subset of micrographs with only the ones enabled (figure
+(\ref{fig:CTFResult})).
 
 Sometimes, the CTF estimation algorithm may fail to find the rings even
 if they can be seen by eye. If this is the case, you may help the algorithm
@@ -309,48 +319,46 @@ to find the rings by clicking with the mouse right button and pressing
 \textbf{Recalculate CTF} in the corresponding row of the Output visualization.
 A graphical interface will help you to correctly identify the CTF. You must
 provide the first CTF zero and the limits and press OK. When you finish, press
-\textbf{Recalculate CTFs} button (figure \ref{fig:CTFResult}).
-
-\begin{figure}
-\centering
-\includegraphics[width=0.75\textwidth]{images/images-016.jpg}
-\caption{CTF of good, astigmatic and drift micrographs respectively}
-\label{fig:CTFs}
-\end{figure}
+\textbf{Recalculate CTFs} button (figure (\ref{fig:CTFResult})).
 
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{{images/17.CTFREsults}.png}
-\caption{Output visualization of CTFFind protocol that shows the
-CTF of all the micrographs and different parameters}
+\caption{Output visualization of the CTFFind protocol that shows the
+CTF of all the micrographs, and different related parameters.}
 \label{fig:CTFResult}
 \end{figure}
 
 \subsubsection{Particle Picking}
-Now you are ready to pick the particles. You can pick the particles in the
-micrographs with either Xmipp manual picking, Eman boxer or bshow protocol.
-This protocols are in interactive mode, i.e: you can create different set of
-coordinates in the same protocol.
 
+Now you are ready to pick the particles. You can pick the particles in
+the micrographs with either \textit{Xmipp manual picking},
+\textit{Eman boxer} or the \textit{bshow} protocol. These protocols
+are in interactive mode, i.e.~you can create different sets of
+coordinates within the same protocol.
 
 \begin{description}
-\item [EMAN boxer:] Click on eman2 boxer and will launch a window as shown
-in figure (\ref{fig:EmanProtocol}). Set the paramaters as shown in figure (\ref{fig:EmanProtocol}).
+
+\item[EMAN boxer] \hfill \\
+Double-clicking on eman2 boxer will launch the window shown in figure
+(\ref{fig:EmanProtocol}). Set the paramaters as they appear in the figure.
 
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{{images/18.EmanPP}.png}
-\caption{EMAN boxer protocol launch GUI}
+\caption{EMAN boxer protocol dialog}
 \label{fig:EmanProtocol}
 \end{figure}
 
-Once you press \textbf{Execute} button, a several windows will open
-(figure (\ref{fig:EmanPP})). This protocol has several modes of selection,
-please visit it's \href{http://blake.bcm.edu/emanwiki/EMAN2}{webpage}
-to futher information. When you are done picking particles press
-\textbf{Done} and you will be asked if you want to create the output.
-If you choose \textbf{No} you can keep picking later and selected
-particles will be added to the same Set until you say \textbf{Yes}.
+Once you press the \textbf{Execute} button, several windows will open
+(figure (\ref{fig:EmanPP})). This protocol has several modes of
+selection, please refer to its
+\href{http://blake.bcm.edu/emanwiki/EMAN2}{webpage} for futher
+information. When you are done picking particles press \textbf{Done}
+and you will be asked if you want to create the output.  If you choose
+\textbf{No}, you can continue picking and the selected particles will
+be added to the same Set, until you repeat the operation and say
+\textbf{Yes}.
 
 \begin{figure}
 \centering
@@ -359,8 +367,9 @@ particles will be added to the same Set until you say \textbf{Yes}.
 \label{fig:EmanPP}
 \end{figure}
 
-\item [Xmipp particle picking:] If you want, click on xmipp-manual picking
-protocol and will launch a window as shown in figure (\ref{fig:XmippPP}). This
+\item[Xmipp particle picking] \hfill \\
+You could instead double-click on the \textit{Xmipp manual picking}
+protocol. It will launch a window as in figure (\ref{fig:XmippPP}). This
 will launch a window as shown in figure (\ref{fig:PickingParticles})
 
 \begin{figure}
