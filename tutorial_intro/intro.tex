@@ -21,6 +21,7 @@
 \usepackage{natbib}
 \usepackage{float} % Allows putting an [H] in \begin{figure} to specify the exact location of the figure
 \usepackage{hyperref}
+\usepackage{menukeys}
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
@@ -325,7 +326,7 @@ button.
 \centering
 \includegraphics[width=0.75\textwidth]{{images/17.CTFREsults}.png}
 \caption{Output visualization of the CTFFind protocol that shows the
-CTF of all the micrographs, and different related parameters.}
+CTFs of all the micrographs, and different related parameters.}
 \label{fig:CTFResult}
 \end{figure}
 
@@ -346,7 +347,7 @@ Double-clicking on eman2 boxer will launch the window shown in figure
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{{images/18.EmanPP}.png}
-\caption{EMAN boxer protocol dialog}
+\caption{EMAN boxer protocol dialog.}
 \label{fig:EmanProtocol}
 \end{figure}
 
@@ -360,36 +361,41 @@ and you will be asked if you want to create the output.  If you choose
 be added to the same Set, until you repeat the operation and say
 \textbf{Yes}.
 
+% TODO: check that it does work as described. I think it only asks you
+% if you want to save the output on exiting.
+
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{{images/05.EmanPicking}.png}
-\caption{GUI for EMAN boxer}
+\caption{EMAN boxer, an interface for particle picking.}
 \label{fig:EmanPP}
 \end{figure}
 
 \item[Xmipp particle picking] \hfill \\
-You could instead double-click on the \textit{Xmipp manual picking}
-protocol. It will launch a window as in figure (\ref{fig:XmippPP}). This
-will launch a window as shown in figure (\ref{fig:PickingParticles})
+You could instead double-click on the \textit{Xmipp supervised
+  picking} protocol. It will launch a dialog as in figure
+(\ref{fig:xmipp_manual_picking}). After selecting the set of
+micrographs to use and clicking \textbf{Execute}, it will launch the
+window shown in figure (\ref{fig:XmippPickingParticles}).
 
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{{images/12-xmipp_manual_picking_protocol}.png}
-\caption{GUI for Xmipp manual picking}
+\caption{Xmipp supervised picking dialog.}
 \label{fig:xmipp_manual_picking}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{{images/15.PartPickingXmipp}.png}
-\caption{GUI for Xmipp Manual Particle Picking}
-\label{fig:PickingParticles}
+\caption{Xmipp supervised picking, a different interface for particle picking.}
+\label{fig:XmippPickingParticles}
 \end{figure}
 
 In order to select particles:
 
   \begin{itemize}
-   \item Use Shift+Middle Mouse Button in the overview window to Zoom-in and Zoom-out.
+   \item Use \keys{\shift + mouse wheel} in the overview window to zoom in and out.
    \item Mark particles with the left mouse button in the zoom windows. You may move
          its position by clicking the left mouse button on the selected particle and
          drag it to the new position.
