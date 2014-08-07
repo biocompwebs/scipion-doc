@@ -132,7 +132,8 @@ git clone http://git.code.sf.net/p/newxmipp/code xmipp
 \end{command}
 
 \noindent
-then change to the \verb+xmipp+ directory, and move to branch \verb+xmipp_scipion+ with
+then change to the \directory{xmipp} directory, and move to branch
+\verb+xmipp_scipion+ with
 
 \begin{command}
 git checkout xmipp\_scipion
@@ -153,7 +154,7 @@ git clone http://git.code.sf.net/p/pyworkflow/code scipion
 \end{command}
 
 \noindent
-and then change into the \verb+scipion+ directory. Finally run:
+and then change into the \directory{scipion} directory. Finally run:
 
 \begin{command}
 ./scipion install --with-all-packages --with-xmipp=\$XMIPP\_HOME
@@ -181,29 +182,31 @@ You can download the data with the following command:
 scipion testdata --download xmipp\_tutorial
 \end{command}
 
-It will be downloaded to \verb+$SCIPION_HOME/data/tests+. After downloading,
+It will be downloaded to \directory{\$SCIPION\_HOME/data/tests}. After downloading,
 launch the scipion browser by typing: \comm{scipion}
 
-Then create a new project by clicking the \textbf{Create Project} button, type a
-\textit{project name} and click OK. The main project window will be launched.
-The left panel contains different protocols grouped in categories. Clicking on
-a group will display a menu with protocols that can be selected to launch the
-corresponding GUI.
+Then create a new project by clicking the \keys{Create Project}
+button, type a \textit{project name} and click \keys{OK}. The main
+project window will be launched.  The left panel contains different
+protocols grouped in categories. Clicking on a group will display a
+menu with protocols that can be selected to launch the corresponding
+GUI.
 
 \subsection{Preprocessing}
 
 \subsubsection{Importing Micrographs}
 
 The first step is to import the micrographs to your scipion
-project. To do this, double-click the \textbf{Import Micrographs}
+project. To do this, double-click the \keys{Import Micrographs}
 button. In \textit{Pattern} indicate where your micrograph files are
-stored (for example by clicking on the \textbf{browse} button, the one
+stored (for example by clicking on the browse button, the one
 that looks like a folder). The complete pattern
-is:\\ \verb+$SCIPION_HOME/data/tests/xmipp_tutorial/micrographs/*.mrc+
+is:\\
+\verb+$SCIPION_HOME/data/tests/xmipp_tutorial/micrographs/*.mrc+
 
 Modify the parameters of the Import Micrographs protocol according to
 the ones shown in figure (\ref{fig:ImportMics}).  Then click on the
-\textbf{Save} and \textbf{Execute} buttons. After executing the
+\keys{Save} and \keys{Execute} buttons. After executing the
 protocol, the project window will present the new information as shown in
 figure (\ref{fig:ProjectGUI}).
 
@@ -222,7 +225,7 @@ figure (\ref{fig:ProjectGUI}).
 \label{fig:ProjectGUI}
 \end{figure}
 
-If we press the \textbf{Analyze Results} button a new dialog will
+If we press the \keys{Analyze Results} button a new dialog will
 appear that shows the different imported micrographs (not shown).
 
 \subsubsection{Downsampling Micrographs}
@@ -267,7 +270,7 @@ in figure (\ref{fig:CTFFind}) are the proper ones for this example.
 The limiting frequencies must be such that all zeros of the PSD are
 contained within those frequencies. There is a wizard, shown in figure
 (\ref{fig:CTFwizard}), that helps in choosing those frequencies. To
-see the full available options, choose the \verb+expert level+ in the
+see the full available options, choose the \verb+Rxpert Level+ in the
 dropdown menu.  Please note that the range of defocus search is
 usually larger than the one used in this example, and it must be
 chosen according to your data set.
@@ -307,10 +310,10 @@ that fade in a particular direction (drift, figure (\ref{fig:CTFs}) right).
 \end{figure}
 
 When the protocol (either CTFFind or Xmipp CTF estimation) is finished
-you may click on the \textbf{Analyze Results} button (figure
-\ref{fig:CTFResult}). To discard micrographs with bad CTFs you may
+you may click on the \keys{Analyze Results} button (figure
+(\ref{fig:CTFResult})). To discard micrographs with bad CTFs you may
 click with the mouse right button and press \textbf{Disable}. Once you
-finish the selection, press on the \textbf{Micrographs} button to
+finish the selection, press on the \keys{Micrographs} button to
 create your subset of micrographs with only the enabled ones.
 
 Sometimes the CTF estimation algorithm may fail to find the rings even
@@ -319,7 +322,7 @@ algorithm to find the rings by clicking on the image with the mouse
 right-button and choosing \textbf{Recalculate CTF} on the menu that
 appears. A graphical interface will help you to correctly identify the
 CTF. You must provide the first CTF zero and the limits, and then
-press \verb+OK+. When you finish, press the \textbf{Recalculate CTFs}
+press \verb+OK+. When you finish, press the \keys{Recalculate CTFs}
 button.
 
 \begin{figure}
@@ -351,15 +354,15 @@ Double-clicking on eman2 boxer will launch the window shown in figure
 \label{fig:EmanProtocol}
 \end{figure}
 
-Once you press the \textbf{Execute} button, several windows will open
+Once you press the \keys{Execute} button, several windows will open
 (figure (\ref{fig:EmanPP})). This protocol has several modes of
 selection, please refer to its
 \href{http://blake.bcm.edu/emanwiki/EMAN2}{webpage} for futher
-information. When you are done picking particles press \textbf{Done}
+information. When you are done picking particles press \keys{Done}
 and you will be asked if you want to create the output.  If you choose
-\textbf{No}, you can continue picking and the selected particles will
+\keys{No}, you can continue picking and the selected particles will
 be added to the same Set, until you repeat the operation and say
-\textbf{Yes}.
+\keys{Yes}.
 
 % TODO: check that it does work as described. I think it only asks you
 % if you want to save the output on exiting.
@@ -375,7 +378,7 @@ be added to the same Set, until you repeat the operation and say
 You could instead double-click on the \textit{Xmipp supervised
   picking} protocol. It will launch a dialog as in figure
 (\ref{fig:xmipp_manual_picking}). After selecting the set of
-micrographs to use and clicking \textbf{Execute}, it will launch the
+micrographs to use and clicking \keys{Execute}, it will launch the
 window shown in figure (\ref{fig:XmippPickingParticles}).
 
 \begin{figure}
@@ -394,58 +397,64 @@ window shown in figure (\ref{fig:XmippPickingParticles}).
 
 In order to select particles:
 
-  \begin{itemize}
-   \item Use \keys{\shift + mouse wheel} in the overview window to zoom in and out.
-   \item Mark particles with the left mouse button in the zoom windows. You may move
-         its position by clicking the left mouse button on the selected particle and
-         drag it to the new position.
-   \item Use Shift+Left Mouse Button over a selected particle in order to remove it.
-   \item You can apply filters to the micrographs, so that you may see the particles
-         better. Filters are added into a queue, so whenever you change the visualized
-         area, they are applied again. Select the menu filter in the overview window
-         and add as many filters as you like.
-   \item You can clean the filter queue, if you want to return to the original image
-   \item You can create the set of coordinates or just save the picked particles to
-         continue picking later.
-  \end{itemize}
+\begin{itemize}
+\item Use \keys{\shift + mouse wheel} in the overview window to zoom
+  in and out.
+\item Mark particles with the \keys{mouse left} button. You may move
+  its position by clicking the left mouse button on the selected
+  particle and dragging it to the new position.
+\item Use \keys{\shift + left mouse} over a selected particle in order
+  to remove it.
+\item You can apply filters to the micrographs, so that you may see
+  the particles better. Filters are added into a queue, so whenever
+  you change the visualized area, they are applied again. Select the
+  menu \menu{Filters} in the overview window and add as many filters
+  as you like.
+\item You can clean the filter queue, if you want to return to the
+  original image.
+\item You can create the set of coordinates or just save the picked
+  particles to continue picking later.
+\end{itemize}
 
 \end{description}
 
 \subsection{Extract Particles}
 
- Click on Extract Particles protocol. This will launch the GUI of the next
- protocol that will allow you to extract, normalize and correct the CTF-phase
- of your picked particles, among other processes. Modify the parameters of the
- Extract Particle Protocol according to the parameters shown in figure (\ref{fig:XmippPP})
- and figure (\ref{fig:ExtractParams}).
+Click on \menu{Particles > Extract > xmipp3 - extract particles}.
+This will launch the dialog of our next protocol that will allow you
+to extract, normalize and correct the CTF phase of your picked
+particles, among other things. Modify the default parameters according
+to the ones shown in figure (\ref{fig:XmippPP}) and
+(\ref{fig:ExtractParams}).
 
  \begin{figure}
   \centering
   \includegraphics[width=0.75\textwidth]{{images/06.Extract_Particles}.png}
-  \caption{GUI of Extract Particles protocol}
+  \caption{Extract particles protocol dialog (tab \texttt{Input})}
   \label{fig:XmippPP}
  \end{figure}
 
  \begin{figure}
   \centering
   \includegraphics[width=0.75\textwidth]{{images/06.Extract_ParticlesB}.png}
-  \caption{GUI of Extract Particles protocol II}
+  \caption{Extract particles protocol dialog (tab \texttt{Preprocess})}
   \label{fig:ExtractParams}
  \end{figure}
 
  \begin{itemize}
-  \item The protocol extracts the particles from the micrographs using the coordinates
-        determined in the previous step. You must indicate the SetOfCordinates and the
-        Particle Box size in pixels (in this case 110 px).
-  \item If the \textit{Normalize} flag is set to Yes (recommended), the particles are
-        normalized to have zero mean and a standard deviation of unity for the
-        background pixels.
-  \item If the \textit{Phase flipping} is set to Yes (recommended), the protocol corrects
-        the CTF-phase of your particles.
-  \item If the \textit{Invert contrast} is set to Yes then bright regions become dark
-        regions and the opposite. This flag should be set so that the extracted particles
-        are white over a dark background.
-
+ \item The protocol extracts the particles from the micrographs using
+   the coordinates determined in the previous step. You must indicate
+   the SetOfCordinates and the Particle Box size in pixels (in this
+   case 110 px).
+ \item If the \textit{Normalize} flag is set to Yes (recommended), the
+   particles are normalized to have zero mean and a standard deviation
+   of unity for the background pixels.
+ \item If the \textit{Phase flipping} is set to Yes (recommended), the
+   protocol corrects the CTF-phase of your particles.
+ \item If the \textit{Invert contrast} is set to Yes then bright
+   regions become dark regions and the opposite. This flag should be
+   set so that the extracted particles are white over a dark
+   background.
  \end{itemize}
 
  The protocol also sorts the particles based on general statistics assigning to each
