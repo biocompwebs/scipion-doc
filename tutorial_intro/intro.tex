@@ -425,42 +425,46 @@ This will launch the dialog of our next protocol that will allow you
 to extract, normalize and correct the CTF phase of your picked
 particles, among other things. Modify the default parameters according
 to the ones shown in figure (\ref{fig:XmippPP}) and
-(\ref{fig:ExtractParams}).
+(\ref{fig:ExtractParams}). They will contain:
 
- \begin{figure}
+\begin{figure}
   \centering
   \includegraphics[width=0.75\textwidth]{{images/06.Extract_Particles}.png}
   \caption{Extract particles protocol dialog (tab \texttt{Input})}
   \label{fig:XmippPP}
- \end{figure}
+\end{figure}
 
- \begin{figure}
+\begin{figure}
   \centering
   \includegraphics[width=0.75\textwidth]{{images/06.Extract_ParticlesB}.png}
   \caption{Extract particles protocol dialog (tab \texttt{Preprocess})}
   \label{fig:ExtractParams}
- \end{figure}
+\end{figure}
 
- \begin{itemize}
- \item The protocol extracts the particles from the micrographs using
-   the coordinates determined in the previous step. You must indicate
-   the SetOfCordinates and the Particle Box size in pixels (in this
-   case 110 px).
- \item If the \textit{Normalize} flag is set to Yes (recommended), the
-   particles are normalized to have zero mean and a standard deviation
-   of unity for the background pixels.
- \item If the \textit{Phase flipping} is set to Yes (recommended), the
-   protocol corrects the CTF-phase of your particles.
- \item If the \textit{Invert contrast} is set to Yes then bright
-   regions become dark regions and the opposite. This flag should be
-   set so that the extracted particles are white over a dark
-   background.
- \end{itemize}
+\begin{itemize}
+\item The \textit{coordinates} of the particles in the micrographs,
+  which are taken from the results of the previous step. Also in the
+  same tab, the \textit{particle box size} in pixels (in this case 110
+  px).
+\item The \textit{Invert contrast} flag. If activated, bright
+  regions become dark regions and the other way around. This flag
+  should be set so that the extracted particles are white over a dark
+  background.
+\item The \textit{Phase flipping} flag. If activated (recommended),
+  the protocol corrects the CTF phase of your particles.
+\item The \textit{Normalize} flag. If activated (recommended), the
+  particles are normalized to have zero mean and a standard deviation
+  of one for the background pixels.
+\end{itemize}
 
- The protocol also sorts the particles based on general statistics assigning to each
- particle a Zscore value. Particles with low Zscore are reliable and the ones with
- large Zscore are outliers. Press Analyse Results button in the main Scipion project
- GUI to check the extracted and normalized images.
+
+% TODO: see the definition of zscore and explain this a bit more.
+
+The protocol also sorts the particles based on general statistics
+assigning to each particle a Zscore value. Particles with low Zscore
+are reliable and the ones with large Zscore are outliers. Press
+Analyse Results button in the main Scipion project GUI to check the
+extracted and normalized images.
 
 \subsubsection{Particles Selection}
 By default, the visualization of the particles are sorted by zScore. If you
