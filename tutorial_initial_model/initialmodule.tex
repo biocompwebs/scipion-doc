@@ -138,9 +138,10 @@ scipion testdata --download rct
 
 The data will be download in \verb+scipion_folder/data/tests/rct+.
 
-After download, you must launch the MAIN GUI by typing: \verb+scipion+
-Then, create a new project by clicking \textbf{Create project} button, type a 
-\textit{project name} and click OK. The GUI main project window will be launched.
+After download, you must launch the MAIN GUI by typing: \verb+scipion+.
+
+Then, create a new project by clicking on \keys{Create project} button, type a 
+\textit{project name} and click \keys{OK}. The GUI main project window will be launched.
 
 \section{Xmipp Random Conical Tilt}
 
@@ -167,8 +168,8 @@ in order to get different views of the specimen and estimate the tilt angle.
 Go to the view selection menu on the top left panel and select the \textbf{Random Conical Tilt} view.
 
 The first step is to import the tilted pairs micrographs to your scipion project. To do this,
-press on \textbf{Import Micrographs pairs} protocol. In \textit{Pattern untilted} and \textit{Pattern tilted}  you must indicate where your untilted 
-and tilted micrograph files are stored (clicking on \textbf{browse} button). 
+select \menu{Import Micrographs pairs} protocol. In \textit{Pattern untilted} and \textit{Pattern tilted}  you must indicate where your untilted 
+and tilted micrograph files are stored (clicking on \keys{browse} button). 
 The complete patterns are:
 
 \begin{verbatim}
@@ -192,9 +193,9 @@ shown in figure~\ref{ImportMics}.
 \label{ImportMics}
 \end{figure}
 
-When you have completed the form, click on the \textbf{Execute} button. 
+When you have completed the form, click on the \keys{Execute} button. 
 
-Once the protocol has finished you can press on the \textbf{Analyze results} button and a new pop-up GUI will open
+Once the protocol has finished you can press on the \keys{Analyze results} button and a new pop-up GUI will open
 where you can see the imported micrographs pairs as shown in figure ~\ref{ImportResults}.
 
 \begin{figure}
@@ -208,13 +209,13 @@ where you can see the imported micrographs pairs as shown in figure ~\ref{Import
 \subsection{Particle Picking}
 
 After micrographs have been imported you need to pick tilted and untilted particle pairs.
-Press on \textbf{Picking micrographs pairs} protocol  and a form as shown in figure~\ref{PickingProtocol} 
+Go to the \menu{Picking micrographs pairs} protocol  and a form as shown in figure~\ref{PickingProtocol} 
 will appear. Select the Micrographs Tilt Pair object produced by the import protocol as input and 
-click on the \textbf{Execute} button. The Xmipp particle picking GUI will open.
+click on the \keys{Execute} button. The Xmipp particle picking GUI will open.
 
 If you find some particles difficult to see due to noise and contrast of the images, you can use the 
 different filters offered by the Xmipp particle picking GUI on the \textbf{Filters} menu.
-For instance you might select the \textbf{Brightness/Contrast} filter and press the \textbf{Auto} button that will 
+For instance you might select the \menu{Filters > Brightness/Contrast} filter and press the \keys{Auto} button that will 
 set the brightness and contrast to the optimal values for the selected micrograh. Then change to other micrographs 
 and do the same. The resulting interface will be much easier to start picking.
 
@@ -237,7 +238,7 @@ the tilted one, so the tilt estimation can be properly set. During the first par
 the manual error correction will help the algorithm to learn and propose a better tilt adjust-
 ment. For detecting the error, it is better to zoom in the micrograph. Note that zooming in
 or out in the untilted micrograph will replicate in the tilted one, but not in the other side.
-To zoom in, press shift key and scroll up, to zoom out, press shift key and scroll down.
+To zoom in, press \keys{shift} and scroll up, to zoom out, press \keys{shift} and scroll down.
 
 3.  Finally continue picking just the untilted (tilted will automatically be picked) but keeping
 an eye on the tilted, in order to prevent from deviations due to accumulated error. The amount 
@@ -246,7 +247,7 @@ the quality of the micrographs and many other factors, but a good approach to st
 be 2000 particles.
 
 However if you don't feel like picking manually thousands of particles you can import the already picked 
-particles by clicking on \textbf{File/Import coordinates} as shown on figure~\ref{PickingGUI} 
+particles by clicking on \menu{File > Import coordinates} as shown on figure~\ref{PickingGUI} 
 specifying the following path:
 
 \begin{verbatim}
@@ -266,10 +267,10 @@ This allows you to execute it again if you wish to pick more particles.
 \subsection{Extract particles pairs}
 
 Now that coordinates pairs are picked they have to be extracted as particle pairs.
-To do so select the \textbf{Extract particles pairs} protocol and fill in the parameters as shown in figure~\ref{ExtractPairs}.
+To do so select the \menu{Extract particles pairs} protocol and fill in the parameters as shown in figure~\ref{ExtractPairs}.
 Although particles were picked with a size of 120 pixels the extract will downsample them by a factor of two to speed up next steps.
 
-Once the protocol has finished you can review the particles by clicking on the \textbf{Analyze results} button as seen in figure~\ref{ExtractResults}.
+Once the protocol has finished you can review the particles by clicking on the \keys{Analyze results} button as seen in figure~\ref{ExtractResults}.
 %If you don't like some of the particles you can disable them and create a subset with the good ones. Just click on the \textbf{TiltPairs} red button and give the subset a name.
 
 \begin{figure}
@@ -291,13 +292,13 @@ Once the particles are extracted, they have to be classified, in order to group 
 or even those which represent an error in the picking. 
 
 For this tutorial you will perform a CL2D classification from Xmipp package but you could choose any other 2D classification protocol, 
-which can be found under the \textbf{Protocols SPA} view grouped as \textbf{2D - Classify}.
+which can be found under the \textbf{Protocols SPA} view grouped as \menu{2D > Classify}.
 
 Select the set of untilted particles produced by the previous step,  %or the ones on the subset if you chose to remove some of the particles.
-fill in the rest of the parameters as shown in figure~\ref{CL2D} and press \textbf{Execute}.
+fill in the rest of the parameters as shown in figure~\ref{CL2D} and press \keys{Execute}.
 
 This protocol will take some time to finish (depending on your computer power and number of \textbf{mpis} choosen). 
-Once it has finished you can visualize the classes obtained by clicking on \textbf{Analyze results} button.
+Once it has finished you can visualize the classes obtained by clicking on \keys{Analyze results} button.
 
 This classes show mean images that represent your particles, but to be sure that they are representing with fidelity your particle, 
 at least some basic assessment steps are needed. 
@@ -321,7 +322,7 @@ The user must select those volumes that are more promising. In the case shown on
 that seem to show particles in a top view (or just one part of the particle).
 
 Then, as done with particles extracted, you should create a subset of classes to be used as input for next step, 
-as shown on figure~\ref{CL2Dresults}
+as shown in figure~\ref{CL2Dresults}
 
 
 \begin{figure}
@@ -343,7 +344,7 @@ The \textbf{Thin Object} option must be set to “Yes” if the particle is not 
 When the object is going to change its width significantly between the untilted and the tilted image, we can considered this a “thin object”. 
 Reconstruction can also low-pass filter the volumes after the process is done, producing both filtered and not filtered volumes as output.
 
-In order to visualize the volumes click on \textbf{Analyze results} after the protocol has finished, and a window as the one on figure~\ref{RCTresults} 
+In order to visualize the volumes click on \keys{Analyze results} after the protocol has finished, and a window as the one on figure~\ref{RCTresults} 
 will show up.
 
 \begin{figure}[H]
@@ -367,7 +368,7 @@ from sets of macromolecular projection images without a priori information ( Var
 
 \subsection{Initial volume generation with 3D Ransac}
 
-Change to the \textbf{Protocols SPA} view if you are not already there, go to \textbf{3D - Initial Volume} and click on \textbf{xmipp - ransac} protocol. 
+Change to the \textbf{Protocols SPA} view if you are not already there, go to \menu{3D > Initial Volume > xmipp - ransac} protocol. 
 
 As input we will use the classes obtained on Random Conical Tilt section so we can compare the generated volumes using different 
 techniques. Also, fill in the other form parameters as shown in figure~\ref{RansacProtocol} and explained below. 
@@ -389,10 +390,8 @@ in cases with high noise, this value must be decreased.
 The \textbf{Number of best volumes to refine} are the number of volumes, among all the generated ones (in this case 100), that
 are going to be further refined using a projection matching approach by the selected \textbf{Number of iterations to perform to refine the volumes}. 
 Finally, \textbf{Max frequency of the initial volume} is the maximum frequency of the initial volume in Angstroms. 
-Press the \textbf{Execute} button and wait until the protocol has finished when output volumes could be visualize by clicking 
-on \textbf{Analyze Results} button.
-
-As with other protocols you can click on \textbf{Analyze results} after the protocol has finished, as in figure~\ref{RansacResults}
+Press the \keys{Execute} button and wait until the protocol has finished when output volumes could be visualize by clicking 
+on \keys{Analyze Results} button as seen in figure~\ref{RansacResults}
 
 \begin{figure}
 \centering
@@ -416,7 +415,7 @@ Tilted section as input so we can compare the generated volumes using
 different techniques. Also, fill in the other form parameters as shown
 in figure~\ref{EmanProtocol}
 
-Once the protocol has finished go and view the generated output volumes by clicking on \textbf{Analyze results}, as shown in figure~\ref{EmanResults}.
+Once the protocol has finished go and view the generated output volumes by clicking on \keys{Analyze results}, as you can see in figure~\ref{EmanResults}.
 
 \begin{figure}[H]
 \centering
