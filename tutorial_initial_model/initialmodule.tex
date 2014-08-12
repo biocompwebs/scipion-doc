@@ -1,15 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Simple Sectioned Essay Template
-% LaTeX Template
-%
-% This template has been downloaded from:
-% http://www.latextemplates.com
-%
-% Note:
-% The \lipsum[#] commands throughout this template generate dummy text
-% to fill the template out. These commands should all be removed when 
-% writing essay content.
-%
+% Design based on a template by Roberto and following the format of
+% the xmipp tutorials. In turn, they seem to be based on a template
+% from http://www.latextemplates.com
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %----------------------------------------------------------------------------------------
@@ -19,10 +11,8 @@
 \documentclass[12pt]{article} % Default font size is 12pt, it can be changed here
 \usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
-\usepackage{listings}
-\usepackage{color}
+\usepackage{listings} % To include source code
 \usepackage{caption}
-%\usepackage[dvips]{graphicx}
 \usepackage{geometry} % Required to change the page size to A4
 %\geometry{a4paper} % Set the page size to be A4 as opposed to the default US Letter
 \usepackage{framed}
@@ -30,25 +20,30 @@
 \usepackage{graphicx} % Required for including pictures
 \usepackage{natbib}
 \usepackage{float} % Allows putting an [H] in \begin{figure} to specify the exact location of the figure
-%\usepackage{wrapfig} % Allows in-line images such as the example fish picture
 \usepackage{hyperref}
+\usepackage{menukeys}
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[RO]{{Initial Volume Estimation Tutorial}} 
 \fancyhead[LO]{Scipion}
-	%\fancyhead[RO]{{\leftmark}} 
+
+%\fancyhead[RO]{{\leftmark}} 
 \fancyfoot[LE,RO]{{ \thepage }}
 
 %\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
 \definecolor{grey}{rgb}{0.9,0.9,0.9}
 
+
 \linespread{1.2} % Line spacing
 
 %\setlength\parindent{0pt} % Uncomment to remove all indentation from paragraphs
 
-\newcounter{ejercicioNo}
+\newcommand{\scipion}{\textsc{Scipion} }
+\newenvironment{command}{\tt\begin{quote}}{\end{quote}}
+\newcommand{\comm}[1]{\texttt{#1}}
+
 \begin{document}
 
 %----------------------------------------------------------------------------------------
@@ -57,37 +52,26 @@
 
 \begin{titlepage}
 
-\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+
+% New command for horizontal lines. Change thickness here.
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 
 \center % Center everything on the page
 
-\textsc{\LARGE National Center for Biothecnology}\\[1.5cm] % Name of your university/college
-%\textsc{\Large Proyecto de Sistemas Informaticos}\\[0.5cm] % Major heading such as course name
-%\textsc{\large Departamento de Informática}\\[0.5cm] % Minor heading such as course title
-\textsc{\Large Biocomputing Unit}\\[0.5cm] % Minor heading such as course title
+\includegraphics{../tutorial_common/images/scipion_logo.png}
 
-\HRule \\[0.4cm]
+{\large Scipion Tutorial Series}\\[1.0cm]
+
+\textsc{\LARGE National Center for Biotechnology}\\[0.5cm]
+\textsc{\Large Biocomputing Unit}\\[0.5cm]
+
+\HRule\\[0.4cm]
 { \huge \bfseries Initial Volume Estimation Tutorial}\\[0.4cm] % Title of your document
 \HRule \\[1.5cm]
 
-%\begin{minipage}{0.4\textwidth}
-%\begin{flushleft}
-% \large
-%\emph{Author:}\\
-%Laura  \textsc{del Caño} % Your name
-%\end{flushleft}
-%\end{minipage}
-
-%\begin{minipage}{0.4\textwidth}
-%\begin{flushright} \large
-%\emph{Supervisor:} \\
-%Jose Miguel \textsc{de la Rosa} % Supervisor's Name
-%\end{flushright}
-%\end{minipage}\\[4cm]
-
 %{\large \today}\\[3cm] % Date, change the \today to a set date if you want to be precise
 
-%\includegraphics{Logo}\\[1cm] % Include a department/university logo - this will require the graphicx package
+\includegraphics[width=0.35\textwidth]{{images/00.ReconstructedVolume}.png}
 
 \vfill % Fill the rest of the page with whitespace
 %\begin{minipage}{0.4\textwidth}
@@ -122,6 +106,7 @@ future editions by writing to
 \href{mailto:scipion@cnb.csic.es}{scipion@cnb.csic.es}.
 
 \newpage
+
 %----------------------------------------------------------------------------------------
 %	TABLE OF CONTENTS
 %----------------------------------------------------------------------------------------
@@ -158,9 +143,10 @@ scipion testdata --download rct
 
 The data will be download in \verb+scipion_folder/data/tests/rct+.
 
-After download, you must launch the MAIN GUI by typing: \verb+scipion+
-Then, create a new project by clicking \textbf{Create project} button, type a 
-\textit{project name} and click OK. The GUI main project window will be launched.
+After download, you must launch the MAIN GUI by typing: \verb+scipion+.
+
+Then, create a new project by clicking on \keys{Create project} button, type a 
+\textit{project name} and click \keys{OK}. The GUI main project window will be launched.
 
 \section{Xmipp Random Conical Tilt}
 
@@ -187,16 +173,16 @@ in order to get different views of the specimen and estimate the tilt angle.
 Go to the view selection menu on the top left panel and select the \textbf{Random Conical Tilt} view.
 
 The first step is to import the tilted pairs micrographs to your scipion project. To do this,
-press on \textbf{Import Micrographs pairs} protocol. 
-In \textit{Pattern untilted} and \textit{Pattern tilted}  you must indicate where your untilted 
-and tilted micrograph files are stored (clicking on \textbf{browse} button). 
+select \menu{Import Micrographs pairs} protocol. In \textit{Pattern untilted} and \textit{Pattern tilted}  you must indicate where your untilted 
+and tilted micrograph files are stored (clicking on \keys{browse} button). 
 The complete patterns are:
 
 \begin{verbatim}
 $SCIPION_HOME/data/tests/rct/micrographs/F_rct_u_*.tif
-
 $SCIPION_HOME/data/tests/rct/micrographs/F_rct_t_*.tif
 \end{verbatim}
+
+\newpage
 
 In this first version pairs assignment is done by micrograph order but in next versions a wizard 
 will be provided.
@@ -212,9 +198,9 @@ shown in figure~\ref{ImportMics}.
 \label{ImportMics}
 \end{figure}
 
-When you have completed the form, click on the \textbf{Execute} button. 
+When you have completed the form, click on the \keys{Execute} button. 
 
-Once the protocol has finished you can press on the \textbf{Analyze results} button and a new pop-up GUI will open
+Once the protocol has finished you can press on the \keys{Analyze results} button and a new pop-up GUI will open
 where you can see the imported micrographs pairs as shown in figure ~\ref{ImportResults}.
 
 \begin{figure}
@@ -227,16 +213,25 @@ where you can see the imported micrographs pairs as shown in figure ~\ref{Import
 
 \subsection{Particle Picking}
 
-Once the micrographs have been imported you need to pick tilted and untilted particle pairs.
-Press on \textbf{Picking micrographs pairs} protocol  and a form as shown in figure~\ref{PickingProtocol} 
+After micrographs have been imported you need to pick tilted and untilted particle pairs.
+Go to the \menu{Picking micrographs pairs} protocol  and a form as shown in figure~\ref{PickingProtocol} 
 will appear. Select the Micrographs Tilt Pair object produced by the import protocol as input and 
-click on the \textbf{Execute} button. The Xmipp particle picking GUI will open.
+click on the \keys{Execute} button. The Xmipp particle picking GUI will open.
 
 If you find some particles difficult to see due to noise and contrast of the images, you can use the 
 different filters offered by the Xmipp particle picking GUI on the \textbf{Filters} menu.
-For instance you might select the \textbf{Brightness/Contrast} filter and press the \textbf{Auto} button that will 
+For instance you might select the \menu{Filters > Brightness/Contrast} filter and press the \keys{Auto} button that will 
 set the brightness and contrast to the optimal values for the selected micrograh. Then change to other micrographs 
 and do the same. The resulting interface will be much easier to start picking.
+
+\newpage
+
+\begin{figure}
+\centering
+\includegraphics[width=0.75\textwidth]{{images/04.PickingProtocol}.png}
+\caption{Picking pairs protocol}
+\label{PickingProtocol}
+\end{figure}
 
 The picking procedure is:
 
@@ -248,7 +243,7 @@ the tilted one, so the tilt estimation can be properly set. During the first par
 the manual error correction will help the algorithm to learn and propose a better tilt adjust-
 ment. For detecting the error, it is better to zoom in the micrograph. Note that zooming in
 or out in the untilted micrograph will replicate in the tilted one, but not in the other side.
-To zoom in, press shift key and scroll up, to zoom out, press shift key and scroll down.
+To zoom in, press \keys{shift} and scroll up, to zoom out, press \keys{shift} and scroll down.
 
 3.  Finally continue picking just the untilted (tilted will automatically be picked) but keeping
 an eye on the tilted, in order to prevent from deviations due to accumulated error. The amount 
@@ -257,21 +252,12 @@ the quality of the micrographs and many other factors, but a good approach to st
 be 2000 particles.
 
 However if you don't feel like picking manually thousands of particles you can import the already picked 
-particles by clicking on \textbf{File/Import coordinates} and specifying the following path.
+particles by clicking on \menu{File > Import coordinates} as shown on figure~\ref{PickingGUI} 
+specifying the following path:
 
 \begin{verbatim}
 $SCIPION_HOME/data/tests/rct/positions
 \end{verbatim}
-
-Take into account that the protocol status will not changed to \textbf{Finished} but will remain as \textbf{Interactive}.
-This allows you to execute it again if you wish to pick more particles.
-
-\begin{figure}
-\centering
-\includegraphics[width=0.75\textwidth]{{images/04.PickingProtocol}.png}
-\caption{Picking pairs protocol}
-\label{PickingProtocol}
-\end{figure}
 
 \begin{figure}
 \centering
@@ -280,13 +266,16 @@ This allows you to execute it again if you wish to pick more particles.
 \label{PickingGUI}
 \end{figure}
 
+Take into account that the protocol status will not changed to \textbf{Finished} but will remain as \textbf{Interactive}.
+This allows you to execute it again if you wish to pick more particles.
+
 \subsection{Extract particles pairs}
 
 Now that coordinates pairs are picked they have to be extracted as particle pairs.
-To do so select the \textbf{Extract particles pairs} protocol and fill in the parameters as shown in figure~\ref{ExtractPairs}.
+To do so select the \menu{Extract particles pairs} protocol and fill in the parameters as shown in figure~\ref{ExtractPairs}.
 Although particles were picked with a size of 120 pixels the extract will downsample them by a factor of two to speed up next steps.
 
-Once the protocol has finished you can review the particles by clicking on the \textbf{Analyze results} button as seen in figure~\ref{ExtractResults}.
+Once the protocol has finished you can review the particles by clicking on the \keys{Analyze results} button as seen in figure~\ref{ExtractResults}.
 %If you don't like some of the particles you can disable them and create a subset with the good ones. Just click on the \textbf{TiltPairs} red button and give the subset a name.
 
 \begin{figure}
@@ -308,17 +297,25 @@ Once the particles are extracted, they have to be classified, in order to group 
 or even those which represent an error in the picking. 
 
 For this tutorial you will perform a CL2D classification from Xmipp package but you could choose any other 2D classification protocol, 
-which can be found under the \textbf{Protocols SPA} view grouped as \textbf{2D - Classify}.
+which can be found under the \textbf{Protocols SPA} view grouped as \menu{2D > Classify}.
 
-Select the set of untilted particles produced by the previous step and  %or the ones on the subset if you chose to remove some of the particles.fill in the rest of the parameters as shown in figure~\ref{CL2D} and press \textbf{Execute}.
+Select the set of untilted particles produced by the previous step,  %or the ones on the subset if you chose to remove some of the particles.
+fill in the rest of the parameters as shown in figure~\ref{CL2D} and press \keys{Execute}.
 
 This protocol will take some time to finish (depending on your computer power and number of \textbf{mpis} choosen). 
-Once it has finished you can visualize the classes obtained by clicking on \textbf{Analyze results} button.
+Once it has finished you can visualize the classes obtained by clicking on \keys{Analyze results} button.
 
 This classes show mean images that represent your particles, but to be sure that they are representing with fidelity your particle, 
 at least some basic assessment steps are needed. 
 
-Be sure you are using the stable core classes. These are composed by those particles that have stayed through all iterations together. 
+Yo should be using the stable core classes. These are composed by those particles that have stayed through all iterations together. 
+
+\begin{figure}
+\centering
+\includegraphics[width=0.65\textwidth]{{images/08.CL2Dprotocol}.png}
+\caption{CL2D protocol}
+\label{CL2D}
+\end{figure}
 
 Each class should contain between 100 and 200 particles more or less. Less than 100 will result in reconstructions of low quality, 
 so the estimation is not being properly done. Also, more than 200-250 particles would result in a wrong estimation because particles 
@@ -328,62 +325,66 @@ Apart from that, there is also a subjective assessment, and it comes from what t
 Each class shows you a mean image that can give you an idea of what you will find if you start a reconstruction with those images. 
 The user must select those volumes that are more promising. In the case shown on our figures, classes 3 and 7 have been discarded, 
 that seem to show particles in a top view (or just one part of the particle).
+
 Then, as done with particles extracted, you should create a subset of classes to be used as input for next step, 
-as shown on figure~\ref{CL2Dresults}
+as shown in figure~\ref{CL2Dresults}
 
-Be sure you are using the stable core classes. These are composed by those particles that have stayed through all iterations together. 
-
-\begin{figure}
-\centering
-\includegraphics[width=0.75\textwidth]{{images/08.CL2Dprotocol}.png}
-\caption{CL2D protocol}
-\label{CL2D}
-\end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width=0.75\textwidth]{{images/09.GoodClasses}.png}
+\includegraphics[width=0.65\textwidth]{{images/09.GoodClasses}.png}
 \caption{CL2D results}
 \label{CL2Dresults}
 \end{figure}
 
 \subsection{Initial volume generation with Random Conical Tilt}
 
-Once you have the desired classes, only the RCT reconstruction step is left. 
+Now that you have the desired classes, only the RCT reconstruction step is left. 
 
 Select protocol \textbf{Random Conical Tilt} and fill in the form as shown in figure~\ref{RCTprotocol}.
+
 You have to provide the particles tilt pair object produced by the extraction (or a subset) and the particles or classes 
 you want to reconstruct. Take into account that if you choose particles they should contain alignment information.
 The \textbf{Thin Object} option must be set to “Yes” if the particle is not more or less spherical. 
 When the object is going to change its width significantly between the untilted and the tilted image, we can considered this a “thin object”. 
 Reconstruction can also low-pass filter the volumes after the process is done, producing both filtered and not filtered volumes as output.
-In order to visualize the volumes click on \textbf{Analyze results} after the protocol has finished, and a window as the one on figure~\ref{RCTresults} 
+
+In order to visualize the volumes click on \keys{Analyze results} after the protocol has finished, and a window as the one on figure~\ref{RCTresults} 
 will show up.
 
-\begin{figure}
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.75\textwidth]{{images/10.RCTprotocol}.png}
-\caption{RCT protocol}
+\includegraphics[width=0.6\textwidth]{{images/10.RCTprotocol}.png}
+\caption{Xmipp RCT protocol}
 \label{RCTprotocol}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width=0.75\textwidth]{{images/11.RCTresults}.png}
-\caption{RCT output: Filtered volume.}
+\includegraphics[width=0.6\textwidth]{{images/11.RCTresults}.png}
+\caption{Xmipp RCT output: Filtered volume.}
 \label{RCTresults}
 \end{figure}
 
 \section{3D Ransac}
+
 In this section, we present how to use Xmipp 3D-RANSAC approach, which can obtain a reliable low resolution initial volume 
 from sets of macromolecular projection images without a priori information ( Vargas et al. (2014)). 
 
 \subsection{Initial volume generation with 3D Ransac}
 
-Change to the \textbf{Protocols SPA} view if you are not already there, go to \textbf{3D - Initial Volume} and click on \textbf{xmipp - ransac} protocol. 
+Change to the \textbf{Protocols SPA} view if you are not already there, go to \menu{3D > Initial Volume > xmipp - ransac} protocol. 
 
-As input we will use the classes obtained on Random Conical Tilted section so we can compare the generated volumes using different 
+As input we will use the classes obtained on Random Conical Tilt section so we can compare the generated volumes using different 
 techniques. Also, fill in the other form parameters as shown in figure~\ref{RansacProtocol} and explained below. 
+
+\begin{figure}
+\centering
+\includegraphics[width=0.75\textwidth]{{images/15.RansacProtocol}.png}
+\caption{Xmipp Ransac protocol.}
+\label{RansacProtocol}
+\end{figure}
+
 There is not symmetry so leave c1 and the angular sampling, in degrees, defines how fine the projection gallery from the volume is explored. 
 The number of RANSAC iterations are the number of random volumes which are generated, in our case 100. 
 We select performing dimensionality reduction, with a number of grids per dimension equal to 6, and therefore each
@@ -394,30 +395,45 @@ in cases with high noise, this value must be decreased.
 The \textbf{Number of best volumes to refine} are the number of volumes, among all the generated ones (in this case 100), that
 are going to be further refined using a projection matching approach by the selected \textbf{Number of iterations to perform to refine the volumes}. 
 Finally, \textbf{Max frequency of the initial volume} is the maximum frequency of the initial volume in Angstroms. 
-Press the \textbf{Execute} button and wait until the protocol has finished when output volumes could be visualize by clicking 
-on \textbf{Analyze Results} button.
+Press the \keys{Execute} button and wait until the protocol has finished when output volumes could be visualize by clicking 
+on \keys{Analyze Results} button as seen in figure~\ref{RansacResults}
 
 \begin{figure}
 \centering
-\includegraphics[width=0.75\textwidth]{{images/15.RansacProtocol}.png}
-\caption{Ransac protocol.}
-\label{RansacProtocol}
+\includegraphics[width=0.75\textwidth]{{images/16.RansacResults}.png}
+\caption{Xmipp Ransac output volumes.}
+\label{RansacResults}
 \end{figure}
+
+\newpage
 
 \section{Eman initial model}
 
 In this section we present how to obtain an initial module in Scipion using Eman initial model.
 
 \subsection{Initial volume generation with Eman}
-Change to the \textbf{Protocols SPA} view if you are not already there, go to \textbf{3D - Initial Volume} and click on \textbf{eman2 - initial model} protocol. 
-As we did before use the classes obtained on Random Conical Tilted section as input so we can compare the generated volumes using different 
-techniques. Also, fill in the other form parameters as shown in figure~\ref{EmanProtocol}
 
-\begin{figure}
+Change to the \textbf{Protocols SPA} view if you are not already
+there, go to \menu{3D > Initial Volume > eman2 - initial model}
+protocol.  As we did before use the classes obtained on Random Conical
+Tilted section as input so we can compare the generated volumes using
+different techniques. Also, fill in the other form parameters as shown
+in figure~\ref{EmanProtocol}
+
+Once the protocol has finished go and view the generated output volumes by clicking on \keys{Analyze results}, as you can see in figure~\ref{EmanResults}.
+
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{{images/17.EmanProtocol}.png}
 \caption{Eman protocol.}
 \label{EmanProtocol}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.75\textwidth]{{images/18.EmanResults}.png}
+\caption{Eman generated output volumes.}
+\label{EmanResults}
 \end{figure}
 
 \bibliographystyle{apalike}
