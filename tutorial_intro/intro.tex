@@ -479,25 +479,37 @@ the \keys{Particles} button to create a new SetOfParticles (figure
   \label{fig:SubsetSelection}
 \end{figure}
 
-% I have checked up to here.
-
 \subsection{3D Reconstruction: Projection Matching}
 
-Having the right angles of each projection is crucial for making a 3D reconstruction.
-However, in 3DEM you don’t know a priori the angles and you have to estimate them as
-part of the problem. The most popular way of estimating them is by comparing somehow
-the projections of a volume that is similar to the volume to be reconstructed
-(initial model) with the images obtained from the microscope. A possible approach
-consists in generating equidistant projections from the initial model. The experimental
-data set is then compared (for example, by cross correlation) to each reference projection.
-A “similarity” coefficient (for example, crosscorrelation coefficient) is generated
-between each experimental particle and reference projection. Each individual experimental
-particle is matched to the reference projection that gave the highest “similarity”
-coefficient. Therefore, it is assumed that this experimental particle was projected with
-the same Euler angles as the reference projection.
+Having the right angles of each projection is crucial for making a 3D
+reconstruction.  However, in 3DEM you don’t know a priori the angles
+and you have to estimate them as part of the problem. The most popular
+way of estimating them is by comparing somehow the projections of a
+volume that is similar to the volume to be reconstructed (initial
+model) with the images obtained from the microscope.
 
-As is necessary an initial map, you need to import a volume. Press on \textbf{Import Volume}
-and set in \textit{Pattern} parameter the following path:
+A possible approach is to generate equidistant projections from the
+initial model. The experimental data set is then compared (for
+example, by cross correlation) to each reference projection.  A
+“similarity” coefficient (for example, crosscorrelation coefficient)
+is generated between each experimental particle and reference
+projection. Each individual experimental particle is matched to the
+reference projection that gave the highest “similarity”
+coefficient. Therefore, it is assumed that this experimental particle
+was projected with the same Euler angles as the reference projection.
+
+As an initial map is necessary, you need to import a volume. Press on
+\textbf{Import Volume} and set in \textit{Pattern} parameter the
+following path:
+
+% TODO: explain where. Which dialog? which menu?
+% Maybe it's \menu{3D > Preprocess > xmipp3 - preprocess volumes}
+% but I don't know.
+
+% TODO: acutally, from this point below (and the last paragraph), it
+% is not clear where to click on things, or how the flow is going. I
+% think it should be revisited.
+
 
 \begin{verbatim}
 $SCIPION_HOME/data/tests/xmipp_tutorial/micrographs/BPV_scale_filtered_windowed_110.vol
