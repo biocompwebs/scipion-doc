@@ -364,9 +364,6 @@ and you will be asked if you want to create the output.  If you choose
 be added to the same Set, until you repeat the operation and say
 \keys{Yes}.
 
-% TODO: check that it does work as described. I think it only asks you
-% if you want to save the output on exiting.
-
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{{images/05.EmanPicking}.png}
@@ -446,13 +443,13 @@ to the ones shown in figure (\ref{fig:XmippPP}) and
   which are taken from the results of the previous step. Also in the
   same tab, the \textit{particle box size} in pixels (in this case 110
   px).
-\item The \textit{Invert contrast} flag. If activated, bright
+\item The \textit{invert contrast} flag. If activated, bright
   regions become dark regions and the other way around. This flag
   should be set so that the extracted particles are white over a dark
   background.
-\item The \textit{Phase flipping} flag. If activated (recommended),
+\item The \textit{phase flipping} flag. If activated (recommended),
   the protocol corrects the CTF phase of your particles.
-\item The \textit{Normalize} flag. If activated (recommended), the
+\item The \textit{normalize} flag. If activated (recommended), the
   particles are normalized to have zero mean and a standard deviation
   of one for the background pixels.
 \end{itemize}
@@ -461,24 +458,28 @@ to the ones shown in figure (\ref{fig:XmippPP}) and
 % TODO: see the definition of zscore and explain this a bit more.
 
 The protocol also sorts the particles based on general statistics
-assigning to each particle a Zscore value. Particles with low Zscore
-are reliable and the ones with large Zscore are outliers. Press
-Analyse Results button in the main Scipion project GUI to check the
+assigning to each particle a z-score value. Particles with low z-score
+are reliable and the ones with large z-score are outliers. Press the
+\keys{Analyze Results} button in the main window to check the
 extracted and normalized images.
 
 \subsubsection{Particles Selection}
-By default, the visualization of the particles are sorted by zScore. If you
-want to remove some particles because they are outliers, particle press
-\textbf{Right} button on it and select Disable. When you have finished the
-selection press \textbf{Particles} button to create a new SetOfParticles
-(figure (\ref{fig:SubsetSelection})).
 
- \begin{figure}
+By default, the visualization of the particles are sorted by
+z-score. If you want to remove some particles because they are
+outliers and are not good particle images, press the mouse right
+button on them and select \textbf{Disable}. When you are done press
+the \keys{Particles} button to create a new SetOfParticles (figure
+(\ref{fig:SubsetSelection})).
+
+\begin{figure}
   \centering
   \includegraphics[width=0.75\textwidth]{{images/08.ImgsSelection}.png}
-  \caption{Analyze results window of Extract Particle protocol.}
+  \caption{Analyze Results window of the Extract Particles protocol.}
   \label{fig:SubsetSelection}
- \end{figure}
+\end{figure}
+
+% I have checked up to here.
 
 \subsection{3D Reconstruction: Projection Matching}
 
