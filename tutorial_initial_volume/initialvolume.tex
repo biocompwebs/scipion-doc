@@ -177,29 +177,32 @@ installation of Xmipp.
 
 \subsection{Example Data}
 
-To download the data you will work with use the following command:
+To download the data you will work with, use the following command:
 
 \begin{command}
 scipion testdata --download rct
 \end{command}
 
-The data will be download in \verb+scipion_folder/data/tests/rct+.
+It will be downloaded in \verb+$SCIPION_HOME/data/tests/rct+.
 
-Afterwards, you must launch the main GUI by typing: \verb+scipion+.
-
-Then, create a new project by clicking on the \keys{Create project} button, type a
-\textit{project name} and click \keys{OK}. The GUI main project window will be launched.
+Afterwards, you can launch the main GUI by typing:
+\verb+scipion+. Create a new project by clicking on the \keys{Create
+  Project} button, type a \textit{project name} and click on
+\keys{OK}. This will create a new project window.
 
 \section{Xmipp Random Conical Tilt}
 
 One of the most widespread SPA techniques is the Random Conical Tilt (RCT) \citep{Radermacher1987a}.
-In RCT, we assume that we have a randomly distributed particle in all its conformations and positions 
-along a sample, so when we take a low power TEM image, we’re getting multiple views of the same particle. 
-The specimen stage of the microscope is then tilted and a new low power TEM image is taken. 
-The less power, the less exposure of the sample. This is a cryoEM constraint on biological objects. 
-As a result, images with a low signal-to-noise ratio (SNR) are taken. With this 2 images, 
-every processing program will need to relate each particle to its tilted version, 
-in order to get different views of the specimen and estimate the tilt angle.
+In RCT the assumption is that we have a randomly distributed particle in all its conformations and positions
+along a sample, so when we take a low-power image, we are getting multiple views of the same particle.
+The specimen stage of the microscope is then tilted and a new low-power image is taken.
+
+The less power is used, the less exposure of the sample. Having a low
+exposure is a cryoEM constraint on biological objects.  As a result,
+we get images with low signal-to-noise ratio (SNR). With these two
+images, every processing program will need to relate each particle to
+its tilted version in order to get different views of the specimen and
+estimate the tilt angle.
 
 \begin{figure}
 \centering
@@ -211,7 +214,8 @@ in order to get different views of the specimen and estimate the tilt angle.
 
 \subsection{Import Tilted Pairs Micrographs}
 
-Go to the view selection menu on the top left panel and select the \textbf{Random Conical Tilt} view.
+Go to the \keys{View} selection menu on the top left panel and select
+\textbf{Random Conical Tilt}.
 
 The first step is to import the tilted pairs micrographs to your scipion project. To do this,
 select \menu{Import Micrographs pairs} protocol. In \textit{Pattern untilted} and \textit{Pattern tilted}  you must indicate where your untilted 
