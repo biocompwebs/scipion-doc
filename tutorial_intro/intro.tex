@@ -199,19 +199,19 @@ Finally bottom right panel displays information for the selected run, such as in
 
 \subsection{Preprocessing}
 
-\subsubsection{Importing Micrographs}
+\subsubsection{Import Micrographs}
 
 The first step is to import the micrographs to your scipion
 project. To do this, double-click the \keys{Import Micrographs}
 button. Micrographs are available at:
 
-\verb+$SCIPION_HOME/data/tests/xmipp_tutorial/micrographs/*.mrc
+\verb+$SCIPION_HOME/data/tests/xmipp_tutorial/micrographs/*.mrc+
 
 \noindent Acquisition info is displayed  in Figure \ref{fig:ImportMics}.  
 Modify input and click on execute to run protocol. The project window will present the new information as shown in
 Figure \ref{fig:ProjectGUI}. If we press the \keys{Analyze Results} button imported micrographs will be loaded.
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.7\textwidth]
 {{images/01.Import_Mics}.png}
@@ -219,7 +219,7 @@ Figure \ref{fig:ProjectGUI}. If we press the \keys{Analyze Results} button impor
 \label{fig:ImportMics}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.9\textwidth]{{images/02.Project_GUI}.png}
 \caption{Project window after processing Import Micrographs protocol.}
@@ -228,64 +228,54 @@ Figure \ref{fig:ProjectGUI}. If we press the \keys{Analyze Results} button impor
 
 
 
-\subsubsection{Downsampling Micrographs}
+\subsubsection{Downsample Micrographs}
 
-After importing the micrographs to your \scipion project, you can
+After importing the micrographs we can
 perform the next step: \textbf{Preprocess Micrographs}. This protocol
-combines multiple Xmipp programs in order to perform several operations
-over the micrographs. Double-click on the protocol name and fill the
-dialog with the options shown in figure (\ref{fig:Preprocess}). To
-fill the \textit{Input micrographs} field, simply click on the
+combines multiple Xmipp programs in order to perform different operations
+over the micrographs (Figure \ref{fig:Preprocess}). We want to downsample micrographs with
+a downsample factor of 5. To fill the \textit{Input micrographs} field, simply click on the
 magnifying glass button and select the output from the previous step.
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{{images/03.Downsampling_Mics}.png}
-\caption{Preprocess Micrographs dialog.}
+\caption{Preprocess Micrographs Protocol.}
 \label{fig:Preprocess}
 \end{figure}
 
 \subsubsection{CTF Estimation}
 
 The next step is to estimate the CTFs (Contrast Transfer Functions) of
-the micrographs. There are currently two protocols in \scipion to
-estimate the CTF: \textit{CTFFind} \citep{Mindell2003} and
-\textit{Xmipp CTF estimation}. You don't need to do any extra work to use
-both programs, like changing the extension of the micrographs, because
-in \scipion the inputs and outputs that belong to the same type of
-protocol are standarized.
-
-These protocols estimate the PSD (Power Spectral Density) of the
+the micrographs either using \textit{CTFFind} \citep{Mindell2003} or
+\textit{Xmipp CTF estimation}. These protocols estimate the PSD (Power Spectral Density) of the
 micrographs to then estimate the parameters of the CTF (defocus U,
 defocus V, defocus angle, etc).  They cut the micrographs into plenty
-of images with the desired size. After that, they compute the Fourier
+of images with the desired window size. After that, they compute the Fourier
 Transform of each image and make an average.
 
-\begin{description}
 
-\item[CTFFind] \hfill \\
-To estimate the CTF with CTFFind, you will need some parameters
+
+
+To estimate the CTF you will need some parameters
 describing the frequency region to be analyzed. The parameters shown
-in figure (\ref{fig:CTFFind}) are the proper ones for this example.
+in Figure \ref{fig:CTFFind} are the proper ones for this example.
 The limiting frequencies must be such that all zeros of the PSD are
-contained within those frequencies. There is a wizard, shown in figure
-(\ref{fig:CTFwizard}), that helps in choosing those frequencies. To
-see the full available options, choose the \verb+Rxpert Level+ in the
+contained within those frequencies. There is a wizard, shown in Figure
+\ref{fig:CTFwizard}, that helps in choosing those frequencies. To
+see the full available options, choose the \verb+Expert Level+ in the
 dropdown menu.  Please note that the range of defocus search is
 usually larger than the one used in this example, and it must be
 chosen according to your data set.
 
-\item[Xmipp CTF estimation] \hfill \\
-If you prefer, you can estimate the CTF with the
-Xmipp CTF estimation. The parameters used in this protocol are the same as
-the ones in the CTFFind protocol, explained above.
 
-\end{description}
+
+
 
 \begin{figure}
 \minipage{0.47\textwidth}
   \includegraphics[width=\linewidth]{{images/04.CTFFind}.png}
-  \caption{CTFFind protocol dialog.}
+  \caption{CTFFind protocol.}
   \label{fig:CTFFind}
 \endminipage\hfill
 \minipage{0.51\textwidth}
@@ -296,11 +286,11 @@ the ones in the CTFFind protocol, explained above.
 \end{figure}
 
 The CTFs of good micrographs typically have multiple concentric rings, shown
-in figure (\ref{fig:CTFs}) left, extending from the image center towards its edges.
+in Figure \ref{fig:CTFs} left, extending from the image center towards its edges.
 Bad micrographs may lack rings or have very few rings that hardly extend from
 the image center. A reason to discard micrographs may be the presence of
-strongly asymmetric rings (astigmatism, figure (\ref{fig:CTFs}) center) or rings
-that fade in a particular direction (drift, figure (\ref{fig:CTFs}) right).
+strongly asymmetric rings (astigmatism, Figure \ref{fig:CTFs} center) or rings
+that fade in a particular direction (drift, Figure \ref{fig:CTFs} right).
 
 \begin{figure}
 \centering
@@ -310,8 +300,8 @@ that fade in a particular direction (drift, figure (\ref{fig:CTFs}) right).
 \end{figure}
 
 When the protocol (either CTFFind or Xmipp CTF estimation) is finished
-you may click on the \keys{Analyze Results} button (figure
-(\ref{fig:CTFResult})). To discard micrographs with bad CTFs you may
+you may click on the \keys{Analyze Results} button (Figure
+\ref{fig:CTFResult}). To discard micrographs with bad CTFs you may
 click with the mouse right button and press \textbf{Disable}. Once you
 finish the selection, press on the \keys{Micrographs} button to
 create your subset of micrographs with only the enabled ones.
@@ -321,7 +311,7 @@ if they can be seen by eye. If this is the case, you may help the
 algorithm to find the rings by clicking on the image with the mouse
 right-button and choosing \textbf{Recalculate CTF} on the menu that
 appears. A graphical interface will help you to correctly identify the
-CTF. You must provide the first CTF zero and the limits, and then
+CTF. You must provide the first CTF zero and the search range, and then
 press \verb+OK+. When you finish, press the \keys{Recalculate CTFs}
 button.
 
