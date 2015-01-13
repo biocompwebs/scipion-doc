@@ -117,35 +117,30 @@ future editions, by writing to
 
 \section{Software Installation}
 
-The first step before starting to work on your projects is to download
+The first step is to download %before starting to work on your projects is to download
 and install \scipion and related software packages. We describe
 briefly the process in the next sections. For the full documentation please refer to
 \url{http://scipionwiki.cnb.csic.es/bin/view/TWiki/NewInstallation}.
 
 \subsection{Xmipp}
 
-One of the main components of \scipion is the Xmipp package. To get
-the latest version:
+Xmipp is one of the main EM software packages supported in \scipion. To download
+%One of the main components of \scipion is the Xmipp package. To get
+the latest version use:
 
 \begin{command}
 git clone http://git.code.sf.net/p/newxmipp/code xmipp
 \end{command}
 
 \noindent
-then change to the \directory{xmipp} directory, and move to branch
-\verb+xmipp_scipion+ with
-
-\begin{command}
-git checkout xmipp\_scipion
-\end{command}
-
-Finally, run the installation with
+then change to the \directory{xmipp} directory and run the installation with
 
 \begin{command}
 ./install.sh
 \end{command}
 
-\subsection{Scipion and Extra Packages}
+%\subsection{Scipion and Extra Packages}
+\subsection{Scipion}
 
 To get the latest version of \scipion run
 
@@ -167,30 +162,40 @@ installation of Xmipp.
 
 \section{Reconstruction of a Viral Capsid}
 
-In this demo, we have used the \emph{single particle analysis} approach to obtain
-a 3D reconstruction of a \emph{Bovine Papillomavirus}. The EM images have been
+In this demo, we use the \emph{single particle analysis} approach to obtain
+a 3D reconstruction of a \emph{Bovine Papillomavirus}. The EM images have been kindly
+provided by \href{http://grigoriefflab.janelia.org/}{Dr.~Grigorieff’s Lab}. Micrographs were
 collected at 300 $kV$ and a calibrated magnification of 56,588,
 giving a pixel
-size of 1.237 \AA  \citep{Wolf2010}. The data have been kindly
-provided by \href{http://grigoriefflab.janelia.org/}{Dr.~Grigorieff’s Lab}.
+size of 1.237 \AA  \citep{Wolf2010}. 
 
 \subsection{Getting Started}
 
-You can download the data with the following command:
+To download the data required for this tutorial use the following command:
 
 \begin{command}
 scipion testdata --download xmipp\_tutorial
 \end{command}
 
-It will be downloaded to \$\directory{SCIPION\_HOME/data/tests}. After downloading,
-launch the scipion browser by typing: \comm{scipion}
+\noindent
+It will be downloaded to \$\directory{SCIPION\_HOME/data/tests}. 
 
-Then create a new project by clicking the \keys{Create Project}
-button, type a \textit{project name} and click \keys{OK}. The main
-project window will be launched.  The left panel contains different
-protocols grouped in categories. Clicking on a group will display a
-menu with protocols that can be selected to launch the corresponding
-GUI.
+To start image processing in \scipion we need to run \comm{scipion} from the command line.
+For this tutorial we register a new project by clicking the \keys{Create Project}
+button and specifying project name. Then we navigate to project window (Figure \ref{fig:Project}).  
+Left panel displays active workflow (Protocols SPA) 
+and its different reconstruction tasks listing protocols available.
+Top right panel displays the sequence of protocols executed by the user and its state: running, finished, aborted. Users can visualize it using list or tree views.
+Finally bottom right panel displays information for the selected run, such as inputs and outputs, execution logs or documentation - also provides "Analyze Results" button to visualize outputs.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]
+{{images/00.Project}.png}
+\caption{Project window}
+\label{fig:Project}
+\end{figure}
+
 
 \subsection{Preprocessing}
 
@@ -198,35 +203,30 @@ GUI.
 
 The first step is to import the micrographs to your scipion
 project. To do this, double-click the \keys{Import Micrographs}
-button. In \textit{Pattern} indicate where your micrograph files are
-stored (for example by clicking on the browse button, the one
-that looks like a folder). The complete pattern
-is:\\
-\verb+$SCIPION_HOME/data/tests/xmipp_tutorial/micrographs/*.mrc+
+button. Micrographs are available at:
 
-Modify the parameters of the Import Micrographs protocol according to
-the ones shown in figure (\ref{fig:ImportMics}).  Then click on the
-\keys{Save} and \keys{Execute} buttons. After executing the
-protocol, the project window will present the new information as shown in
-figure (\ref{fig:ProjectGUI}).
+\verb+$SCIPION_HOME/data/tests/xmipp_tutorial/micrographs/*.mrc
+
+\noindent Acquisition info is displayed  in Figure \ref{fig:ImportMics}.  
+Modify input and click on execute to run protocol. The project window will present the new information as shown in
+Figure \ref{fig:ProjectGUI}. If we press the \keys{Analyze Results} button imported micrographs will be loaded.
 
 \begin{figure}
 \centering
 \includegraphics[width=0.7\textwidth]
 {{images/01.Import_Mics}.png}
-\caption{Import Micrographs protocol dialog.}
+\caption{Import Micrographs Protocol.}
 \label{fig:ImportMics}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=0.9\textwidth]{{images/02.Project_GUI}.png}
-\caption{Scipion project GUI after processing Import Micrograph protocol.}
+\caption{Project window after processing Import Micrographs protocol.}
 \label{fig:ProjectGUI}
 \end{figure}
 
-If we press the \keys{Analyze Results} button a new dialog will
-appear that shows the different imported micrographs (not shown).
+
 
 \subsubsection{Downsampling Micrographs}
 

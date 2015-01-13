@@ -93,8 +93,9 @@
 
 \subsection*{Intended audience}
 
-This tutorial provides an introduction to initial volume estimation using Scipion. 
-Very limited knowledge about 3D-EM image processing and Scipion is required, and basic computer skills.
+This tutorial is an introduction to the estimation of an initial
+volume using Scipion.  Only a very limited knowledge about 3D-EM image
+processing and Scipion is required, and basic computer skills.
 
 \subsection*{We'd like to hear from you}
 
@@ -118,47 +119,90 @@ future editions by writing to
 
 \section{General Introduction}
 
-\subsection{Initial Volume estimation}
+\subsection{Initial Volume Estimation}
 
-Single Particle Analysis (SPA) techniques can obtain three-dimensional (3D) maps of biological complexes 
-at near atomic resolution by combining tens of thousands of projection images obtained on a 
-Transmission Electron Microscopy (TEM). In general, the reconstruction process leading to the final 3D map 
-requires the use of an approximate low resolution initial model to be refined in further steps. 
-In this tutorial we present different methods to obtain this initial model using Scipion, 
-which are Xmipp Random Conical Tilt, Xmipp 3D-RANSAC and Eman Initial Model.
+Single Particle Analysis (SPA) techniques are used to obtain 3D maps
+of biological complexes at near-atomic resolution. They do so by
+combining tens of thousands of projection images obtained by
+Transmission Electron Microscopy (TEM). In general, the reconstruction
+process that leads to the final 3D map requires the use of an
+approximate low resolution initial model, to be refined in further
+steps.
 
-\subsection{Download and Install}
+In this tutorial we present different methods to obtain this initial
+model using Scipion: Xmipp Random Conical Tilt, Xmipp 3D-RANSAC and
+Eman Initial Model.
 
-The first step before start working on your projects is to download and
-install Scipion and all the related programs. At \href{http://scipionwiki.cnb.csic.es}{Scipion's website} 
-there is all the information needed to download and install the application.
+\section{Software Installation}
 
-\subsection{Getting started}
+The first step is to download and install \scipion and related
+software packages. We describe briefly the process in the next
+sections. For the full documentation please refer to
+\url{http://scipionwiki.cnb.csic.es/bin/view/TWiki/NewInstallation}.
 
-First start by downloading the data you will work with using the following command:
+\subsection{Xmipp}
 
-\begin{verbatim}
+One of the main components of \scipion is the Xmipp package. To get
+the latest version use:
+
+\begin{command}
+git clone http://git.code.sf.net/p/newxmipp/code xmipp
+\end{command}
+
+\noindent
+then change to the \directory{xmipp} directory and run the installation with
+
+\begin{command}
+./install.sh
+\end{command}
+
+\subsection{Scipion}
+
+To get the latest version of \scipion run
+
+\begin{command}
+git clone http://git.code.sf.net/p/pyworkflow/code scipion
+\end{command}
+
+\noindent
+and then change into the \directory{scipion} directory. Finally run:
+
+\begin{command}
+./scipion install --with-all-packages --with-xmipp=\$XMIPP\_HOME
+\end{command}
+
+\noindent
+where \verb+$XMIPP_HOME+ points to the directory with your local
+installation of Xmipp.
+
+\subsection{Example Data}
+
+To download the data you will work with, use the following command:
+
+\begin{command}
 scipion testdata --download rct
-\end{verbatim}
+\end{command}
 
-The data will be download in \verb+scipion_folder/data/tests/rct+.
+It will be downloaded in \verb+$SCIPION_HOME/data/tests/rct+.
 
-After download, you must launch the MAIN GUI by typing: \verb+scipion+.
-
-Then, create a new project by clicking on \keys{Create project} button, type a 
-\textit{project name} and click \keys{OK}. The GUI main project window will be launched.
+Afterwards, you can launch the main GUI by typing:
+\verb+scipion+. Create a new project by clicking on the \keys{Create
+  Project} button, type a \textit{project name} and click on
+\keys{OK}. This will create a new project window.
 
 \section{Xmipp Random Conical Tilt}
 
-One of the most widespread Single Particle Analysis (SPA) techniques, inside the Transmission
-Electron Microscopy (TEM) field, is the Random Conical Tilt (RCT) \citep{Radermacher1987a}. 
-In RCT, we assume that we have a randomly distributed particle in all its conformations and positions 
-along a sample, so when we take a low power TEM image, we’re getting multiple views of the same particle. 
-The specimen stage of the microscope is then tilted and a new low power TEM image is taken. 
-The less power, the less exposure of the sample. This is a cryoEM constraint on biological objects. 
-As a result, images with a low signal-to-noise ratio (SNR) are taken. With this 2 images, 
-every processing program will need to relate each particle to its tilted version, 
-in order to get different views of the specimen and estimate the tilt angle.
+One of the most widespread SPA techniques is the Random Conical Tilt (RCT) \citep{Radermacher1987a}.
+In RCT the assumption is that we have a randomly distributed particle in all its conformations and positions
+along a sample, so when we take a low-power image, we are getting multiple views of the same particle.
+The specimen stage of the microscope is then tilted and a new low-power image is taken.
+
+The less power is used, the less exposure of the sample. Having a low
+exposure is a cryoEM constraint on biological objects.  As a result,
+we get images with low signal-to-noise ratio (SNR). With these two
+images, every processing program will need to relate each particle to
+its tilted version in order to get different views of the specimen and
+estimate the tilt angle.
 
 \begin{figure}
 \centering
@@ -168,9 +212,10 @@ in order to get different views of the specimen and estimate the tilt angle.
 \label{RCTprojection}
 \end{figure}
 
-\subsection{Import tilted pairs micrographs}
+\subsection{Import Tilted Pairs Micrographs}
 
-Go to the view selection menu on the top left panel and select the \textbf{Random Conical Tilt} view.
+Go to the \keys{View} selection menu on the top left panel and select
+\textbf{Random Conical Tilt}.
 
 The first step is to import the tilted pairs micrographs to your scipion project. To do this,
 select \menu{Import Micrographs pairs} protocol. In \textit{Pattern untilted} and \textit{Pattern tilted}  you must indicate where your untilted 
@@ -238,7 +283,7 @@ and do the same. The resulting interface will be much easier to start picking.
 \label{PickingProtocol2}
 \end{figure}
 
-The picking procedure is:
+The procedure to do the picking is:
 
 1.  Find the first particle in both untilted and tilted. First pick the untilted and then its tilted
 pair.
@@ -274,10 +319,10 @@ $SCIPION_HOME/data/tests/rct/positions
 Take into account that the protocol status will not changed to \textbf{Finished} but will remain as \textbf{Interactive}.
 This allows you to execute it again if you wish to pick more particles.
 
-\subsection{Extract particles pairs}
+\subsection{Extract Particle Pairs}
 
 Now that coordinates pairs are picked they have to be extracted as particle pairs.
-To do so select the \menu{Extract particles pairs} protocol and fill in the parameters as shown in figure~\ref{ExtractPairs}.
+To do so select the \menu{Extract particle pairs} protocol and fill in the parameters as shown in figure~\ref{ExtractPairs}.
 Although particles were picked with a size of 120 pixels the extract will downsample them by a factor of two to speed up next steps.
 
 Once the protocol has finished you can review the particles by clicking on the \keys{Analyze results} button as seen in figure~\ref{ExtractResults}.
@@ -286,14 +331,14 @@ Once the protocol has finished you can review the particles by clicking on the \
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{{images/06.ExtractPairsProtocol}.png}
-\caption{Extract particles pairs protocol}
+\caption{Extract particle pairs protocol}
 \label{ExtractPairs}
 \end{figure}
 
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{{images/07.ExtractPairsResults}.png}
-\caption{Extract particles pairs results}
+\caption{Extract particle pairs results}
 \label{ExtractResults}
 \end{figure}
 
@@ -342,7 +387,7 @@ as shown in figure~\ref{CL2Dresults}
 \label{CL2Dresults}
 \end{figure}
 
-\subsection{Initial volume generation with Random Conical Tilt}
+\subsection{Initial Volume Generation with Random Conical Tilt}
 
 Now that you have the desired classes, only the RCT reconstruction step is left. 
 
@@ -376,7 +421,7 @@ will show up.
 In this section, we present how to use Xmipp 3D-RANSAC approach, which can obtain a reliable low resolution initial volume 
 from sets of macromolecular projection images without a priori information ( Vargas et al. (2014)). 
 
-\subsection{Initial volume generation with 3D Ransac}
+\subsection{Initial Volume Generation with 3D Ransac}
 
 Change to the \textbf{Protocols SPA} view if you are not already there, go to \menu{3D > Initial Volume > xmipp - ransac} protocol. 
 
@@ -416,7 +461,7 @@ on \keys{Analyze Results} button as seen in figure~\ref{RansacResults}
 
 In this section we present how to obtain an initial module in Scipion using Eman initial model.
 
-\subsection{Initial volume generation with Eman}
+\subsection{Initial Volume Generation with Eman}
 
 Change to the \textbf{Protocols SPA} view if you are not already
 there, go to \menu{3D > Initial Volume > eman2 - initial model}
