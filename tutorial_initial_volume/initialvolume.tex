@@ -133,25 +133,61 @@ In this tutorial we present different methods to obtain this initial
 model using Scipion: Xmipp Random Conical Tilt, Xmipp 3D-RANSAC and
 Eman Initial Model.
 
-\subsection{Download and Install}
+\section{Software Installation}
 
-The first step before start working on your projects is to download and
-install Scipion and all the related programs. At \href{http://scipionwiki.cnb.csic.es}{Scipion's website} 
-there is all the information needed to download and install the application.
+The first step is to download and install \scipion and related
+software packages. We describe briefly the process in the next
+sections. For the full documentation please refer to
+\url{http://scipionwiki.cnb.csic.es/bin/view/TWiki/NewInstallation}.
 
-\subsection{Getting Started}
+\subsection{Xmipp}
 
-First start by downloading the data you will work with using the following command:
+One of the main components of \scipion is the Xmipp package. To get
+the latest version use:
 
-\begin{verbatim}
+\begin{command}
+git clone http://git.code.sf.net/p/newxmipp/code xmipp
+\end{command}
+
+\noindent
+then change to the \directory{xmipp} directory and run the installation with
+
+\begin{command}
+./install.sh
+\end{command}
+
+\subsection{Scipion}
+
+To get the latest version of \scipion run
+
+\begin{command}
+git clone http://git.code.sf.net/p/pyworkflow/code scipion
+\end{command}
+
+\noindent
+and then change into the \directory{scipion} directory. Finally run:
+
+\begin{command}
+./scipion install --with-all-packages --with-xmipp=\$XMIPP\_HOME
+\end{command}
+
+\noindent
+where \verb+$XMIPP_HOME+ points to the directory with your local
+installation of Xmipp.
+
+\subsection{Example Data}
+
+To download the data you will work with use the following command:
+
+\begin{command}
 scipion testdata --download rct
-\end{verbatim}
+\end{command}
 
 The data will be download in \verb+scipion_folder/data/tests/rct+.
 
-After download, you must launch the MAIN GUI by typing: \verb+scipion+.
+Afterwards, you must launch the main GUI by typing: \verb+scipion+.
 
-Then, create a new project by clicking on \keys{Create project} button, type a 
+Then, create a new project by clicking on the \keys{Create project} button, type a
 \textit{project name} and click \keys{OK}. The GUI main project window will be launched.
 
 \section{Xmipp Random Conical Tilt}
