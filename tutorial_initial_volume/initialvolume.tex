@@ -271,7 +271,7 @@ protocol as input (see figure~\ref{PickingProtocol2}) and click on the
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{{images/04.PickingProtocol1}.png}
-\caption{Picking pairs protocol}
+\caption{Picking pairs protocol.}
 \label{PickingProtocol1}
 \end{figure}
 
@@ -334,7 +334,7 @@ $SCIPION_HOME/data/tests/rct/positions
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{{images/05.PickingGUI}.png}
-\caption{Xmipp particle picking pairs GUI}
+\caption{Xmipp particle picking pairs GUI.}
 \label{PickingGUI}
 \end{figure}
 
@@ -344,69 +344,95 @@ allows you to execute it again if you wish to pick more particles.
 
 \subsection{Extract Particle Pairs}
 
-Now that coordinates pairs are picked they have to be extracted as particle pairs.
-To do so select the \menu{Extract particle pairs} protocol and fill in the parameters as shown in figure~\ref{ExtractPairs}.
-Although particles were picked with a size of 120 pixels the extract will downsample them by a factor of two to speed up next steps.
+Now that we have picked coordinate pairs, they have to be extracted as
+particle pairs.  To do so select the \menu{Extract particle pairs}
+protocol and fill in the parameters as shown in
+figure~\ref{ExtractPairs}.  Although particles were picked with a size
+of 120 pixels, we will downsample them by a factor of 2 in the
+extraction to speed up the next steps.
 
-Once the protocol has finished you can review the particles by clicking on the \keys{Analyze results} button as seen in figure~\ref{ExtractResults}.
+Once the protocol has finished you can review the particles by
+clicking on the \keys{Analyze Results} button as seen in
+figure~\ref{ExtractResults}.
 %If you don't like some of the particles you can disable them and create a subset with the good ones. Just click on the \textbf{TiltPairs} red button and give the subset a name.
 
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{{images/06.ExtractPairsProtocol}.png}
-\caption{Extract particle pairs protocol}
+\caption{Extract particle pairs protocol.}
 \label{ExtractPairs}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{{images/07.ExtractPairsResults}.png}
-\caption{Extract particle pairs results}
+\caption{Extract particle pairs results.}
 \label{ExtractResults}
 \end{figure}
 
 \subsection{Classification with Xmipp CL2D}
-Once the particles are extracted, they have to be classified, in order to group those belonging to different state of the particle 
-or even those which represent an error in the picking. 
 
-For this tutorial you will perform a CL2D classification from Xmipp package but you could choose any other 2D classification protocol, 
-which can be found under the \textbf{Protocols SPA} view grouped as \menu{2D > Classify}.
+Once we have extracted the particles, they have to be classified in
+order to group those belonging to different states of the particle, or
+even to find those that come from an error in the picking.
 
-Select the set of untilted particles produced by the previous step,  %or the ones on the subset if you chose to remove some of the particles.
-fill in the rest of the parameters as shown in figure~\ref{CL2D} and press \keys{Execute}.
 
-This protocol will take some time to finish (depending on your computer power and number of \textbf{mpis} choosen). 
-Once it has finished you can visualize the classes obtained by clicking on \keys{Analyze results} button.
+For this tutorial we will perform a CL2D classification with Xmipp,
+but you could choose any of the other 2D classification protocol
+available. Go to the \keys{View} selection menu on the top left panel
+and select \textbf{Protocols SPA}. Then select \menu{2D > Classify >
+  xmipp3 - cl2d}.
 
-This classes show mean images that represent your particles, but to be sure that they are representing with fidelity your particle, 
-at least some basic assessment steps are needed. 
-
-Yo should be using the stable core classes. These are composed by those particles that have stayed through all iterations together. 
+For the \textit{Input images} select the set of untilted particles
+produced in the previous step, fill in the rest of the parameters as
+shown in figure~\ref{CL2D} and press \keys{Execute}.
 
 \begin{figure}
 \centering
 \includegraphics[width=0.65\textwidth]{{images/08.CL2Dprotocol}.png}
-\caption{CL2D protocol}
+\caption{CL2D protocol.}
 \label{CL2D}
 \end{figure}
 
-Each class should contain between 100 and 200 particles more or less. Less than 100 will result in reconstructions of low quality, 
-so the estimation is not being properly done. Also, more than 200-250 particles would result in a wrong estimation because particles 
-very different could be mixing in the same class. 
+This protocol will take some time to finish (depending on your
+computer power and the number of \textbf{MPI}s chosen).  Once it has
+finished you can visualize the classes obtained by clicking on
+\keys{Analyze Results}.
 
-Apart from that, there is also a subjective assessment, and it comes from what the user is looking for. 
-Each class shows you a mean image that can give you an idea of what you will find if you start a reconstruction with those images. 
-The user must select those volumes that are more promising. In the case shown on our figures, classes 3 and 7 have been discarded, 
-that seem to show particles in a top view (or just one part of the particle).
+These classes show averaged images that represent your particles. But
+to be sure that they are representing with fidelity your particle, we
+need at least some basic checks:
 
-Then, as done with particles extracted, you should create a subset of classes to be used as input for next step, 
-as shown in figure~\ref{CL2Dresults}
+\begin{itemize}
+  
+\item We should be using the stable core classes. These are composed
+  by those particles that have stayed through all iterations together.
 
+\item Each class should contain between 100 and 200 particles more or
+  less. Less than that will result in reconstructions of low quality,
+  so the estimation is not being properly done. Also, more than
+  200-250 particles would result in a wrong estimation because very
+  different particles could be appearing in the same class.
 
-\begin{figure}
+\end{itemize}
+
+Apart from that, there is also a subjective assessment, and it comes
+from what the user is looking for.  Each class shows you an average
+image that can give you an idea of what you will find if you start a
+reconstruction with those images.  The user must select those volumes
+that are more promising. In our case, classes 3 and 7 have been
+discarded, because they seem to show particles in a top view (or just
+one part of the particle).
+
+%Then, as done with particles extracted, you should create a subset of classes to be used as input for next step, 
+%as shown in figure~\ref{CL2Dresults}
+Finally we will create a subset of classes to be used as input for the
+next step, as shown in figure~\ref{CL2Dresults}.
+
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.65\textwidth]{{images/09.GoodClasses}.png}
-\caption{CL2D results}
+\caption{CL2D results.}
 \label{CL2Dresults}
 \end{figure}
 
