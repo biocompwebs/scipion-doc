@@ -117,15 +117,16 @@ future editions, by writing to
 
 \section{Software Installation}
 
-The first step before starting to work on your projects is to download
+The first step is to download %before starting to work on your projects is to download
 and install \scipion and related software packages. We describe
 briefly the process in the next sections. For the full documentation please refer to
 \url{http://scipionwiki.cnb.csic.es/bin/view/TWiki/NewInstallation}.
 
 \subsection{Xmipp}
 
-One of the main components of \scipion is the Xmipp package. To get
-the latest version:
+Xmipp is one of the main EM software packages supported in \scipion. To download
+%One of the main components of \scipion is the Xmipp package. To get
+the latest version use:
 
 \begin{command}
 git clone http://git.code.sf.net/p/newxmipp/code xmipp
@@ -145,7 +146,8 @@ Finally, run the installation with
 ./install.sh
 \end{command}
 
-\subsection{Scipion and Extra Packages}
+%\subsection{Scipion and Extra Packages}
+\subsection{Scipion}
 
 To get the latest version of \scipion run
 
@@ -167,30 +169,28 @@ installation of Xmipp.
 
 \section{Reconstruction of a Viral Capsid}
 
-In this demo, we have used the \emph{single particle analysis} approach to obtain
-a 3D reconstruction of a \emph{Bovine Papillomavirus}. The EM images have been
+In this demo, we use the \emph{single particle analysis} approach to obtain
+a 3D reconstruction of a \emph{Bovine Papillomavirus}. The EM images have been kindly
+provided by \href{http://grigoriefflab.janelia.org/}{Dr.~Grigorieff’s Lab}. Micrographs were
 collected at 300 $kV$ and a calibrated magnification of 56,588,
 giving a pixel
-size of 1.237 \AA  \citep{Wolf2010}. The data have been kindly
-provided by \href{http://grigoriefflab.janelia.org/}{Dr.~Grigorieff’s Lab}.
+size of 1.237 \AA  \citep{Wolf2010}. 
 
 \subsection{Getting Started}
 
-You can download the data with the following command:
+To download the data required for this tutorial use the following command:
 
 \begin{command}
 scipion testdata --download xmipp\_tutorial
 \end{command}
 
-It will be downloaded to \$\directory{SCIPION\_HOME/data/tests}. After downloading,
-launch the scipion browser by typing: \comm{scipion}
+It will be downloaded to \$\directory{SCIPION\_HOME/data/tests}. 
 
-Then create a new project by clicking the \keys{Create Project}
-button, type a \textit{project name} and click \keys{OK}. The main
-project window will be launched.  The left panel contains different
-protocols grouped in categories. Clicking on a group will display a
-menu with protocols that can be selected to launch the corresponding
-GUI.
+To start image processing in Scipion we need to run \scipion from the command line.
+For this tutorial we register a new project by clicking the \keys{Create Project}
+button and specifying project name. Then we navigate to project window.  
+Left panel displays possible workflows, such as Single Particle Analysis (SPA) or Random Conical Tilt (RCT), 
+and its different reconstruction tasks listing protocols available. 
 
 \subsection{Preprocessing}
 
