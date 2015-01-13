@@ -175,7 +175,7 @@ and then change into the \directory{scipion} directory. Finally run:
 where \verb+$XMIPP_HOME+ points to the directory with your local
 installation of Xmipp.
 
-\subsection{Example Data}
+\subsection{Sample Data}
 
 To download the data you will work with, use the following command:
 
@@ -212,15 +212,15 @@ estimate the tilt angle.
 \label{RCTprojection}
 \end{figure}
 
-\subsection{Import Tilted Pairs of Micrographs}
+\subsection{Importing Tilted Pairs of Micrographs}
 
 Go to the \keys{View} selection menu on the top left panel and select
 \textbf{Random Conical Tilt}.
 
 The first step is to import the tilted pairs of micrographs to your
 scipion project. To do this, select the \menu{Import micrograph pairs}
-protocol. In \textit{Pattern untilted} and \textit{Pattern tilted} you
-must indicate where your untilted and tilted micrograph files are
+protocol. In \textit{Pattern untilted} and \textit{Pattern tilted} we
+have to indicate where the untilted and tilted micrograph files are
 stored (to do so you can click on the \keys{browse} button next to the
 text entries, the one that looks like a folder).
 
@@ -260,7 +260,7 @@ imported micrograph pairs, as shown in figure \ref{ImportResults}.
 
 \subsection{Particle Picking}
 
-After we import the micrographs you need to pick tilted and untilted particle pairs.
+After we import the micrographs we need to pick tilted and untilted particle pairs.
 
 Go to the \menu{Picking micrograph pairs} protocol and double-click on
 it. A form as the one shown in figure~\ref{PickingProtocol1} will
@@ -340,9 +340,9 @@ $SCIPION_HOME/data/tests/rct/positions
 
 Notice that after running the protocol, its status will not change to
 \textbf{Finished} but will remain as \textbf{Interactive}.  This
-allows you to execute it again if you wish to pick more particles.
+allows us to execute it again if we wish to pick more particles.
 
-\subsection{Extract Particle Pairs}
+\subsection{Extraction of Particle Pairs}
 
 Now that we have picked coordinate pairs, they have to be extracted as
 particle pairs.  To do so select the \menu{Extract particle pairs}
@@ -378,7 +378,7 @@ even to find those that come from an error in the picking.
 
 
 For this tutorial we will perform a CL2D classification with Xmipp,
-but you could choose any of the other 2D classification protocol
+but we could choose any of the other 2D classification protocols
 available. Go to the \keys{View} selection menu on the top left panel
 and select \textbf{Protocols SPA}. Then select \menu{2D > Classify >
   xmipp3 - cl2d}.
@@ -396,12 +396,12 @@ shown in figure~\ref{CL2D} and press \keys{Execute}.
 
 This protocol will take some time to finish (depending on your
 computer power and the number of \textbf{MPI}s chosen).  Once it has
-finished you can visualize the classes obtained by clicking on
+finished we can visualize the classes obtained by clicking on
 \keys{Analyze Results}.
 
-These classes show averaged images that represent your particles. But
-to be sure that they are representing with fidelity your particle, we
-need at least some basic checks:
+These classes show averaged images that represent our particles. But
+to be sure that they are representing them with fidelity, we need at
+least some basic checks:
 
 \begin{itemize}
   
@@ -417,8 +417,8 @@ need at least some basic checks:
 \end{itemize}
 
 Apart from that, there is also a subjective assessment, and it comes
-from what the user is looking for.  Each class shows you an average
-image that can give you an idea of what you will find if you start a
+from what the user is looking for.  Each class shows an average image
+that can give you an idea of what we would find if we start a
 reconstruction with those images.  The user must select those volumes
 that are more promising. In our case, classes 3 and 7 have been
 discarded, because they seem to show particles in a top view (or just
