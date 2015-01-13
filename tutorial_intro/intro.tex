@@ -133,14 +133,7 @@ git clone http://git.code.sf.net/p/newxmipp/code xmipp
 \end{command}
 
 \noindent
-then change to the \directory{xmipp} directory, and move to branch
-\verb+xmipp_scipion+ with
-
-\begin{command}
-git checkout xmipp\_scipion
-\end{command}
-
-Finally, run the installation with
+then change to the \directory{xmipp} directory and run the installation with
 
 \begin{command}
 ./install.sh
@@ -184,20 +177,23 @@ To download the data required for this tutorial use the following command:
 scipion testdata --download xmipp\_tutorial
 \end{command}
 
+\noindent
 It will be downloaded to \$\directory{SCIPION\_HOME/data/tests}. 
 
-To start image processing in Scipion we need to run \scipion from the command line.
+To start image processing in \scipion we need to run \comm{scipion} from the command line.
 For this tutorial we register a new project by clicking the \keys{Create Project}
-button and specifying project name. Then we navigate to project window.  
+button and specifying project name. Then we navigate to project window (Figure \ref{fig:Project}).  
 Left panel displays possible workflows, such as Single Particle Analysis (SPA) or Random Conical Tilt (RCT), 
 and its different reconstruction tasks listing protocols available.
+Top right panel displays the sequence of protocols executed by the user and its state: running, finished, aborted. Users can visualize it using list or tree views.
+Finally bottom right panel displays information for the selected run, such as inputs and outputs, execution logs or documentation - also provides "Analyze Results" button to visualize outputs.
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.7\textwidth]
 {{images/00.Project}.png}
-\caption{Import Micrographs protocol dialog.}
-\label{fig:ImportMics}
+\caption{Project window}
+\label{fig:Project}
 \end{figure}
 
 
