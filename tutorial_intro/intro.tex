@@ -325,36 +325,23 @@ CTFs of all the micrographs, and different related parameters.}
 
 \subsubsection{Particle Picking}
 
-Now you are ready to pick the particles. You can pick the particles in
-the micrographs with either \textit{Xmipp manual picking},
-\textit{Eman boxer} or the \textit{bshow} protocol. These protocols
-are in interactive mode, i.e.~you can create different sets of
-coordinates within the same protocol.
+Now you are ready to pick particles from micrographs. You can pick particles with either \textit{Xmipp supervised picking},
+\textit{Eman boxer} or \textit{Bsoft particle picking} . We illustrate here
+particle picking with Eman and Xmipp using as particle size 110.
 
 \begin{description}
 
 \item[EMAN boxer] \hfill \\
-Double-clicking on eman2 boxer will launch the window shown in figure
-(\ref{fig:EmanProtocol}). Set the paramaters as they appear in the figure.
 
-\begin{figure}
-\centering
-\includegraphics[width=0.75\textwidth]{{images/18.EmanPP}.png}
-\caption{EMAN boxer protocol dialog.}
-\label{fig:EmanProtocol}
-\end{figure}
-
-Once you press the \keys{Execute} button, several windows will open
-(figure (\ref{fig:EmanPP})). This protocol has several modes of
-selection, please refer to its
+Eman boxer has manual picking and several modes of
+automatic picking, with fast outcome. Please refer to its
 \href{http://blake.bcm.edu/emanwiki/EMAN2}{webpage} for futher
-information. When you are done picking particles press \keys{Done}
-and you will be asked if you want to create the output.  If you choose
-\keys{No}, you can continue picking and the selected particles will
-be added to the same Set, until you repeat the operation and say
-\keys{Yes}.
+information. When you are done picking particles you are asked if you want to register output.  If you choose
+\keys{Yes}, output coordinates are generated.
 
-\begin{figure}
+
+
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{{images/05.EmanPicking}.png}
 \caption{EMAN boxer, an interface for particle picking.}
@@ -362,27 +349,20 @@ be added to the same Set, until you repeat the operation and say
 \end{figure}
 
 \item[Xmipp particle picking] \hfill \\
-You could instead double-click on the \textit{Xmipp supervised
-  picking} protocol. It will launch a dialog as in figure
-(\ref{fig:xmipp_manual_picking}). After selecting the set of
-micrographs to use and clicking \keys{Execute}, it will launch the
-window shown in figure (\ref{fig:XmippPickingParticles}).
 
-\begin{figure}
-\centering
-\includegraphics[width=0.75\textwidth]{{images/12-xmipp_manual_picking_protocol}.png}
-\caption{Xmipp supervised picking dialog.}
-\label{fig:xmipp_manual_picking}
-\end{figure}
 
-\begin{figure}
+Xmipp supervised picking has manual and automatic picking. Automatic picking is activated using autopick.
+Particles added or removed manually after autopick are used to train classifier. 
+When you are done picking particles you can click on \keys{Add Coordinates} to register output.
+
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.75\textwidth]{{images/15.PartPickingXmipp}.png}
+\includegraphics[width=0.75\textwidth]{{images/05.XmippPicking}.png}
 \caption{Xmipp supervised picking, a different interface for particle picking.}
 \label{fig:XmippPickingParticles}
 \end{figure}
 
-In order to select particles:
+
 
 \begin{itemize}
 \item Use \keys{\shift + mouse wheel} in the overview window to zoom
@@ -393,14 +373,11 @@ In order to select particles:
 \item Use \keys{\shift + left mouse} over a selected particle in order
   to remove it.
 \item You can apply filters to the micrographs, so that you may see
-  the particles better. Filters are added into a queue, so whenever
-  you change the visualized area, they are applied again. Select the
-  menu \menu{Filters} in the overview window and add as many filters
+  the particles better. Select in the
+  menu \menu{Filters} as many filters
   as you like.
-\item You can clean the filter queue, if you want to return to the
-  original image.
-\item You can create the set of coordinates or just save the picked
-  particles to continue picking later.
+
+
 \end{itemize}
 
 \end{description}
