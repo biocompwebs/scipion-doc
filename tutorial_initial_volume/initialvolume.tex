@@ -212,17 +212,17 @@ estimate the tilt angle.
 \label{RCTprojection}
 \end{figure}
 
-\subsection{Import Tilted Pairs Micrographs}
+\subsection{Import Tilted Pairs of Micrographs}
 
 Go to the \keys{View} selection menu on the top left panel and select
 \textbf{Random Conical Tilt}.
 
-The first step is to import the tilted pairs micrographs to your
-scipion project. To do this, select the \menu{Import micrographs
-  pairs} protocol. In \textit{Pattern untilted} and \textit{Pattern
-  tilted} you must indicate where your untilted and tilted micrograph
-files are stored (click on the \keys{browse} button, the one that
-looks like a folder).
+The first step is to import the tilted pairs of micrographs to your
+scipion project. To do this, select the \menu{Import micrograph pairs}
+protocol. In \textit{Pattern untilted} and \textit{Pattern tilted} you
+must indicate where your untilted and tilted micrograph files are
+stored (to do so you can click on the \keys{browse} button next to the
+text entries, the one that looks like a folder).
 
 The complete patterns are:
 
@@ -238,39 +238,37 @@ Modify the parameters of the Import Micrographs protocol according to
 the ones shown in figure \ref{ImportMics}. When you have completed the
 form, click on the \keys{Execute} button.
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]
 {{images/02.ImportMics}.png}
-\caption{Import Micrographs protocol GUI.}
+\caption{Dialog of the Import Micrographs protocol.}
 \label{ImportMics}
 \end{figure}
 
-Once the protocol has finished you can press on the \keys{Analyze Results} button and a new window will open
-where you can see the imported micrograph pairs, as shown in figure \ref{ImportResults}.
+Once the protocol has finished you can press on the \keys{Analyze
+  Results} button and a new window will open where you can see the
+imported micrograph pairs, as shown in figure \ref{ImportResults}.
 
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]
 {{images/03.ImportResults}.png}
-\caption{Import Micrographs results.}
+\caption{Visualizing the Import Micrographs results.}
 \label{ImportResults}
 \end{figure}
 
 \subsection{Particle Picking}
 
-After micrographs have been imported you need to pick tilted and untilted particle pairs.
-Go to the \menu{Picking micrographs pairs} protocol  and a form as shown in figure~\ref{PickingProtocol1} will appear. Select the Micrographs Tilt Pair object produced by the import protocol as input (see figure~\ref{PickingProtocol2}) and click on the \keys{Execute} button. The Xmipp particle picking GUI will open.
+After we import the micrographs you need to pick tilted and untilted particle pairs.
 
-If you find some particles difficult to see due to noise and contrast of the images, you can use the 
-different filters offered by the Xmipp particle picking GUI on the \textbf{Filters} menu.
-For instance you might select the \menu{Filters > Brightness/Contrast} filter and press the \keys{Auto} button that will 
-set the brightness and contrast to the optimal values for the selected micrograh. Then change to other micrographs 
-and do the same. The resulting interface will be much easier to start picking.
+Go to the \menu{Picking micrograph pairs} protocol and double-click on
+it. A form as the one shown in figure~\ref{PickingProtocol1} will
+appear. Select the Micrographs Tilt Pair object produced by the import
+protocol as input (see figure~\ref{PickingProtocol2}) and click on the
+\keys{Execute} button. This will open the Xmipp particle picking GUI.
 
-\newpage
-
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{{images/04.PickingProtocol1}.png}
 \caption{Picking pairs protocol}
@@ -280,45 +278,69 @@ and do the same. The resulting interface will be much easier to start picking.
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{{images/04.PickingProtocol2}.png}
-\caption{Picking pairs protocol selection object}
+\caption{Selection of the imported micrographs in the Picking pairs protocol.}
 \label{PickingProtocol2}
 \end{figure}
 
-The procedure to do the picking is:
+If you find the particles difficult to see due to noise and the
+contrast of the images, you can use the different filters on the
+\menu{Filters} menu, on the top of the Xmipp Til Pair Picker dialog.
+For instance you might select the \menu{Filters > Brightness/Contrast}
+filter and press the \keys{Auto} button that will set the brightness
+and contrast to the optimal values for the selected micrograph. Then
+change to other micrograph and do the same. The resulting images will
+be much easier to use for picking.
 
-1.  Find the first particle in both untilted and tilted. First pick the untilted and then its tilted
-pair.
+We will explain shortly how to use a shortcut to avoid the
+time-consuming picking of the particles in this tutorial, but if you
+want to do the actual picking, these are the steps:
 
-2.  Pick three more particles like the first one, having special care in correcting
-the tilted one, so the tilt estimation can be properly set. During the first particles picking,
-the manual error correction will help the algorithm to learn and propose a better tilt adjust-
-ment. For detecting the error, it is better to zoom in the micrograph. Note that zooming in
-or out in the untilted micrograph will replicate in the tilted one, but not in the other side.
-To zoom in, press \keys{shift} and scroll up, to zoom out, press \keys{shift} and scroll down.
+\begin{enumerate}
 
-3.  Finally continue picking just the untilted (tilted will automatically be picked) but keeping
-an eye on the tilted, in order to prevent from deviations due to accumulated error. The amount 
-of particles to pick for a good reconstruction varies depending on the tilt angle,
-the quality of the micrographs and many other factors, but a good approach to start could
-be 2000 particles.
+\item Find the first particle in both the untilted and tilted
+  micrographs. This can be tricky, try to find a common reference in
+  the micrographs. Then pick first the untilted and then its tilted
+  pair. Note that zooming in or out can help. To zoom in, press
+  \keys{shift} and scroll up, to zoom out, press \keys{shift} and
+  scroll down.
 
-However if you don't feel like picking manually thousands of particles you can import the already picked 
-particles by clicking on \menu{File > Import coordinates} as shown on figure~\ref{PickingGUI} 
+\item Pick three more particles like the first one. From this point,
+  the program will propose the tilted pair position for each new
+  selected particle. You can correct the guessed position of the
+  tilted one, and it is important to do it, so the tilt estimation can
+  be properly set. During the picking of the first particles the
+  manual error correction will help the algorithm to learn and propose
+  a better tilt adjustment. For correcting the errors, it is normally
+  better to zoom in the micrograph.
+
+\item Finally continue picking just the untilted (tilted will
+  automatically be picked) but keeping an eye on the tilted, in order
+  to prevent deviations due to accumulated errors. The amount of
+  particles to pick for a good reconstruction varies depending on the
+  tilt angle, the quality of the micrographs and many other factors,
+  but a good starting point could be 2000 particles.
+
+\end{enumerate}
+
+However if you don't feel like picking manually thousands of particles
+you can import the already picked particles by clicking on \menu{File
+  > Import coordinates} as shown on figure~\ref{PickingGUI}, and
 specifying the following path:
 
 \begin{verbatim}
 $SCIPION_HOME/data/tests/rct/positions
 \end{verbatim}
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{{images/05.PickingGUI}.png}
 \caption{Xmipp particle picking pairs GUI}
 \label{PickingGUI}
 \end{figure}
 
-Take into account that the protocol status will not changed to \textbf{Finished} but will remain as \textbf{Interactive}.
-This allows you to execute it again if you wish to pick more particles.
+Notice that after running the protocol, its status will not change to
+\textbf{Finished} but will remain as \textbf{Interactive}.  This
+allows you to execute it again if you wish to pick more particles.
 
 \subsection{Extract Particle Pairs}
 
