@@ -128,7 +128,7 @@ approximate low resolution initial model, to be refined in further
 steps.
 
 In this tutorial we present different methods to obtain this initial
-model using \scipion: Xmipp Random Conical Tilt, Xmipp 3D-RANSAC, Eman
+model using \scipion: Xmipp Random Conical Tilt, Xmipp 3D-RANSAC, EMAN
 Initial Model and Xmipp Reconstruct Significant.
 
 \section{Software Installation}
@@ -495,15 +495,15 @@ figure~\ref{RCTresults} will show up.
 
 \newpage
 
-\section{Xmipp Ransac}
+\section{Xmipp RANSAC}
 
-We will see now how to use the Xmipp Ransac approach, which can obtain
+We will see now how to use the Xmipp RANSAC approach, which can obtain
 a reliable low-resolution initial volume from sets of macromolecular
-projection images without a priori information (Vargas et al. (2014)).
+projection images without a priori information \citep{Vargas15102014}.
 
 % TODO: put the proper reference to Vargas et al 2014
 
-\subsection{Initial Volume Generation with Ransac}
+\subsection{Initial Volume Generation with RANSAC}
 
 Change to the \textbf{Protocols SPA} view if you are not already there
 and select the \menu{3D > Initial volume > xmipp3 - ransac} protocol.
@@ -516,7 +516,7 @@ figure~\ref{RansacProtocol} and explained below.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{{images/15.RansacProtocol}.png}
-\caption{Xmipp Ransac protocol.}
+\caption{Xmipp RANSAC protocol.}
 \label{RansacProtocol}
 \end{figure}
 
@@ -549,18 +549,18 @@ finished. Then the output volumes can be visualized by clicking on
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{{images/16.RansacResults}.png}
-\caption{Xmipp Ransac output volumes.}
+\caption{Xmipp RANSAC output volumes.}
 \label{RansacResults}
 \end{figure}
 
 \newpage
 
-\section{Eman Initial Model}
+\section{EMAN Initial Model}
 
 In this section we show how to obtain an initial model in Scipion
-using Eman initial model.
+using EMAN initial model.
 
-\subsection{Initial Volume Generation with Eman}
+\subsection{Initial Volume Generation with EMAN}
 
 Change to the \textbf{Protocols SPA} view if you are not already there
 and select the \menu{3D > Initial volume > eman2 - initial model}
@@ -572,7 +572,7 @@ shown in figure~\ref{EmanProtocol}.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{{images/17.EmanProtocol}.png}
-\caption{Eman protocol.}
+\caption{EMAN Initial Model protocol.}
 \label{EmanProtocol}
 \end{figure}
 
@@ -583,7 +583,7 @@ volume to get a window as the one in figure~\ref{EmanResults}.
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{{images/18.EmanResults}.png}
-\caption{Eman generated output volumes.}
+\caption{EMAN generated output volumes.}
 \label{EmanResults}
 \end{figure}
 
@@ -606,22 +606,10 @@ structure.
 
 \subsection{Initial Volume Generation with Reconstruct Significant}
 
-Change to the \textbf{Protocols SPA} view if you are not already
-there, go to \menu{3D > Initial Volume > xmipp - reconstruct significant}
-protocol. Also, fill in the form parameters as shown
-in the Figure~\ref{SignificantProtocol1} and Figure~\ref{SignificantProtocol2}.
-
-Note that the number of volumes in Significant has not the same meaning as for Eman and RANSAC. In EMAN and RANSAC the number of volumes represents the number of random instances of possible initial volumes. That is, if you have 100 input images, these 100 images will be used to construct 10 possible initial volumes (in each one of them the 100 images are allowed to contribute). In significant, the number of volumes represent the number of different conformational states of the structure. That is, the 100 images are classified into 10 different structures (not 10 different instances). If you have a single conformation, the number of volumes should be 1.
-
-Significant progressively increases the significance of the images assigned to a volume from a minimum value (typically between 80\% and 85\%) to a maximum value (around 99.5\%) in a number of iterations. For determining the significance of an image, it is compared to its neighbourhood (which should be at least twice the angular step chosen for generating the projection library).
-
-IMED is an alternative to correlation which can discriminate better among very similar images. If you use IMED, both IMED and correlation are used to determine each image weight.
-
-Strict direction is an option that can be used when many outliers are present in the input dataset (that is, many of the classes do not correspond to the initial volume to be reconstructed).
-
-Fisher's criterion is a way of preselecting which images are significant for the current volume.
-
-Once the protocol has finished go and view the generate output volume by clicking on \keys{Analyze results}, as you can see in figure~\ref{SignificantResults}.
+Change to the \textbf{Protocols SPA} view if you are not already there
+and select the \menu{3D > Initial volume > xmipp3 - reconstruct
+  significant} protocol. Fill in the form parameters as shown in
+figure~\ref{SignificantProtocol1} and \ref{SignificantProtocol2}.
 
 \begin{figure}[H]
 \centering
@@ -637,12 +625,47 @@ Once the protocol has finished go and view the generate output volume by clickin
 \label{SignificantProtocol2}
 \end{figure}
 
+Note that the \textit{number of volumes} in Significant has not the same
+meaning as for EMAN and RANSAC. In EMAN and RANSAC the number of
+volumes represents the number of random instances of possible initial
+volumes. That is, if you have 100 input images, these 100 images will
+be used to construct 10 possible initial volumes (in each one of them
+the 100 images are allowed to contribute). In Significant, the number
+of volumes represent the number of different conformational states of
+the structure. That is, the 100 images are classified into 10
+different structures (not 10 different instances). If you have a
+single conformation, the number of volumes should be 1.
+
+Significant progressively increases the significance of the images
+assigned to a volume from a minimum value (typically between 80\% and
+85\%) to a maximum value (around 99.5\%) in a number of
+iterations. For determining the significance of an image, it is
+compared to its neighbourhood (which should be at least twice the
+angular step chosen for generating the projection library).
+
+IMED is an alternative to correlation which can discriminate better
+among very similar images. If you use IMED, both IMED and correlation
+are used to determine each image weight.
+
+Strict direction is an option that can be used when many outliers are
+present in the input dataset (that is, many of the classes do not
+correspond to the initial volume to be reconstructed).
+
+Fisher's criterion is a way of preselecting which images are
+significant for the current volume.
+
+Once the protocol has finished you can go and view the generated
+output volume by clicking on \keys{Analyze results}, as you can see in
+figure~\ref{SignificantResults}.
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{{images/20.SignificantResults}.png}
 \caption{Xmipp Reconstruct Significant results.}
 \label{SignificantResults}
 \end{figure}
+
+\newpage
 
 \bibliographystyle{apalike}
 \bibliography{../tutorial_common/em.bib}
