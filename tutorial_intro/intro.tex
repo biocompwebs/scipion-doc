@@ -484,45 +484,60 @@ $SCIPION_HOME/data/tests/xmipp_tutorial/micrographs/
 \noindent volume \comm{BPV\_scale\_filtered\_windowed\_110.vol} with \textit{sampling rate} 6.185.
 
 In order to run projection matching protocol click on
-\menu{refine > projection matching} and choose expert mode.
+\menu{3D > Refine > xmipp3 -projection matching} and choose expert mode.
 Input parameters are displayed in Figures \ref{fig:ProjMatchA}, \ref{fig:ProjMatchB},
-\ref{fig:ProjMatchC} and \ref{fig:ProjMatchD} . We explain here only... 
-For more detail please use parameters \textbf{help} button.
-For this tutorial we need to edit:
+\ref{fig:ProjMatchC} and \ref{fig:ProjMatchD} . Here we explain only the ones we need to update. 
+For more detail on each parameter please use the \textbf{help} button.
 
- \begin{figure}
+
+
+ \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\textwidth]{{images/09.ProjMatchA}.png}
   \caption{Projection Matching: Input}
   \label{fig:ProjMatchA}
  \end{figure}
 
- \begin{figure}
+ \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\textwidth]{{images/09.ProjMatchB}.png}
   \caption{Projection Matching: CTF Correction \& Mask}
   \label{fig:ProjMatchB}
  \end{figure}
 
-  \begin{figure}
+  \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\textwidth]{{images/09.ProjMatchC}.png}
   \caption{Projection Matching: Projection Matching}
   \label{fig:ProjMatchC}
  \end{figure}
 
-  \begin{figure}
+  \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\textwidth]{{images/09.ProjMatchD}.png}
   \caption{Projection Matching: 3D Reconstruction}
   \label{fig:ProjMatchD}
  \end{figure}
+ 
+For this reconstruction we need to specify:
+\begin{itemize}
+\item \texit{Input particles}
+\item \texit{Initial 3D reference volumes}
+\item \texit{Resolution limit for grouping(A):} 10.  Maximum resolution to consider CTF differences among different groups. 
+\item \texit{Mask reference volumes:} Circular. Masking the reference volume will increase the signal to noise ratio. 
+\item \texit{Radius of spherical mask(px):} 55. 
+\item \texit{Inner radius for rotational correlation:} 28.
+\item \texit{Outer radius for rotational correlation:} 55.
+\item \texit{Point group symmetry:} i1.
+\item \texit{Constant to be added to the estimated resolution:} -0.05. 
+
+\end{itemize}
 
 Finally, in order to visualize the obtained results click on
 \textbf{Analyze Results} button. You will see a GUI as the one shown in
 figure (\ref{fig:ProjMatchViewer}).
 
- \begin{figure}
+ \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\textwidth]{{images/11.ProjMatchViewer}.png}
   \caption{Projection matching viewer}
