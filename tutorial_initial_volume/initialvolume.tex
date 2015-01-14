@@ -117,9 +117,7 @@ future editions by writing to
 \newpage % Begins the essay on a new page instead of on the same page as the table of contents 
 
 
-\section{General Introduction}
-
-\subsection{Initial Volume Estimation}
+\section{Introduction: Initial Volume Estimation}
 
 Single Particle Analysis (SPA) techniques are used to obtain 3D maps
 of biological complexes at near-atomic resolution. They do so by
@@ -130,8 +128,8 @@ approximate low resolution initial model, to be refined in further
 steps.
 
 In this tutorial we present different methods to obtain this initial
-model using Scipion: Xmipp Random Conical Tilt, Xmipp 3D-RANSAC and
-Eman Initial Model.
+model using \scipion: Xmipp Random Conical Tilt, Xmipp 3D-RANSAC, Eman
+Initial Model and Xmipp Reconstruct Significant.
 
 \section{Software Installation}
 
@@ -183,12 +181,15 @@ To download the data you will work with, use the following command:
 scipion testdata --download rct
 \end{command}
 
-It will be downloaded in \verb+$SCIPION_HOME/data/tests/rct+.
+This will download it into the \verb+$SCIPION_HOME/data/tests/rct+
+directory. Afterwards, you can launch the main GUI by typing:
+\verb+scipion+.
 
-Afterwards, you can launch the main GUI by typing:
-\verb+scipion+. Create a new project by clicking on the \keys{Create
-  Project} button, type a \textit{project name} and click on
-\keys{OK}. This will create a new project window.
+Create a new project by clicking on the \keys{Create Project} button,
+type a \textit{project name} and click on \keys{OK}. This will create
+a project and show its window.
+
+\newpage
 
 \section{Xmipp Random Conical Tilt}
 
@@ -199,20 +200,22 @@ along a sample, so when we take a low-power image, we are getting
 multiple views of the same particle. The specimen stage of the
 microscope is then tilted and a new low-power image is taken.
 
-The less power is used, the less exposure of the sample. Having a low
-exposure is a cryoEM constraint on biological objects. As a result, we
-get images with low signal-to-noise ratio (SNR). With these two
-images, every processing program will need to relate each particle to
-its tilted version in order to get different views of the specimen and
-estimate the tilt angle.
+% TODO: maybe reference the next figure somewhere:
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]
 {{images/01.RCTprojection}.png}
 \caption{How the projections vary with the tilt.}
 \label{RCTprojection}
 \end{figure}
+
+The less power is used, the less exposure of the sample. Having a low
+exposure is a cryoEM constraint on biological objects. As a result we
+get images with low signal-to-noise ratio (SNR). With the two images,
+the untilted and the tilted one, every processing program will need to
+relate each particle in the untilted image to its tilted version,
+getting different views of the specimen.
 
 \subsection{Importing Tilted Pairs of Micrographs}
 
@@ -436,7 +439,7 @@ the particle). To discard a class, right-click on it and select
 
 Finally we will create a subset of classes to be used as input for the
 next step, by clicking on the \keys{Classes} button, as shown in
-figure~\ref{CL2Dresults}
+figure~\ref{CL2Dresults}.
 
 \begin{figure}[H]
 \centering
@@ -489,6 +492,8 @@ figure~\ref{RCTresults} will show up.
 \caption{Xmipp's Random Conical Tilt: Filtered volume.}
 \label{RCTresults}
 \end{figure}
+
+\newpage
 
 \section{Xmipp Ransac}
 
@@ -548,6 +553,8 @@ finished. Then the output volumes can be visualized by clicking on
 \label{RansacResults}
 \end{figure}
 
+\newpage
+
 \section{Eman Initial Model}
 
 In this section we show how to obtain an initial model in Scipion
@@ -580,14 +587,24 @@ volume to get a window as the one in figure~\ref{EmanResults}.
 \label{EmanResults}
 \end{figure}
 
+\newpage
+
 \section{Xmipp Reconstruct Significant}
 
 In this section we show how to obtain an initial model in Scipion
 using Xmipp Reconstruct Significant.
 
-This algorithm sets the initial volume problem in a Weighted Least Squares framework and calculates the weights through a statistical approach based on the cumulative density function of different image similarity measures. The algorithm is not particularly fast since slow convergence is promoted as a way to avoid local minima. However, the reconstructed volume normally corresponds to a correct estimate of the underlying structure.
+This algorithm sets the initial volume problem in a \textit{weighted
+  least squares} framework. The weights are calculated by a
+statistical approach based on the cumulative density function of image
+similarities.
 
-\subsection{Initial Volume Generation with Xmipp Reconstruct Significant}
+The algorithm is not particularly fast since slow convergence is
+promoted as a way to avoid local minima. However, the reconstructed
+volume normally corresponds to a correct estimate of the underlying
+structure.
+
+\subsection{Initial Volume Generation with Reconstruct Significant}
 
 Change to the \textbf{Protocols SPA} view if you are not already
 there, go to \menu{3D > Initial Volume > xmipp - reconstruct significant}
