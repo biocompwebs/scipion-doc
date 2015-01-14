@@ -133,14 +133,7 @@ git clone http://git.code.sf.net/p/newxmipp/code xmipp
 \end{command}
 
 \noindent
-then change to the \directory{xmipp} directory, and move to branch
-\verb+xmipp_scipion+ with
-
-\begin{command}
-git checkout xmipp\_scipion
-\end{command}
-
-Finally, run the installation with
+then change to the \directory{xmipp} directory and run the installation with
 
 \begin{command}
 ./install.sh
@@ -184,117 +177,105 @@ To download the data required for this tutorial use the following command:
 scipion testdata --download xmipp\_tutorial
 \end{command}
 
+\noindent
 It will be downloaded to \$\directory{SCIPION\_HOME/data/tests}. 
 
-To start image processing in Scipion we need to run \scipion from the command line.
+To start image processing in \scipion we need to run \comm{scipion} from the command line.
 For this tutorial we register a new project by clicking the \keys{Create Project}
-button and specifying project name. Then we navigate to project window.  
-Left panel displays possible workflows, such as Single Particle Analysis (SPA) or Random Conical Tilt (RCT), 
+button and specifying project name. Then we navigate to project window (Figure \ref{fig:Project}).  
+Left panel displays active workflow (Protocols SPA) 
 and its different reconstruction tasks listing protocols available.
+Top right panel displays the sequence of protocols executed by the user and its state: running, finished, aborted. Users can visualize it using list or tree views.
+Finally bottom right panel displays information for the selected run, such as inputs and outputs, execution logs or documentation - also provides "Analyze Results" button to visualize outputs.
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.7\textwidth]
 {{images/00.Project}.png}
-\caption{Import Micrographs protocol dialog.}
-\label{fig:ImportMics}
+\caption{Project window}
+\label{fig:Project}
 \end{figure}
 
 
 \subsection{Preprocessing}
 
-\subsubsection{Importing Micrographs}
+\subsubsection{Import Micrographs}
 
 The first step is to import the micrographs to your scipion
 project. To do this, double-click the \keys{Import Micrographs}
-button. In \textit{Pattern} indicate where your micrograph files are
-stored (for example by clicking on the browse button, the one
-that looks like a folder). The complete pattern
-is:\\
+button. Micrographs are available at:
+
 \verb+$SCIPION_HOME/data/tests/xmipp_tutorial/micrographs/*.mrc+
 
-Modify the parameters of the Import Micrographs protocol according to
-the ones shown in figure (\ref{fig:ImportMics}).  Then click on the
-\keys{Save} and \keys{Execute} buttons. After executing the
-protocol, the project window will present the new information as shown in
-figure (\ref{fig:ProjectGUI}).
+\noindent Acquisition info is displayed  in Figure \ref{fig:ImportMics}.  
+Modify input and click on execute to run protocol. The project window will present the new information as shown in
+Figure \ref{fig:ProjectGUI}. If we press the \keys{Analyze Results} button imported micrographs will be loaded.
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.7\textwidth]
 {{images/01.Import_Mics}.png}
-\caption{Import Micrographs protocol dialog.}
+\caption{Import Micrographs Protocol.}
 \label{fig:ImportMics}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.9\textwidth]{{images/02.Project_GUI}.png}
-\caption{Scipion project GUI after processing Import Micrograph protocol.}
+\caption{Project window after processing Import Micrographs protocol.}
 \label{fig:ProjectGUI}
 \end{figure}
 
-If we press the \keys{Analyze Results} button a new dialog will
-appear that shows the different imported micrographs (not shown).
 
-\subsubsection{Downsampling Micrographs}
 
-After importing the micrographs to your \scipion project, you can
+\subsubsection{Downsample Micrographs}
+
+After importing the micrographs we can
 perform the next step: \textbf{Preprocess Micrographs}. This protocol
-combines multiple Xmipp programs in order to perform several operations
-over the micrographs. Double-click on the protocol name and fill the
-dialog with the options shown in figure (\ref{fig:Preprocess}). To
-fill the \textit{Input micrographs} field, simply click on the
+combines multiple Xmipp programs in order to perform different operations
+over the micrographs (Figure \ref{fig:Preprocess}). We want to downsample micrographs with
+a downsample factor of 5. To fill the \textit{Input micrographs} field, simply click on the
 magnifying glass button and select the output from the previous step.
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{{images/03.Downsampling_Mics}.png}
-\caption{Preprocess Micrographs dialog.}
+\caption{Preprocess Micrographs Protocol.}
 \label{fig:Preprocess}
 \end{figure}
 
 \subsubsection{CTF Estimation}
 
 The next step is to estimate the CTFs (Contrast Transfer Functions) of
-the micrographs. There are currently two protocols in \scipion to
-estimate the CTF: \textit{CTFFind} \citep{Mindell2003} and
-\textit{Xmipp CTF estimation}. You don't need to do any extra work to use
-both programs, like changing the extension of the micrographs, because
-in \scipion the inputs and outputs that belong to the same type of
-protocol are standarized.
-
-These protocols estimate the PSD (Power Spectral Density) of the
+the micrographs either using \textit{CTFFind} \citep{Mindell2003} or
+\textit{Xmipp CTF estimation}. These protocols estimate the PSD (Power Spectral Density) of the
 micrographs to then estimate the parameters of the CTF (defocus U,
 defocus V, defocus angle, etc).  They cut the micrographs into plenty
-of images with the desired size. After that, they compute the Fourier
+of images with the desired window size. After that, they compute the Fourier
 Transform of each image and make an average.
 
-\begin{description}
 
-\item[CTFFind] \hfill \\
-To estimate the CTF with CTFFind, you will need some parameters
+
+
+To estimate the CTF you will need some parameters
 describing the frequency region to be analyzed. The parameters shown
-in figure (\ref{fig:CTFFind}) are the proper ones for this example.
+in Figure \ref{fig:CTFFind} are the proper ones for this example.
 The limiting frequencies must be such that all zeros of the PSD are
-contained within those frequencies. There is a wizard, shown in figure
-(\ref{fig:CTFwizard}), that helps in choosing those frequencies. To
-see the full available options, choose the \verb+Rxpert Level+ in the
+contained within those frequencies. There is a wizard, shown in Figure
+\ref{fig:CTFwizard}, that helps in choosing those frequencies. To
+see the full available options, choose the \verb+Expert Level+ in the
 dropdown menu.  Please note that the range of defocus search is
 usually larger than the one used in this example, and it must be
 chosen according to your data set.
 
-\item[Xmipp CTF estimation] \hfill \\
-If you prefer, you can estimate the CTF with the
-Xmipp CTF estimation. The parameters used in this protocol are the same as
-the ones in the CTFFind protocol, explained above.
 
-\end{description}
+
+
 
 \begin{figure}
 \minipage{0.47\textwidth}
   \includegraphics[width=\linewidth]{{images/04.CTFFind}.png}
-  \caption{CTFFind protocol dialog.}
+  \caption{CTFFind protocol.}
   \label{fig:CTFFind}
 \endminipage\hfill
 \minipage{0.51\textwidth}
@@ -305,11 +286,11 @@ the ones in the CTFFind protocol, explained above.
 \end{figure}
 
 The CTFs of good micrographs typically have multiple concentric rings, shown
-in figure (\ref{fig:CTFs}) left, extending from the image center towards its edges.
+in Figure \ref{fig:CTFs} left, extending from the image center towards its edges.
 Bad micrographs may lack rings or have very few rings that hardly extend from
 the image center. A reason to discard micrographs may be the presence of
-strongly asymmetric rings (astigmatism, figure (\ref{fig:CTFs}) center) or rings
-that fade in a particular direction (drift, figure (\ref{fig:CTFs}) right).
+strongly asymmetric rings (astigmatism, Figure \ref{fig:CTFs} center) or rings
+that fade in a particular direction (drift, Figure \ref{fig:CTFs} right).
 
 \begin{figure}
 \centering
@@ -319,8 +300,8 @@ that fade in a particular direction (drift, figure (\ref{fig:CTFs}) right).
 \end{figure}
 
 When the protocol (either CTFFind or Xmipp CTF estimation) is finished
-you may click on the \keys{Analyze Results} button (figure
-(\ref{fig:CTFResult})). To discard micrographs with bad CTFs you may
+you may click on the \keys{Analyze Results} button (Figure
+\ref{fig:CTFResult}). To discard micrographs with bad CTFs you may
 click with the mouse right button and press \textbf{Disable}. Once you
 finish the selection, press on the \keys{Micrographs} button to
 create your subset of micrographs with only the enabled ones.
@@ -330,7 +311,7 @@ if they can be seen by eye. If this is the case, you may help the
 algorithm to find the rings by clicking on the image with the mouse
 right-button and choosing \textbf{Recalculate CTF} on the menu that
 appears. A graphical interface will help you to correctly identify the
-CTF. You must provide the first CTF zero and the limits, and then
+CTF. You must provide the first CTF zero and the search range, and then
 press \verb+OK+. When you finish, press the \keys{Recalculate CTFs}
 button.
 
@@ -344,36 +325,23 @@ CTFs of all the micrographs, and different related parameters.}
 
 \subsubsection{Particle Picking}
 
-Now you are ready to pick the particles. You can pick the particles in
-the micrographs with either \textit{Xmipp manual picking},
-\textit{Eman boxer} or the \textit{bshow} protocol. These protocols
-are in interactive mode, i.e.~you can create different sets of
-coordinates within the same protocol.
+Now you are ready to pick particles from micrographs. You can pick particles with either \textit{Xmipp supervised picking},
+\textit{Eman boxer} or \textit{Bsoft particle picking} . We illustrate here
+particle picking with Eman and Xmipp using as particle size 110.
 
 \begin{description}
 
 \item[EMAN boxer] \hfill \\
-Double-clicking on eman2 boxer will launch the window shown in figure
-(\ref{fig:EmanProtocol}). Set the paramaters as they appear in the figure.
 
-\begin{figure}
-\centering
-\includegraphics[width=0.75\textwidth]{{images/18.EmanPP}.png}
-\caption{EMAN boxer protocol dialog.}
-\label{fig:EmanProtocol}
-\end{figure}
-
-Once you press the \keys{Execute} button, several windows will open
-(figure (\ref{fig:EmanPP})). This protocol has several modes of
-selection, please refer to its
+Eman boxer has manual picking and several modes of
+automatic picking, with fast outcome. Please refer to its
 \href{http://blake.bcm.edu/emanwiki/EMAN2}{webpage} for futher
-information. When you are done picking particles press \keys{Done}
-and you will be asked if you want to create the output.  If you choose
-\keys{No}, you can continue picking and the selected particles will
-be added to the same Set, until you repeat the operation and say
-\keys{Yes}.
+information. When you are done picking particles you are asked if you want to register output.  If you choose
+\keys{Yes}, output coordinates are generated.
 
-\begin{figure}
+
+
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{{images/05.EmanPicking}.png}
 \caption{EMAN boxer, an interface for particle picking.}
@@ -381,27 +349,20 @@ be added to the same Set, until you repeat the operation and say
 \end{figure}
 
 \item[Xmipp particle picking] \hfill \\
-You could instead double-click on the \textit{Xmipp supervised
-  picking} protocol. It will launch a dialog as in figure
-(\ref{fig:xmipp_manual_picking}). After selecting the set of
-micrographs to use and clicking \keys{Execute}, it will launch the
-window shown in figure (\ref{fig:XmippPickingParticles}).
 
-\begin{figure}
-\centering
-\includegraphics[width=0.75\textwidth]{{images/12-xmipp_manual_picking_protocol}.png}
-\caption{Xmipp supervised picking dialog.}
-\label{fig:xmipp_manual_picking}
-\end{figure}
 
-\begin{figure}
+Xmipp supervised picking has manual and automatic picking. Automatic picking is activated using autopick.
+Particles added or removed manually after autopick are used to train classifier. 
+When you are done picking particles you can click on \keys{Add Coordinates} to register output.
+
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.75\textwidth]{{images/15.PartPickingXmipp}.png}
+\includegraphics[width=0.75\textwidth]{{images/05.XmippPicking}.png}
 \caption{Xmipp supervised picking, a different interface for particle picking.}
 \label{fig:XmippPickingParticles}
 \end{figure}
 
-In order to select particles:
+
 
 \begin{itemize}
 \item Use \keys{\shift + mouse wheel} in the overview window to zoom
@@ -412,14 +373,11 @@ In order to select particles:
 \item Use \keys{\shift + left mouse} over a selected particle in order
   to remove it.
 \item You can apply filters to the micrographs, so that you may see
-  the particles better. Filters are added into a queue, so whenever
-  you change the visualized area, they are applied again. Select the
-  menu \menu{Filters} in the overview window and add as many filters
+  the particles better. Select in the
+  menu \menu{Filters} as many filters
   as you like.
-\item You can clean the filter queue, if you want to return to the
-  original image.
-\item You can create the set of coordinates or just save the picked
-  particles to continue picking later.
+
+
 \end{itemize}
 
 \end{description}
@@ -430,20 +388,20 @@ Click on \menu{Particles > Extract > xmipp3 - extract particles}.
 This will launch the dialog of our next protocol that will allow you
 to extract, normalize and correct the CTF phase of your picked
 particles, among other things. Modify the default parameters according
-to the ones shown in figure (\ref{fig:XmippPP}) and
-(\ref{fig:ExtractParams}). They will contain:
+to the ones shown in Figures \ref{fig:XmippPP}, 
+\ref{fig:ExtractParams}. They will contain:
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.75\textwidth]{{images/06.Extract_Particles}.png}
-  \caption{Extract particles protocol dialog (tab \texttt{Input})}
+  \includegraphics[width=0.75\textwidth]{{images/06.Extract_Particles2}.png}
+  \caption{Extract particles protocol (tab \texttt{Input})}
   \label{fig:XmippPP}
 \end{figure}
 
 \begin{figure}
   \centering
   \includegraphics[width=0.75\textwidth]{{images/06.Extract_ParticlesB}.png}
-  \caption{Extract particles protocol dialog (tab \texttt{Preprocess})}
+  \caption{Extract particles protocol (tab \texttt{Preprocess})}
   \label{fig:ExtractParams}
 \end{figure}
 
@@ -466,7 +424,7 @@ to the ones shown in figure (\ref{fig:XmippPP}) and
 
 % TODO: see the definition of zscore and explain this a bit more.
 
-The protocol also sorts the particles based on general statistics
+The protocol also can sort the particles based on general statistics
 assigning to each particle a z-score value. Particles with low z-score
 are reliable and the ones with large z-score are outliers. Press the
 \keys{Analyze Results} button in the main window to check the
@@ -474,11 +432,10 @@ extracted and normalized images.
 
 \subsubsection{Particles Selection}
 
-By default, the visualization of the particles are sorted by
-z-score. If you want to remove some particles because they are
-outliers and are not good particle images, press the mouse right
-button on them and select \textbf{Disable}. When you are done press
-the \keys{Particles} button to create a new SetOfParticles (figure
+By default, particles displayed are sorted by
+z-score. If you want to remove some particles, eg: because they are outliers, you can use 
+\menu{right click > disable }
+To create a new set of particles you can click on \keys{Add Particles} button 
 (\ref{fig:SubsetSelection})).
 
 \begin{figure}

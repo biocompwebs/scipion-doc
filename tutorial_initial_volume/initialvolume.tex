@@ -93,8 +93,9 @@
 
 \subsection*{Intended audience}
 
-This tutorial provides an introduction to initial volume estimation using Scipion. 
-Very limited knowledge about 3D-EM image processing and Scipion is required, and basic computer skills.
+This tutorial is an introduction to the estimation of an initial
+volume using Scipion.  Only a very limited knowledge about 3D-EM image
+processing and Scipion is required, and basic computer skills.
 
 \subsection*{We'd like to hear from you}
 
@@ -118,47 +119,90 @@ future editions by writing to
 
 \section{General Introduction}
 
-\subsection{Initial Volume estimation}
+\subsection{Initial Volume Estimation}
 
-Single Particle Analysis (SPA) techniques can obtain three-dimensional (3D) maps of biological complexes 
-at near atomic resolution by combining tens of thousands of projection images obtained on a 
-Transmission Electron Microscopy (TEM). In general, the reconstruction process leading to the final 3D map 
-requires the use of an approximate low resolution initial model to be refined in further steps. 
-In this tutorial we present different methods to obtain this initial model using Scipion, 
-which are Xmipp Random Conical Tilt, Xmipp 3D-RANSAC and Eman Initial Model.
+Single Particle Analysis (SPA) techniques are used to obtain 3D maps
+of biological complexes at near-atomic resolution. They do so by
+combining tens of thousands of projection images obtained by
+Transmission Electron Microscopy (TEM). In general, the reconstruction
+process that leads to the final 3D map requires the use of an
+approximate low resolution initial model, to be refined in further
+steps.
 
-\subsection{Download and Install}
+In this tutorial we present different methods to obtain this initial
+model using Scipion: Xmipp Random Conical Tilt, Xmipp 3D-RANSAC and
+Eman Initial Model.
 
-The first step before start working on your projects is to download and
-install Scipion and all the related programs. At \href{http://scipionwiki.cnb.csic.es}{Scipion's website} 
-there is all the information needed to download and install the application.
+\section{Software Installation}
 
-\subsection{Getting started}
+The first step is to download and install \scipion and related
+software packages. We describe briefly the process in the next
+sections. For the full documentation please refer to
+\url{http://scipionwiki.cnb.csic.es/bin/view/TWiki/NewInstallation}.
 
-First start by downloading the data you will work with using the following command:
+\subsection{Xmipp}
 
-\begin{verbatim}
+One of the main components of \scipion is the Xmipp package. To get
+the latest version use:
+
+\begin{command}
+git clone http://git.code.sf.net/p/newxmipp/code xmipp
+\end{command}
+
+\noindent
+then change to the \directory{xmipp} directory and run the installation with
+
+\begin{command}
+./install.sh
+\end{command}
+
+\subsection{Scipion}
+
+To get the latest version of \scipion run
+
+\begin{command}
+git clone http://git.code.sf.net/p/pyworkflow/code scipion
+\end{command}
+
+\noindent
+and then change into the \directory{scipion} directory. Finally run:
+
+\begin{command}
+./scipion install --with-all-packages --with-xmipp=\$XMIPP\_HOME
+\end{command}
+
+\noindent
+where \verb+$XMIPP_HOME+ points to the directory with your local
+installation of Xmipp.
+
+\subsection{Sample Data}
+
+To download the data you will work with, use the following command:
+
+\begin{command}
 scipion testdata --download rct
-\end{verbatim}
+\end{command}
 
-The data will be download in \verb+scipion_folder/data/tests/rct+.
+It will be downloaded in \verb+$SCIPION_HOME/data/tests/rct+.
 
-After download, you must launch the MAIN GUI by typing: \verb+scipion+.
-
-Then, create a new project by clicking on \keys{Create project} button, type a 
-\textit{project name} and click \keys{OK}. The GUI main project window will be launched.
+Afterwards, you can launch the main GUI by typing:
+\verb+scipion+. Create a new project by clicking on the \keys{Create
+  Project} button, type a \textit{project name} and click on
+\keys{OK}. This will create a new project window.
 
 \section{Xmipp Random Conical Tilt}
 
-One of the most widespread Single Particle Analysis (SPA) techniques, inside the Transmission
-Electron Microscopy (TEM) field, is the Random Conical Tilt (RCT) \citep{Radermacher1987a}. 
-In RCT, we assume that we have a randomly distributed particle in all its conformations and positions 
-along a sample, so when we take a low power TEM image, we’re getting multiple views of the same particle. 
-The specimen stage of the microscope is then tilted and a new low power TEM image is taken. 
-The less power, the less exposure of the sample. This is a cryoEM constraint on biological objects. 
-As a result, images with a low signal-to-noise ratio (SNR) are taken. With this 2 images, 
-every processing program will need to relate each particle to its tilted version, 
-in order to get different views of the specimen and estimate the tilt angle.
+One of the most widespread SPA techniques is the Random Conical Tilt (RCT) \citep{Radermacher1987a}.
+In RCT the assumption is that we have a randomly distributed particle in all its conformations and positions
+along a sample, so when we take a low-power image, we are getting multiple views of the same particle.
+The specimen stage of the microscope is then tilted and a new low-power image is taken.
+
+The less power is used, the less exposure of the sample. Having a low
+exposure is a cryoEM constraint on biological objects.  As a result,
+we get images with low signal-to-noise ratio (SNR). With these two
+images, every processing program will need to relate each particle to
+its tilted version in order to get different views of the specimen and
+estimate the tilt angle.
 
 \begin{figure}
 \centering
@@ -168,13 +212,18 @@ in order to get different views of the specimen and estimate the tilt angle.
 \label{RCTprojection}
 \end{figure}
 
-\subsection{Import tilted pairs micrographs}
+\subsection{Importing Tilted Pairs of Micrographs}
 
-Go to the view selection menu on the top left panel and select the \textbf{Random Conical Tilt} view.
+Go to the \keys{View} selection menu on the top left panel and select
+\textbf{Random Conical Tilt}.
 
-The first step is to import the tilted pairs micrographs to your scipion project. To do this,
-select \menu{Import Micrographs pairs} protocol. In \textit{Pattern untilted} and \textit{Pattern tilted}  you must indicate where your untilted 
-and tilted micrograph files are stored (clicking on \keys{browse} button). 
+The first step is to import the tilted pairs of micrographs to your
+scipion project. To do this, select the \menu{Import micrograph pairs}
+protocol. In \textit{Pattern untilted} and \textit{Pattern tilted} we
+have to indicate where the untilted and tilted micrograph files are
+stored (to do so you can click on the \keys{browse} button next to the
+text entries, the one that looks like a folder).
+
 The complete patterns are:
 
 \begin{verbatim}
@@ -182,162 +231,217 @@ $SCIPION_HOME/data/tests/rct/micrographs/F_rct_u_*.tif
 $SCIPION_HOME/data/tests/rct/micrographs/F_rct_t_*.tif
 \end{verbatim}
 
-\newpage
+%In this first version pairs assignment is done by micrograph order but in next versions a wizard
+%will be provided.
 
-In this first version pairs assignment is done by micrograph order but in next versions a wizard 
-will be provided.
+Modify the parameters of the Import Micrographs protocol according to
+the ones shown in figure \ref{ImportMics}. When you have completed the
+form, click on the \keys{Execute} button.
 
-Modify the parameters of the Import Micrographs protocol according to the ones
-shown in figure~\ref{ImportMics}.
-
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]
 {{images/02.ImportMics}.png}
-\caption{Import Micrographs protocol GUI.}
+\caption{Dialog of the Import Micrographs protocol.}
 \label{ImportMics}
 \end{figure}
 
-When you have completed the form, click on the \keys{Execute} button. 
-
-Once the protocol has finished you can press on the \keys{Analyze results} button and a new pop-up GUI will open
-where you can see the imported micrographs pairs as shown in figure ~\ref{ImportResults}.
+Once the protocol has finished you can press on the \keys{Analyze
+  Results} button and a new window will open where you can see the
+imported micrograph pairs, as shown in figure \ref{ImportResults}.
 
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]
 {{images/03.ImportResults}.png}
-\caption{Import Micrographs results.}
+\caption{Visualizing the Import Micrographs results.}
 \label{ImportResults}
 \end{figure}
 
 \subsection{Particle Picking}
 
-After micrographs have been imported you need to pick tilted and untilted particle pairs.
-Go to the \menu{Picking micrographs pairs} protocol  and a form as shown in figure~\ref{PickingProtocol} 
-will appear. Select the Micrographs Tilt Pair object produced by the import protocol as input and 
-click on the \keys{Execute} button. The Xmipp particle picking GUI will open.
+After we import the micrographs we need to pick tilted and untilted particle pairs.
 
-If you find some particles difficult to see due to noise and contrast of the images, you can use the 
-different filters offered by the Xmipp particle picking GUI on the \textbf{Filters} menu.
-For instance you might select the \menu{Filters > Brightness/Contrast} filter and press the \keys{Auto} button that will 
-set the brightness and contrast to the optimal values for the selected micrograh. Then change to other micrographs 
-and do the same. The resulting interface will be much easier to start picking.
+Go to the \menu{Picking micrograph pairs} protocol and double-click on
+it. A form as the one shown in figure~\ref{PickingProtocol1} will
+appear. Select the Micrographs Tilt Pair object produced by the import
+protocol as input (see figure~\ref{PickingProtocol2}) and click on the
+\keys{Execute} button. This will open the Xmipp particle picking GUI.
 
-\newpage
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{{images/04.PickingProtocol1}.png}
+\caption{Picking pairs protocol.}
+\label{PickingProtocol1}
+\end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width=0.75\textwidth]{{images/04.PickingProtocol}.png}
-\caption{Picking pairs protocol}
-\label{PickingProtocol}
+\includegraphics[width=0.75\textwidth]{{images/04.PickingProtocol2}.png}
+\caption{Selection of the imported micrographs in the Picking pairs protocol.}
+\label{PickingProtocol2}
 \end{figure}
 
-The picking procedure is:
+If you find the particles difficult to see due to noise and the
+contrast of the images, you can use the different filters on the
+\menu{Filters} menu, on the top of the Xmipp Til Pair Picker dialog.
+For instance you might select the \menu{Filters > Brightness/Contrast}
+filter and press the \keys{Auto} button that will set the brightness
+and contrast to the optimal values for the selected micrograph. Then
+change to other micrograph and do the same. The resulting images will
+be much easier to use for picking.
 
-1.  Find the first particle in both untilted and tilted. First pick the untilted and then its tilted
-pair.
+We will explain shortly how to use a shortcut to avoid the
+time-consuming picking of the particles in this tutorial, but if you
+want to do the actual picking, these are the steps:
 
-2.  Pick three more particles like the first one, having special care in correcting
-the tilted one, so the tilt estimation can be properly set. During the first particles picking,
-the manual error correction will help the algorithm to learn and propose a better tilt adjust-
-ment. For detecting the error, it is better to zoom in the micrograph. Note that zooming in
-or out in the untilted micrograph will replicate in the tilted one, but not in the other side.
-To zoom in, press \keys{shift} and scroll up, to zoom out, press \keys{shift} and scroll down.
+\begin{enumerate}
 
-3.  Finally continue picking just the untilted (tilted will automatically be picked) but keeping
-an eye on the tilted, in order to prevent from deviations due to accumulated error. The amount 
-of particles to pick for a good reconstruction varies depending on the tilt angle,
-the quality of the micrographs and many other factors, but a good approach to start could
-be 2000 particles.
+\item Find the first particle in both the untilted and tilted
+  micrographs. This can be tricky, try to find a common reference in
+  the micrographs. Then pick first the untilted and then its tilted
+  pair. Note that zooming in or out can help. To zoom in, press
+  \keys{shift} and scroll up, to zoom out, press \keys{shift} and
+  scroll down.
 
-However if you don't feel like picking manually thousands of particles you can import the already picked 
-particles by clicking on \menu{File > Import coordinates} as shown on figure~\ref{PickingGUI} 
+\item Pick three more particles like the first one. From this point,
+  the program will propose the tilted pair position for each new
+  selected particle. You can correct the guessed position of the
+  tilted one, and it is important to do it, so the tilt estimation can
+  be properly set. During the picking of the first particles the
+  manual error correction will help the algorithm to learn and propose
+  a better tilt adjustment. For correcting the errors, it is normally
+  better to zoom in the micrograph.
+
+\item Finally continue picking just the untilted (tilted will
+  automatically be picked) but keeping an eye on the tilted, in order
+  to prevent deviations due to accumulated errors. The amount of
+  particles to pick for a good reconstruction varies depending on the
+  tilt angle, the quality of the micrographs and many other factors,
+  but a good starting point could be 2000 particles.
+
+\end{enumerate}
+
+However if you don't feel like picking manually thousands of particles
+you can import the already picked particles by clicking on \menu{File
+  > Import coordinates} as shown on figure~\ref{PickingGUI}, and
 specifying the following path:
 
 \begin{verbatim}
 $SCIPION_HOME/data/tests/rct/positions
 \end{verbatim}
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{{images/05.PickingGUI}.png}
-\caption{Xmipp particle picking pairs GUI}
+\caption{Xmipp particle picking pairs GUI.}
 \label{PickingGUI}
 \end{figure}
 
-Take into account that the protocol status will not changed to \textbf{Finished} but will remain as \textbf{Interactive}.
-This allows you to execute it again if you wish to pick more particles.
+Notice that after running the protocol, its status will not change to
+\textbf{Finished} but will remain as \textbf{Interactive}.  This
+allows us to execute it again if we wish to pick more particles.
 
-\subsection{Extract particles pairs}
+\subsection{Extraction of Particle Pairs}
 
-Now that coordinates pairs are picked they have to be extracted as particle pairs.
-To do so select the \menu{Extract particles pairs} protocol and fill in the parameters as shown in figure~\ref{ExtractPairs}.
-Although particles were picked with a size of 120 pixels the extract will downsample them by a factor of two to speed up next steps.
+Now that we have picked coordinate pairs, they have to be extracted as
+particle pairs.  To do so select the \menu{Extract particle pairs}
+protocol and fill in the parameters as shown in
+figure~\ref{ExtractPairs}.  Although particles were picked with a size
+of 120 pixels, we will downsample them by a factor of 2 in the
+extraction to speed up the next steps.
 
-Once the protocol has finished you can review the particles by clicking on the \keys{Analyze results} button as seen in figure~\ref{ExtractResults}.
+Once the protocol has finished you can review the particles by
+clicking on the \keys{Analyze Results} button as seen in
+figure~\ref{ExtractResults}.
 %If you don't like some of the particles you can disable them and create a subset with the good ones. Just click on the \textbf{TiltPairs} red button and give the subset a name.
 
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{{images/06.ExtractPairsProtocol}.png}
-\caption{Extract particles pairs protocol}
+\caption{Extract particle pairs protocol.}
 \label{ExtractPairs}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{{images/07.ExtractPairsResults}.png}
-\caption{Extract particles pairs results}
+\caption{Extract particle pairs results.}
 \label{ExtractResults}
 \end{figure}
 
 \subsection{Classification with Xmipp CL2D}
-Once the particles are extracted, they have to be classified, in order to group those belonging to different state of the particle 
-or even those which represent an error in the picking. 
 
-For this tutorial you will perform a CL2D classification from Xmipp package but you could choose any other 2D classification protocol, 
-which can be found under the \textbf{Protocols SPA} view grouped as \menu{2D > Classify}.
+Once we have extracted the particles, they have to be classified in
+order to group those belonging to different states of the particle, or
+even to find those that come from an error in the picking.
 
-Select the set of untilted particles produced by the previous step,  %or the ones on the subset if you chose to remove some of the particles.
-fill in the rest of the parameters as shown in figure~\ref{CL2D} and press \keys{Execute}.
 
-This protocol will take some time to finish (depending on your computer power and number of \textbf{mpis} choosen). 
-Once it has finished you can visualize the classes obtained by clicking on \keys{Analyze results} button.
+For this tutorial we will perform a CL2D classification with Xmipp,
+but we could choose any of the other 2D classification protocols
+available. Go to the \keys{View} selection menu on the top left panel
+and select \textbf{Protocols SPA}. Then select \menu{2D > Classify >
+  xmipp3 - cl2d}.
 
-This classes show mean images that represent your particles, but to be sure that they are representing with fidelity your particle, 
-at least some basic assessment steps are needed. 
-
-Yo should be using the stable core classes. These are composed by those particles that have stayed through all iterations together. 
+For the \textit{Input images} select the set of untilted particles
+produced in the previous step, fill in the rest of the parameters as
+shown in figure~\ref{CL2D} and press \keys{Execute}.
 
 \begin{figure}
 \centering
 \includegraphics[width=0.65\textwidth]{{images/08.CL2Dprotocol}.png}
-\caption{CL2D protocol}
+\caption{CL2D protocol.}
 \label{CL2D}
 \end{figure}
 
-Each class should contain between 100 and 200 particles more or less. Less than 100 will result in reconstructions of low quality, 
-so the estimation is not being properly done. Also, more than 200-250 particles would result in a wrong estimation because particles 
-very different could be mixing in the same class. 
+This protocol will take some time to finish (depending on your
+computer power and the number of \textbf{MPI}s chosen).  Once it has
+finished we can visualize the classes obtained by clicking on
+\keys{Analyze Results}.
 
-Apart from that, there is also a subjective assessment, and it comes from what the user is looking for. 
-Each class shows you a mean image that can give you an idea of what you will find if you start a reconstruction with those images. 
-The user must select those volumes that are more promising. In the case shown on our figures, classes 3 and 7 have been discarded, 
-that seem to show particles in a top view (or just one part of the particle).
+These classes show averaged images that represent our particles. But
+to be sure that they are representing them with fidelity, we need at
+least some basic checks:
 
-Then, as done with particles extracted, you should create a subset of classes to be used as input for next step, 
-as shown in figure~\ref{CL2Dresults}
+% TODO: missing a screenshot of the XmippCL2DViewer
 
+% TODO: missing explaining that you have to select ``Class Stable
+% Cores'' and click on the eye.
 
-\begin{figure}
+\begin{itemize}
+  
+\item We should be using the stable core classes. These are composed
+  by those particles that have stayed through all iterations together.
+
+\item Each class should contain between 100 and 200 particles more or
+  less. Less than that will result in reconstructions of low quality,
+  so the estimation is not being properly done. Also, more than
+  200-250 particles would result in a wrong estimation because very
+  different particles could be appearing in the same class.
+
+\end{itemize}
+
+Apart from that, there is also a subjective assessment, and it comes
+from what the user is looking for.  Each class shows an average image
+that can give you an idea of what we would find if we start a
+reconstruction with those images.  The user must select those volumes
+that are more promising. In our case, classes 3 and 7 have been
+discarded, because they seem to show particles in a top view (or just
+one part of the particle).
+
+%Then, as done with particles extracted, you should create a subset of classes to be used as input for next step, 
+%as shown in figure~\ref{CL2Dresults}
+Finally we will create a subset of classes to be used as input for the
+next step, as shown in figure~\ref{CL2Dresults}.
+
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.65\textwidth]{{images/09.GoodClasses}.png}
-\caption{CL2D results}
+\caption{CL2D results.}
 \label{CL2Dresults}
 \end{figure}
 
-\subsection{Initial volume generation with Random Conical Tilt}
+\subsection{Initial Volume Generation with Random Conical Tilt}
 
 Now that you have the desired classes, only the RCT reconstruction step is left. 
 
@@ -371,7 +475,7 @@ will show up.
 In this section, we present how to use Xmipp 3D-RANSAC approach, which can obtain a reliable low resolution initial volume 
 from sets of macromolecular projection images without a priori information ( Vargas et al. (2014)). 
 
-\subsection{Initial volume generation with 3D Ransac}
+\subsection{Initial Volume Generation with 3D Ransac}
 
 Change to the \textbf{Protocols SPA} view if you are not already there, go to \menu{3D > Initial Volume > xmipp - ransac} protocol. 
 
@@ -411,7 +515,7 @@ on \keys{Analyze Results} button as seen in figure~\ref{RansacResults}
 
 In this section we present how to obtain an initial module in Scipion using Eman initial model.
 
-\subsection{Initial volume generation with Eman}
+\subsection{Initial Volume Generation with Eman}
 
 Change to the \textbf{Protocols SPA} view if you are not already
 there, go to \menu{3D > Initial Volume > eman2 - initial model}
