@@ -192,14 +192,16 @@ Afterwards, you can launch the main GUI by typing:
 
 \section{Xmipp Random Conical Tilt}
 
-One of the most widespread SPA techniques is the Random Conical Tilt (RCT) \citep{Radermacher1987a}.
-In RCT the assumption is that we have a randomly distributed particle in all its conformations and positions
-along a sample, so when we take a low-power image, we are getting multiple views of the same particle.
-The specimen stage of the microscope is then tilted and a new low-power image is taken.
+One of the most widespread SPA techniques is the Random Conical Tilt
+(RCT) \citep{Radermacher1987a}. In RCT the assumption is that we have
+a randomly distributed particle in all its conformations and positions
+along a sample, so when we take a low-power image, we are getting
+multiple views of the same particle. The specimen stage of the
+microscope is then tilted and a new low-power image is taken.
 
 The less power is used, the less exposure of the sample. Having a low
-exposure is a cryoEM constraint on biological objects.  As a result,
-we get images with low signal-to-noise ratio (SNR). With these two
+exposure is a cryoEM constraint on biological objects. As a result, we
+get images with low signal-to-noise ratio (SNR). With these two
 images, every processing program will need to relate each particle to
 its tilted version in order to get different views of the specimen and
 estimate the tilt angle.
@@ -231,8 +233,8 @@ $SCIPION_HOME/data/tests/rct/micrographs/F_rct_u_*.tif
 $SCIPION_HOME/data/tests/rct/micrographs/F_rct_t_*.tif
 \end{verbatim}
 
-%In this first version pairs assignment is done by micrograph order but in next versions a wizard
-%will be provided.
+% In this first version the pair assignment is done by micrograph
+% order, but in the next versions a wizard will be provided.
 
 Modify the parameters of the Import Micrographs protocol according to
 the ones shown in figure \ref{ImportMics}. When you have completed the
@@ -260,7 +262,8 @@ imported micrograph pairs, as shown in figure \ref{ImportResults}.
 
 \subsection{Particle Picking}
 
-After we import the micrographs we need to pick tilted and untilted particle pairs.
+After we import the micrographs we need to pick tilted and untilted
+particle pairs.
 
 Go to the \menu{Picking micrograph pairs} protocol and double-click on
 it. A form as the one shown in figure~\ref{PickingProtocol1} will
@@ -354,7 +357,11 @@ the extraction to speed up the next steps.
 Once the protocol has finished you can review the particles by
 clicking on the \keys{Analyze Results} button as seen in
 figure~\ref{ExtractResults}.
-%If you don't like some of the particles you can disable them and create a subset with the good ones. Just click on the \textbf{TiltPairs} red button and give the subset a name.
+
+% If you don't like some of the particles you can disable them by
+% right-clicking on them and selecting \textit{Disable}, and then
+% create a subset with the good ones. Just click on the
+% \textbf{TiltPairs} red button and give the subset a name.
 
 \begin{figure}
 \centering
@@ -427,8 +434,6 @@ because they seem to show particles in a top view (or just one part of
 the particle). To discard a class, right-click on it and select
 \textit{Disable}.
 
-%Then, as done with particles extracted, you should create a subset of classes to be used as input for next step, 
-%as shown in figure~\ref{CL2Dresults}
 Finally we will create a subset of classes to be used as input for the
 next step, by clicking on the \keys{Classes} button, as shown in
 figure~\ref{CL2Dresults}
@@ -442,7 +447,6 @@ figure~\ref{CL2Dresults}
 
 \subsection{Initial Volume Generation with Random Conical Tilt}
 
-
 Now that we have the desired classes, only the RCT reconstruction step
 is left. Select from the left menu the protocol \menu{3D > Initial
   volume > xmipp3 - random conical tilt} and fill in the form as shown
@@ -451,77 +455,98 @@ in figure~\ref{RCTprotocol}.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.6\textwidth]{{images/10.RCTprotocol}.png}
-\caption{Xmipp's Random Conical Tilt protocol.}
+\caption{Xmipp's Random Conical Tilt protocol - Input parameters.}
 \label{RCTprotocol}
 \end{figure}
 
 We have to provide the particle tilt pairs produced by the extraction
 and the particles or classes we want to reconstruct. Take into
 account that if you choose particles they should contain alignment
-information.  The \textbf{Thin Object} option must be set to “Yes” if
-the particle is not more or less spherical (figure ~\ref{RCTprotocol2}).  When the object is going
+information.
+
+The \textit{Thin Object} option from the \textit{Align parameters} tab
+must be set to “Yes” if the particle is not more or less spherical
+(figure ~\ref{RCTprotocol2}). When the object is going
 to change its width significantly between the untilted and the tilted
 image, we can considered this a “thin object”.  Reconstruction can
 also low-pass filter the volumes after the process is done, producing
 both filtered and not filtered volumes as output.
 
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{{images/10.RCTprotocol2}.png}
+\caption{Xmipp's Random Conical Tilt protocol - Alignment parameters.}
+\label{RCTprotocol2}
+\end{figure}
+
 In order to visualize the volumes click on \keys{Analyze Results}
 after the protocol has finished, and a window as the one on
 figure~\ref{RCTresults} will show up.
 
-\begin{figure}
-\centering
-\includegraphics[width=0.6\textwidth]{{images/10.RCTprotocol2}.png}
-\caption{Xmipp RCT protocol. Alignment parameters.}
-\label{RCTprotocol2}
-\end{figure}
-
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.6\textwidth]{{images/11.RCTresults}.png}
-\caption{Xmipp RCT output: Filtered volume.}
+\caption{Xmipp's Random Conical Tilt: Filtered volume.}
 \label{RCTresults}
 \end{figure}
 
 \section{Xmipp Ransac}
 
-In this section, we present how to use Xmipp Ransac approach, which can obtain a reliable low resolution initial volume 
-from sets of macromolecular projection images without a priori information (Vargas et al. (2014)). 
+We will see now how to use the Xmipp Ransac approach, which can obtain
+a reliable low-resolution initial volume from sets of macromolecular
+projection images without a priori information (Vargas et al. (2014)).
 
-\subsection{Initial Volume Generation with Xmipp Ransac}
+% TODO: put the proper reference to Vargas et al 2014
 
-Change to the \textbf{Protocols SPA} view if you are not already there, go to \menu{3D > Initial Volume > xmipp - ransac} protocol. 
+\subsection{Initial Volume Generation with Ransac}
 
-As input we will use the classes obtained on Random Conical Tilt section so we can compare the generated volumes using different 
-techniques. Also, fill in the other form parameters as shown in figure~\ref{RansacProtocol} and explained below. 
+Change to the \textbf{Protocols SPA} view if you are not already there
+and select the \menu{3D > Initial volume > xmipp3 - ransac} protocol.
 
-\begin{figure}
+As input we will use the classes obtained in the Random Conical Tilt
+section so we can compare the generated volumes using different
+techniques. Fill in the other form parameters as shown in
+figure~\ref{RansacProtocol} and explained below.
+
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{{images/15.RansacProtocol}.png}
 \caption{Xmipp Ransac protocol.}
 \label{RansacProtocol}
 \end{figure}
 
-There is not symmetry so leave c1 and the angular sampling, in degrees, defines how fine the projection gallery from the volume is explored. 
-The number of RANSAC iterations are the number of random volumes which are generated, in our case 100. 
-We choose not to perform dimensionality reduction because there are not enough input classes. Instead we instruct the protocol to take 6 random images and construct a volume with those. If the number of classes is large enough, you may choose to perform the dimensionality reduction and then the random images are selected from a low-dimensional space on which the input classes have been projected.  
-The inlier threshold is a correlation based cutoff to determine if a class is an inlier of the generated random volume or not. 
-Note that in cases where the classes have very low noise this value must be increased (0.8-0.95) and, on the other hand, 
-in cases with high noise, this value must be decreased. 
-The \textbf{Number of best volumes to refine} are the number of volumes, among all the generated ones (in this case 100), that
-are going to be further refined using a projection matching approach by the selected \textbf{Number of iterations to perform to refine the volumes}. 
-Finally, \textbf{Max frequency of the initial volume} is the maximum frequency of the initial volume in Angstroms. 
-Press the \keys{Execute} button and wait until the protocol has finished when output volumes could be visualize by clicking 
-on \keys{Analyze Results} button as seen in figure~\ref{RansacResults}
+There is not symmetry, so leave ``c1'' as the \textit{symmetry
+  group}. The \textit{angular sampling}, in degrees, defines how fine
+the projection gallery from the volume is explored.  The
+\textit{number of RANSAC iterations} are the number of random volumes
+which are generated, in our case 100.  We choose not to perform
+\textit{dimensionality reduction} because there are not enough input
+classes. Instead we instruct the protocol to take 6 random images and
+construct a volume with those. If the number of classes is large
+enough, you may choose to perform the dimensionality reduction and
+then the random images are selected from a low-dimensional space on
+which the input classes have been projected. The \textit{inlier
+  threshold} is a correlation-based cutoff to determine if a class is
+an inlier of the generated random volume or not. Note that in cases
+where the classes have very low noise this value must be increased (to
+0.8-0.95) and, on the other hand, in cases with high noise, this value
+must be decreased. The \textit{Number of best volumes to refine} is
+the number of volumes, among all the generated ones (100 in this
+case), that are going to be further refined using a projection
+matching approach by the selected \textit{Number of iterations to
+  refine the volumes}.  Finally, \textit{Max frequency of the initial
+  volume} is the maximum frequency of the initial volume in Angstroms.
 
-\begin{figure}
+Press the \keys{Execute} button and wait until the protocol has
+finished. Then the output volumes can be visualized by clicking on
+\keys{Analyze Results} as seen in figure~\ref{RansacResults}.
+
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{{images/16.RansacResults}.png}
 \caption{Xmipp Ransac output volumes.}
 \label{RansacResults}
 \end{figure}
-
-\newpage
 
 \section{Eman initial model}
 
