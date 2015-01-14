@@ -352,7 +352,7 @@ information. When you are done picking particles you are asked if you want to re
 
 
 Xmipp supervised picking has manual and automatic picking. Automatic picking is activated using autopick.
-Particles added or removed manually after autopick are used to train classifier. 
+Particles added or removed manually after autopick are used to correct classifier. 
 When you are done picking particles you can click on \keys{Add Coordinates} to register output.
 
 \begin{figure}[H]
@@ -385,7 +385,7 @@ When you are done picking particles you can click on \keys{Add Coordinates} to r
 \subsection{Extract Particles}
 
 Click on \menu{Particles > Extract > xmipp3 - extract particles}.
-This will launch the dialog of our next protocol that will allow you
+This will launch our next protocol that will allow you
 to extract, normalize and correct the CTF phase of your picked
 particles, among other things. Modify the default parameters according
 to the ones shown in Figures \ref{fig:XmippPP}, 
@@ -414,8 +414,9 @@ to the ones shown in Figures \ref{fig:XmippPP},
   regions become dark regions and the other way around. This flag
   should be set so that the extracted particles are white over a dark
   background.
-\item The \textit{phase flipping} flag. If activated (recommended),
-  the protocol corrects the CTF phase of your particles.
+\item The \textit{phase flipping} flag. If activated,
+  the protocol corrects the CTF phase of your particles. We need to activate this flag 
+  since we plan to use projection matching to reconstruct volume.
 \item The \textit{normalize} flag. If activated (recommended), the
   particles are normalized to have zero mean and a standard deviation
   of one for the background pixels.
@@ -464,9 +465,8 @@ reference projection that gave the highest “similarity”
 coefficient. Therefore, it is assumed that this experimental particle
 was projected with the same Euler angles as the reference projection.
 
-As an initial map is necessary, you need to import a volume. Press on
-\textbf{Import Volume} and set in \textit{Pattern} parameter the
-following path:
+As an initial map is necessary, you needd to import initial volume. Click on 
+\menu{Imports > Import Volume} and import from
 
 % TODO: explain where. Which dialog? which menu?
 % Maybe it's \menu{3D > Preprocess > xmipp3 - preprocess volumes}
@@ -478,43 +478,43 @@ following path:
 
 
 \begin{verbatim}
-$SCIPION_HOME/data/tests/xmipp_tutorial/micrographs/BPV_scale_filtered_windowed_110.vol
+$SCIPION_HOME/data/tests/xmipp_tutorial/micrographs/
 \end{verbatim}
 
-Please, set 6.185 on the \textit{sampling rate} parameter.
+\noindent volume \comm{BPV\_scale\_filtered\_windowed\_110.vol} with \textit{sampling rate} 6.185.
 
-In order to lauch the projection matching protocol click on
-\textbf{refine > projection matching} and set the parameters as the
-ones shown in figures (\ref{fig:ProjMatchA}), (\ref{fig:ProjMatchB}),
-(\ref{fig:ProjMatchC}) and (\ref{fig:ProjMatchD}). Choose the
-SetOfParticles that has been selected previously in subset selection
-protocol.
+In order to run projection matching protocol click on
+\menu{refine > projection matching} and choose expert mode.
+Input parameters are displayed in Figures \ref{fig:ProjMatchA}, \ref{fig:ProjMatchB},
+\ref{fig:ProjMatchC} and \ref{fig:ProjMatchD} . We explain here only... 
+For more detail please use parameters \textbf{help} button.
+For this tutorial we need to edit:
 
  \begin{figure}
   \centering
   \includegraphics[width=0.75\textwidth]{{images/09.ProjMatchA}.png}
-  \caption{Projection matching parameters I}
+  \caption{Projection Matching: Input}
   \label{fig:ProjMatchA}
  \end{figure}
 
  \begin{figure}
   \centering
   \includegraphics[width=0.75\textwidth]{{images/09.ProjMatchB}.png}
-  \caption{Projection matching parameters II}
+  \caption{Projection Matching: CTF Correction \& Mask}
   \label{fig:ProjMatchB}
  \end{figure}
 
   \begin{figure}
   \centering
   \includegraphics[width=0.75\textwidth]{{images/09.ProjMatchC}.png}
-  \caption{Projection matching parameters III}
+  \caption{Projection Matching: Projection Matching}
   \label{fig:ProjMatchC}
  \end{figure}
 
   \begin{figure}
   \centering
   \includegraphics[width=0.75\textwidth]{{images/09.ProjMatchD}.png}
-  \caption{Projection matching parameters IV}
+  \caption{Projection Matching: 3D Reconstruction}
   \label{fig:ProjMatchD}
  \end{figure}
 
@@ -537,14 +537,14 @@ checkbox (figure (\ref{fig:volChimera})).
  \begin{figure}
   \centering
   \includegraphics[width=0.75\textwidth]{{images/12.VolumeGalleries}.png}
-  \caption{reconstructed volume}
+  \caption{Reconstructed volume slices}
   \label{fig:volShowj}
  \end{figure}
 
  \begin{figure}
   \centering
   \includegraphics[width=0.75\textwidth]{{images/12.VolumeChimera}.png}
-  \caption{reconstructed volume with chimera}
+  \caption{Reconstructed volume}
   \label{fig:volChimera}
  \end{figure}
 
