@@ -4,9 +4,9 @@
 % from http://www.latextemplates.com
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
-%----------------------------------------------------------------------------------------
+%-------------------------------------------
 
 \documentclass[12pt]{article} % Default font size is 12pt, it can be changed here
 \usepackage[english]{babel}
@@ -32,10 +32,6 @@
 %\fancyhead[RO]{{\leftmark}} 
 \fancyfoot[LE,RO]{{ \thepage }}
 
-%\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
-\definecolor{grey}{rgb}{0.9,0.9,0.9}
-
-
 \linespread{1.2} % Line spacing
 
 %\setlength\parindent{0pt} % Uncomment to remove all indentation from paragraphs
@@ -46,9 +42,9 @@
 
 \begin{document}
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------
 %	TITLE PAGE
-%----------------------------------------------------------------------------------------
+%-------------------------------------------
 
 \begin{titlepage}
 
@@ -85,9 +81,9 @@
 \end{titlepage}
 
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------
 %	OBJETIVOS
-%----------------------------------------------------------------------------------------
+%-------------------------------------------
 
 
 
@@ -108,14 +104,13 @@ future editions by writing to
 
 \newpage
 
-%----------------------------------------------------------------------------------------
+%-------------------------------------------
 %	TABLE OF CONTENTS
-%----------------------------------------------------------------------------------------
+%-------------------------------------------
 
 \tableofcontents % Include a table of contents
 
-\newpage % Begins the essay on a new page instead of on the same page as the table of contents 
-
+\newpage
 
 \section{Introduction: Initial Volume Estimation}
 
@@ -200,7 +195,7 @@ along a sample, so when we take a low-power image, we are getting
 multiple views of the same particle. The specimen stage of the
 microscope is then tilted and a new low-power image is taken.
 
-% TODO: maybe reference the next figure somewhere:
+% TODO: maybe reference the next figure somewhere.
 
 \begin{figure}[H]
 \centering
@@ -538,6 +533,9 @@ matching approach by the selected \textit{Number of iterations to
   refine the volumes}.  Finally, \textit{Max frequency of the initial
   volume} is the maximum frequency of the initial volume in Angstroms.
 
+% TODO: maybe convert the previous paragraph in something more
+% digestable?
+
 Press the \keys{Execute} button and wait until the protocol has
 finished. Then the output volumes can be visualized by clicking on
 \keys{Analyze Results} as seen in figure~\ref{RansacResults}.
@@ -635,6 +633,9 @@ iterations. For determining the significance of an image, it is
 compared to its neighbourhood (which should be at least twice the
 angular step chosen for generating the projection library).
 
+% TODO: is the description of all the options that we have here
+% something that really adds value?
+
 IMED is an alternative to correlation which can discriminate better
 among very similar images. If you use IMED, both IMED and correlation
 are used to determine each image weight.
@@ -656,6 +657,10 @@ figure~\ref{SignificantResults}.
 \caption{Xmipp Reconstruct Significant results.}
 \label{SignificantResults}
 \end{figure}
+
+% TODO: it would be nice to add some concluding remarks:
+% recapitulating what we have done, how it can be used and related
+% options to explore, at a minimum.
 
 \bibliographystyle{apalike}
 \bibliography{../tutorial_common/em.bib}
