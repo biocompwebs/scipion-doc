@@ -344,12 +344,12 @@ allows us to execute it again if we wish to pick more particles.
 
 \subsection{Extraction of Particle Pairs}
 
-Now that we have picked coordinate pairs, they have to be extracted as
-particle pairs.  To do so select the \menu{Extract particle pairs}
-protocol and fill in the parameters as shown in
-figure~\ref{ExtractPairs}.  Although particles were picked with a size
-of 120 pixels, we will downsample them by a factor of 2 in the
-extraction to speed up the next steps.
+Now that we have picked \textit{coordinate pairs}, they have to be
+extracted as \textit{particle pairs}.  To do so select the
+\menu{Extract particle pairs} protocol and fill in the parameters as
+shown in figure~\ref{ExtractPairs}.  Although particles were picked
+with a size of 120 pixels, we will downsample them by a factor of 2 in
+the extraction to speed up the next steps.
 
 Once the protocol has finished you can review the particles by
 clicking on the \keys{Analyze Results} button as seen in
@@ -376,37 +376,32 @@ Once we have extracted the particles, they have to be classified in
 order to group those belonging to different states of the particle, or
 even to find those that come from an error in the picking.
 
-
 For this tutorial we will perform a CL2D classification with Xmipp,
 but we could choose any of the other 2D classification protocols
 available. Go to the \keys{View} selection menu on the top left panel
 and select \textbf{Protocols SPA}. Then select \menu{2D > Classify >
   xmipp3 - cl2d}.
 
-For the \textit{Input images} select the set of untilted particles
-produced in the previous step, fill in the rest of the parameters as
-shown in figure~\ref{CL2D} and press \keys{Execute}.
+For the \textit{Input images} entry select the set of untilted
+particles produced in the previous step, fill in the rest of the
+parameters as shown in figure~\ref{CL2D} and press \keys{Execute}.
 
 \begin{figure}
 \centering
 \includegraphics[width=0.65\textwidth]{{images/08.CL2Dprotocol}.png}
-\caption{CL2D protocol.}
+\caption{CL2D protocol, showing the extra options in Expert Level.}
 \label{CL2D}
 \end{figure}
 
 This protocol will take some time to finish (depending on your
 computer power and the number of \textbf{MPI}s chosen).  Once it has
-finished we can visualize the classes obtained by clicking on
-\keys{Analyze Results}.
+finished we can visualize the resulting classes looking at the output
+part of the \textit{Summary} section, and double-clicking on the
+appropriate set of classes. We could also select them from the window
+that appears when clicking on \keys{Analyze Results}.
 
-These classes show averaged images that represent our particles. But
-to be sure that they are representing them with fidelity, we need at
-least some basic checks:
-
-% TODO: missing a screenshot of the XmippCL2DViewer
-
-% TODO: missing explaining that you have to select ``Class Stable
-% Cores'' and click on the eye.
+The classes show averaged images that represent our particles. To get
+classes that represent them with fidelity:
 
 \begin{itemize}
   
@@ -424,15 +419,19 @@ least some basic checks:
 Apart from that, there is also a subjective assessment, and it comes
 from what the user is looking for.  Each class shows an average image
 that can give you an idea of what we would find if we start a
-reconstruction with those images.  The user must select those volumes
-that are more promising. In our case, classes 3 and 7 have been
-discarded, because they seem to show particles in a top view (or just
-one part of the particle).
+reconstruction with those images.
+
+The user must select the classes that are more promising. In our case,
+classes 9 and 10 have been discarded (see figure \ref{CL2Dresults}),
+because they seem to show particles in a top view (or just one part of
+the particle). To discard a class, right-click on it and select
+\textit{Disable}.
 
 %Then, as done with particles extracted, you should create a subset of classes to be used as input for next step, 
 %as shown in figure~\ref{CL2Dresults}
 Finally we will create a subset of classes to be used as input for the
-next step, as shown in figure~\ref{CL2Dresults}.
+next step, by clicking on the \keys{Classes} button, as shown in
+figure~\ref{CL2Dresults}
 
 \begin{figure}[H]
 \centering
@@ -443,24 +442,38 @@ next step, as shown in figure~\ref{CL2Dresults}.
 
 \subsection{Initial Volume Generation with Random Conical Tilt}
 
-Now that you have the desired classes, only the RCT reconstruction step is left. 
 
-Select protocol \textbf{Random Conical Tilt} and fill in the form as shown in figure~\ref{RCTprotocol}.
-
-You have to provide the particles tilt pair object produced by the extraction (or a subset) and the particles or classes 
-you want to reconstruct. Take into account that if you choose particles they should contain alignment information.
-The \textbf{Thin Object} option must be set to “Yes” if the particle is not more or less spherical. 
-When the object is going to change its width significantly between the untilted and the tilted image, we can considered this a “thin object”. 
-Reconstruction can also low-pass filter the volumes after the process is done, producing both filtered and not filtered volumes as output.
-
-In order to visualize the volumes click on \keys{Analyze results} after the protocol has finished, and a window as the one on figure~\ref{RCTresults} 
-will show up.
+Now that we have the desired classes, only the RCT reconstruction step
+is left. Select from the left menu the protocol \menu{3D > Initial
+  volume > xmipp3 - random conical tilt} and fill in the form as shown
+in figure~\ref{RCTprotocol}.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.6\textwidth]{{images/10.RCTprotocol}.png}
-\caption{Xmipp RCT protocol}
+\caption{Xmipp's Random Conical Tilt protocol.}
 \label{RCTprotocol}
+\end{figure}
+
+We have to provide the particle tilt pairs produced by the extraction
+and the particles or classes we want to reconstruct. Take into
+account that if you choose particles they should contain alignment
+information.  The \textbf{Thin Object} option must be set to “Yes” if
+the particle is not more or less spherical (figure ~\ref{RCTprotocol2}).  When the object is going
+to change its width significantly between the untilted and the tilted
+image, we can considered this a “thin object”.  Reconstruction can
+also low-pass filter the volumes after the process is done, producing
+both filtered and not filtered volumes as output.
+
+In order to visualize the volumes click on \keys{Analyze Results}
+after the protocol has finished, and a window as the one on
+figure~\ref{RCTresults} will show up.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{{images/10.RCTprotocol2}.png}
+\caption{Xmipp RCT protocol. Alignment parameters.}
+\label{RCTprotocol2}
 \end{figure}
 
 \begin{figure}
@@ -470,12 +483,12 @@ will show up.
 \label{RCTresults}
 \end{figure}
 
-\section{3D Ransac}
+\section{Xmipp Ransac}
 
-In this section, we present how to use Xmipp 3D-RANSAC approach, which can obtain a reliable low resolution initial volume 
-from sets of macromolecular projection images without a priori information ( Vargas et al. (2014)). 
+In this section, we present how to use Xmipp Ransac approach, which can obtain a reliable low resolution initial volume 
+from sets of macromolecular projection images without a priori information (Vargas et al. (2014)). 
 
-\subsection{Initial Volume Generation with 3D Ransac}
+\subsection{Initial Volume Generation with Xmipp Ransac}
 
 Change to the \textbf{Protocols SPA} view if you are not already there, go to \menu{3D > Initial Volume > xmipp - ransac} protocol. 
 
@@ -491,10 +504,9 @@ techniques. Also, fill in the other form parameters as shown in figure~\ref{Rans
 
 There is not symmetry so leave c1 and the angular sampling, in degrees, defines how fine the projection gallery from the volume is explored. 
 The number of RANSAC iterations are the number of random volumes which are generated, in our case 100. 
-We select performing dimensionality reduction, with a number of grids per dimension equal to 6, and therefore each
-random volume is generated from 36 (6x6) classes. 
+We choose not to perform dimensionality reduction because there are not enough input classes. Instead we instruct the protocol to take 6 random images and construct a volume with those. If the number of classes is large enough, you may choose to perform the dimensionality reduction and then the random images are selected from a low-dimensional space on which the input classes have been projected.  
 The inlier threshold is a correlation based cutoff to determine if a class is an inlier of the generated random volume or not. 
-Note that in cases where the classes have very low noise this value must be increased ( 0.8-0.95) and, on the other hand, 
+Note that in cases where the classes have very low noise this value must be increased (0.8-0.95) and, on the other hand, 
 in cases with high noise, this value must be decreased. 
 The \textbf{Number of best volumes to refine} are the number of volumes, among all the generated ones (in this case 100), that
 are going to be further refined using a projection matching approach by the selected \textbf{Number of iterations to perform to refine the volumes}. 
@@ -538,6 +550,53 @@ Once the protocol has finished go and view the generated output volumes by click
 \includegraphics[width=0.75\textwidth]{{images/18.EmanResults}.png}
 \caption{Eman generated output volumes.}
 \label{EmanResults}
+\end{figure}
+
+\newpage
+
+\section{Xmipp Reconstruct Significant}
+
+In this section we present how to obtain an initial module in Scipion using Xmipp Reconstruct Significant.
+This algorithm sets the initial volume problem in a Weighted Least Squares framework and calculates the weights through a statistical approach based on the cumulative density function of different image similarity measures. The algorithm is not particularly fast since slow convergence is promoted as a way to avoid local minima. However, the reconstructed volume normally corresponds to a correct estimate of the underlying structure.
+
+\subsection{Initial Volume Generation with Xmipp Reconstruct Significant}
+
+Change to the \textbf{Protocols SPA} view if you are not already
+there, go to \menu{3D > Initial Volume > xmipp - reconstruct significant}
+protocol. Also, fill in the form parameters as shown
+in the Figure~\ref{SignificantProtocol1} and Figure~\ref{SignificantProtocol2}.
+
+Note that the number of volumes in Significant has not the same meaning as for Eman and RANSAC. In EMAN and RANSAC the number of volumes represents the number of random instances of possible initial volumes. That is, if you have 100 input images, these 100 images will be used to construct 10 possible initial volumes (in each one of them the 100 images are allowed to contribute). In significant, the number of volumes represent the number of different conformational states of the structure. That is, the 100 images are classified into 10 different structures (not 10 different instances). If you have a single conformation, the number of volumes should be 1.
+
+Significant progressively increases the significance of the images assigned to a volume from a minimum value (typically between 80\% and 85\%) to a maximum value (around 99.5\%) in a number of iterations. For determining the significance of an image, it is compared to its neighbourhood (which should be at least twice the angular step chosen for generating the projection library).
+
+IMED is an alternative to correlation which can discriminate better among very similar images. If you use IMED, both IMED and correlation are used to determine each image weight.
+
+Strict direction is an option that can be used when many outliers are present in the input dataset (that is, many of the classes do not correspond to the initial volume to be reconstructed).
+
+Fisher's criterion is a way of preselecting which images are significant for the current volume.
+
+Once the protocol has finished go and view the generate output volume by clicking on \keys{Analyze results}, as you can see in figure~\ref{SignificantResults}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{{images/19.SignificantProtocol1}.png}
+\caption{Xmipp Reconstruct Significant protocol. Input parameters.}
+\label{SignificantProtocol1}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{{images/19.SignificantProtocol2}.png}
+\caption{Xmipp Reconstruct Significant protocol. Criteria parameters.}
+\label{SignificantProtocol2}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{{images/20.SignificantResults}.png}
+\caption{Xmipp Reconstruct Significant results.}
+\label{SignificantResults}
 \end{figure}
 
 \bibliographystyle{apalike}
