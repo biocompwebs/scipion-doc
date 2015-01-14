@@ -449,7 +449,7 @@ Select protocol \textbf{Random Conical Tilt} and fill in the form as shown in fi
 
 You have to provide the particles tilt pair object produced by the extraction (or a subset) and the particles or classes 
 you want to reconstruct. Take into account that if you choose particles they should contain alignment information.
-The \textbf{Thin Object} option must be set to “Yes” if the particle is not more or less spherical. 
+The \textbf{Thin Object} option must be set to “Yes” if the particle is not more or less spherical (figure ~\ref{RCTprotocol2}) . 
 When the object is going to change its width significantly between the untilted and the tilted image, we can considered this a “thin object”. 
 Reconstruction can also low-pass filter the volumes after the process is done, producing both filtered and not filtered volumes as output.
 
@@ -459,8 +459,15 @@ will show up.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.6\textwidth]{{images/10.RCTprotocol}.png}
-\caption{Xmipp RCT protocol}
+\caption{Xmipp RCT protocol. Input parameters.}
 \label{RCTprotocol}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{{images/10.RCTprotocol2}.png}
+\caption{Xmipp RCT protocol. Alignment parameters.}
+\label{RCTprotocol2}
 \end{figure}
 
 \begin{figure}
