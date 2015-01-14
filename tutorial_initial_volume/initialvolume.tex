@@ -344,12 +344,12 @@ allows us to execute it again if we wish to pick more particles.
 
 \subsection{Extraction of Particle Pairs}
 
-Now that we have picked coordinate pairs, they have to be extracted as
-particle pairs.  To do so select the \menu{Extract particle pairs}
-protocol and fill in the parameters as shown in
-figure~\ref{ExtractPairs}.  Although particles were picked with a size
-of 120 pixels, we will downsample them by a factor of 2 in the
-extraction to speed up the next steps.
+Now that we have picked \textit{coordinate pairs}, they have to be
+extracted as \textit{particle pairs}.  To do so select the
+\menu{Extract particle pairs} protocol and fill in the parameters as
+shown in figure~\ref{ExtractPairs}.  Although particles were picked
+with a size of 120 pixels, we will downsample them by a factor of 2 in
+the extraction to speed up the next steps.
 
 Once the protocol has finished you can review the particles by
 clicking on the \keys{Analyze Results} button as seen in
@@ -376,37 +376,32 @@ Once we have extracted the particles, they have to be classified in
 order to group those belonging to different states of the particle, or
 even to find those that come from an error in the picking.
 
-
 For this tutorial we will perform a CL2D classification with Xmipp,
 but we could choose any of the other 2D classification protocols
 available. Go to the \keys{View} selection menu on the top left panel
 and select \textbf{Protocols SPA}. Then select \menu{2D > Classify >
   xmipp3 - cl2d}.
 
-For the \textit{Input images} select the set of untilted particles
-produced in the previous step, fill in the rest of the parameters as
-shown in figure~\ref{CL2D} and press \keys{Execute}.
+For the \textit{Input images} entry select the set of untilted
+particles produced in the previous step, fill in the rest of the
+parameters as shown in figure~\ref{CL2D} and press \keys{Execute}.
 
 \begin{figure}
 \centering
 \includegraphics[width=0.65\textwidth]{{images/08.CL2Dprotocol}.png}
-\caption{CL2D protocol.}
+\caption{CL2D protocol, showing the extra options in Expert Level.}
 \label{CL2D}
 \end{figure}
 
 This protocol will take some time to finish (depending on your
 computer power and the number of \textbf{MPI}s chosen).  Once it has
-finished we can visualize the classes obtained by clicking on
-\keys{Analyze Results}.
+finished we can visualize the resulting classes looking at the output
+part of the \textit{Summary} section, and double-clicking on the
+appropriate set of classes. We could also select them from the window
+that appears when clicking on \keys{Analyze Results}.
 
-These classes show averaged images that represent our particles. But
-to be sure that they are representing them with fidelity, we need at
-least some basic checks:
-
-% TODO: missing a screenshot of the XmippCL2DViewer
-
-% TODO: missing explaining that you have to select ``Class Stable
-% Cores'' and click on the eye.
+The classes show averaged images that represent our particles. To get
+classes that represent them with fidelity:
 
 \begin{itemize}
   
@@ -424,15 +419,19 @@ least some basic checks:
 Apart from that, there is also a subjective assessment, and it comes
 from what the user is looking for.  Each class shows an average image
 that can give you an idea of what we would find if we start a
-reconstruction with those images.  The user must select those volumes
-that are more promising. In our case, classes 3 and 7 have been
-discarded, because they seem to show particles in a top view (or just
-one part of the particle).
+reconstruction with those images.
+
+The user must select the classes that are more promising. In our case,
+classes 9 and 10 have been discarded (see figure \ref{CL2Dresults}),
+because they seem to show particles in a top view (or just one part of
+the particle). To discard a class, right-click on it and select
+\textit{Disable}.
 
 %Then, as done with particles extracted, you should create a subset of classes to be used as input for next step, 
 %as shown in figure~\ref{CL2Dresults}
 Finally we will create a subset of classes to be used as input for the
-next step, as shown in figure~\ref{CL2Dresults}.
+next step, by clicking on the \keys{Classes} button, as shown in
+figure~\ref{CL2Dresults}
 
 \begin{figure}[H]
 \centering
@@ -443,25 +442,32 @@ next step, as shown in figure~\ref{CL2Dresults}.
 
 \subsection{Initial Volume Generation with Random Conical Tilt}
 
-Now that you have the desired classes, only the RCT reconstruction step is left. 
 
-Select protocol \textbf{Random Conical Tilt} and fill in the form as shown in figure~\ref{RCTprotocol}.
-
-You have to provide the particles tilt pair object produced by the extraction (or a subset) and the particles or classes 
-you want to reconstruct. Take into account that if you choose particles they should contain alignment information.
-The \textbf{Thin Object} option must be set to “Yes” if the particle is not more or less spherical (figure ~\ref{RCTprotocol2}) . 
-When the object is going to change its width significantly between the untilted and the tilted image, we can considered this a “thin object”. 
-Reconstruction can also low-pass filter the volumes after the process is done, producing both filtered and not filtered volumes as output.
-
-In order to visualize the volumes click on \keys{Analyze results} after the protocol has finished, and a window as the one on figure~\ref{RCTresults} 
-will show up.
+Now that we have the desired classes, only the RCT reconstruction step
+is left. Select from the left menu the protocol \menu{3D > Initial
+  volume > xmipp3 - random conical tilt} and fill in the form as shown
+in figure~\ref{RCTprotocol}.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.6\textwidth]{{images/10.RCTprotocol}.png}
-\caption{Xmipp RCT protocol. Input parameters.}
+\caption{Xmipp's Random Conical Tilt protocol.}
 \label{RCTprotocol}
 \end{figure}
+
+We have to provide the particle tilt pairs produced by the extraction
+and the particles or classes we want to reconstruct. Take into
+account that if you choose particles they should contain alignment
+information.  The \textbf{Thin Object} option must be set to “Yes” if
+the particle is not more or less spherical (figure ~\ref{RCTprotocol2}).  When the object is going
+to change its width significantly between the untilted and the tilted
+image, we can considered this a “thin object”.  Reconstruction can
+also low-pass filter the volumes after the process is done, producing
+both filtered and not filtered volumes as output.
+
+In order to visualize the volumes click on \keys{Analyze Results}
+after the protocol has finished, and a window as the one on
+figure~\ref{RCTresults} will show up.
 
 \begin{figure}
 \centering
