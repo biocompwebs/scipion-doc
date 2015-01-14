@@ -390,23 +390,20 @@ shown in figure~\ref{CL2D} and press \keys{Execute}.
 \begin{figure}
 \centering
 \includegraphics[width=0.65\textwidth]{{images/08.CL2Dprotocol}.png}
-\caption{CL2D protocol.}
+\caption{CL2D protocol, with extra options shown by using the
+  \textit{expert level}.}
 \label{CL2D}
 \end{figure}
 
 This protocol will take some time to finish (depending on your
 computer power and the number of \textbf{MPI}s chosen).  Once it has
-finished we can visualize the classes obtained by clicking on
-\keys{Analyze Results}.
+finished we can visualize the resulting classes looking at the output
+part of the \textit{Summary} section, and double-clicking on the
+appropriate set of classes. We could also select them from the window
+that appears when clicking on \keys{Analyze Result}.
 
-These classes show averaged images that represent our particles. But
-to be sure that they are representing them with fidelity, we need at
-least some basic checks:
-
-% TODO: missing a screenshot of the XmippCL2DViewer
-
-% TODO: missing explaining that you have to select ``Class Stable
-% Cores'' and click on the eye.
+The classes show averaged images that represent our particles. To get
+classes that represent them with fidelity:
 
 \begin{itemize}
   
@@ -433,6 +430,9 @@ one part of the particle).
 %as shown in figure~\ref{CL2Dresults}
 Finally we will create a subset of classes to be used as input for the
 next step, as shown in figure~\ref{CL2Dresults}.
+
+% TODO: say you have to right-click on the bad classes and disable
+% them, and then click on the \keys{+ Classes} button
 
 \begin{figure}[H]
 \centering
