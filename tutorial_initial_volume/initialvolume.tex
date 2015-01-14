@@ -548,20 +548,19 @@ finished. Then the output volumes can be visualized by clicking on
 \label{RansacResults}
 \end{figure}
 
-\section{Eman initial model}
+\section{Eman Initial Model}
 
-In this section we present how to obtain an initial module in Scipion using Eman initial model.
+In this section we show how to obtain an initial model in Scipion
+using Eman initial model.
 
 \subsection{Initial Volume Generation with Eman}
 
-Change to the \textbf{Protocols SPA} view if you are not already
-there, go to \menu{3D > Initial Volume > eman2 - initial model}
-protocol.  As we did before use the classes obtained on Random Conical
-Tilted section as input so we can compare the generated volumes using
-different techniques. Also, fill in the other form parameters as shown
-in figure~\ref{EmanProtocol}
-
-Once the protocol has finished go and view the generated output volumes by clicking on \keys{Analyze results}, as you can see in figure~\ref{EmanResults}.
+Change to the \textbf{Protocols SPA} view if you are not already there
+and select the \menu{3D > Initial volume > eman2 - initial model}
+protocol. As we did before, use the classes obtained in the Random
+Conical Tilt section as input so we can compare the generated volumes
+using different techniques. Also, fill in the other form parameters as
+shown in figure~\ref{EmanProtocol}.
 
 \begin{figure}[H]
 \centering
@@ -570,6 +569,10 @@ Once the protocol has finished go and view the generated output volumes by click
 \label{EmanProtocol}
 \end{figure}
 
+Once the protocol has finished go and view the generated output
+volumes by clicking on \keys{Analyze results}. Double-click on any
+volume to get a window as the one in figure~\ref{EmanResults}.
+
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{{images/18.EmanResults}.png}
@@ -577,11 +580,11 @@ Once the protocol has finished go and view the generated output volumes by click
 \label{EmanResults}
 \end{figure}
 
-\newpage
-
 \section{Xmipp Reconstruct Significant}
 
-In this section we present how to obtain an initial module in Scipion using Xmipp Reconstruct Significant.
+In this section we show how to obtain an initial model in Scipion
+using Xmipp Reconstruct Significant.
+
 This algorithm sets the initial volume problem in a Weighted Least Squares framework and calculates the weights through a statistical approach based on the cumulative density function of different image similarity measures. The algorithm is not particularly fast since slow convergence is promoted as a way to avoid local minima. However, the reconstructed volume normally corresponds to a correct estimate of the underlying structure.
 
 \subsection{Initial Volume Generation with Xmipp Reconstruct Significant}
