@@ -2,4 +2,6 @@
 
 all: initialvolume.tex
 	pdflatex initialvolume.tex
+	bibtex initialvolume.aux
+	pdflatex initialvolume.tex
 	pdflatex initialvolume.tex

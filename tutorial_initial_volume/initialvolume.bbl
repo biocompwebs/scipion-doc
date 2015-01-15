@@ -1,8 +1,16 @@
 \begin{thebibliography}{}
 
 \bibitem[Radermacher, 1987]{Radermacher1987a}
-  M. Radermacher (1987).
-  \newblock Three-dimensional reconstruction from a single-exposure, random conical	tilt series applied to the 50S ribosomal subunit of Escherichia coli
-  \newblock {\em J. Microsc}, 146 : 113--136.
+Radermacher, M. (1987).
+\newblock Three-dimensional reconstruction from a single-exposure, random
+  conical tilt series applied to the 50s ribosomal subunit of escherichia coli.
+\newblock {\em J.Microsc}, 146:113--136.
+
+\bibitem[Vargas et~al., 2014]{Vargas15102014}
+Vargas, J., Álvarez Cabrera, A.-L., Marabini, R., Carazo, J.~M., and Sorzano,
+  C. O.~S. (2014).
+\newblock Efficient initial volume determination from electron microscopy
+  images of single particles.
+\newblock {\em Bioinformatics}, 30(20):2891--2898.
 
 \end{thebibliography}
