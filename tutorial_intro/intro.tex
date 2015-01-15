@@ -465,7 +465,7 @@ reference projection that gave the highest “similarity”
 coefficient. Therefore, it is assumed that this experimental particle
 was projected with the same Euler angles as the reference projection.
 
-As an initial map is necessary, you needd to import initial volume. Click on 
+As an initial map is necessary, we provide initial volume. Click on 
 \menu{Imports > Import Volume} and import from
 
 % TODO: explain where. Which dialog? which menu?
@@ -486,8 +486,9 @@ $SCIPION_HOME/data/tests/xmipp_tutorial/micrographs/
 In order to run projection matching protocol click on
 \menu{3D > Refine > xmipp3 -projection matching} and choose expert mode.
 Input parameters are displayed in Figures \ref{fig:ProjMatchA}, \ref{fig:ProjMatchB},
-\ref{fig:ProjMatchC} and \ref{fig:ProjMatchD} . Here we explain only the ones we need to update. 
-For more detail on each parameter please use the \textbf{help} button.
+\ref{fig:ProjMatchC} and \ref{fig:ProjMatchD} . Here we explain only the ones we need to update
+for this reconstruction. For more detail on each parameter please use the respective 
+\textbf{help} button.
 
 
 
@@ -521,21 +522,23 @@ For more detail on each parameter please use the \textbf{help} button.
  
 For this reconstruction we need to specify:
 \begin{itemize}
-\item \texit{Input particles}
-\item \texit{Initial 3D reference volumes}
-\item \texit{Resolution limit for grouping(A):} 10.  Maximum resolution to consider CTF differences among different groups. 
-\item \texit{Mask reference volumes:} Circular. Masking the reference volume will increase the signal to noise ratio. 
-\item \texit{Radius of spherical mask(px):} 55. 
-\item \texit{Inner radius for rotational correlation:} 28.
-\item \texit{Outer radius for rotational correlation:} 55.
-\item \texit{Point group symmetry:} i1.
-\item \texit{Constant to be added to the estimated resolution:} -0.05. 
+\item \textit{Input particles:} Particles selected previously.
+\item \textit{Initial 3D reference volumes:}  Initial volume registered.
+\item \textit{Resolution limit for grouping(A):} 10.  To correct CTF we need to specify maximum resolution to consider CTF differences among different groups of particles. 
+\item \textit{Mask reference volumes:} Circular. Masking the reference volume will increase the signal to noise ratio. 
+\item \textit{Radius of spherical mask(px):} 55. Since particles size is 110 radius of spherical mask should be 55.
+\item \textit{Inner radius for rotational correlation:} 28. Particles will be correlated considering points covered 
+by inner and outer radius for rotational correlation.
+\item \textit{Outer radius for rotational correlation:} 55. Since particles size is 110 outer radius for rotational correlation should be 55.
+\item \textit{Point group symmetry:} i1. Virus type of symmetry.
+\item \textit{Constant to be added to the estimated resolution:} -0.05. The volume will be filtered at a frequency equal to
+the  resolution computed with resolution\_fsc(FSC=0.5) plus the value provided in this field.
 
 \end{itemize}
+and execute protocol.
 
-Finally, in order to visualize the obtained results click on
-\textbf{Analyze Results} button. You will see a GUI as the one shown in
-figure (\ref{fig:ProjMatchViewer}).
+Finally, in order to visualize volume reconstructed click on
+\textbf{Analyze Results} button. Protocol viewer will be displayed (Figure \ref{fig:ProjMatchViewer}).
 
  \begin{figure}[H]
   \centering
@@ -544,10 +547,10 @@ figure (\ref{fig:ProjMatchViewer}).
   \label{fig:ProjMatchViewer}
  \end{figure}
 
-To see the volumes you can press \textbf{eye} button in the field
-\textit{Display reconstructed volume?} and you will see the reconstructed
-volume as shown in figure (\ref{fig:volShowj}) or in chimera if you select Chimera
-checkbox (figure (\ref{fig:volChimera})).
+In the field 
+\textit{Display volume with slices } Press \textbf {eye} button and you will see the 
+volume slice by slice (Figure \ref{fig:volShowj}). To visualize volume with chimera select
+chimera (Figure \ref{fig:volChimera}) 
 
  \begin{figure}
   \centering
@@ -566,25 +569,25 @@ checkbox (figure (\ref{fig:volChimera})).
 \subsection{Frealign Refinement}
 
  If you want to refine the output volume of projection matching, you can
- use Frealign refinement protocol. First, you need the "same" SetOfParticles
- that has been processes with Projection matching, but with the features needed
- to Frealign.
+ use \menu{3D > Refine > grigoriefflab - frealign}. First, you need to process the set of particles
+ that has been processes with projection matching with the features needed
+ for frealign.
 
- \begin{description}
-  \item [Subset selection:]  To do this, the firs step is extract the particles
-  again, but Preprocess tab changed as shown in figure (\ref{fig:ExtractForFrealign}).
 
-  \begin{figure}
+To do this, the first step is to extract the particles
+again, but preprocess particles as shown in Figure \ref{fig:ExtractForFrealign}.
+
+  \begin{figure}[H]
    \centering
    \includegraphics[width=0.75\textwidth]{{images/06.Extract_ParticlesC}.png}
-   \caption{GUI of Extract Particles protocol II}
+   \caption{Extract particles for frealign}
    \label{fig:ExtractForFrealign}
  \end{figure}
 
- Once the particles are extracted, press on \textbf{Set operations $\rightarrow$ intersect sets}
- button. In first place, you set the last Extracted particles, and in second place
+ Once the particles are extracted, use \menu{Particles > Set operations > union sets}
+ to join extracted particles, and in second place
  the particles selected that has been used to refine a 3D reconstruction.
-  \end{description}
+
 
 
 The new SetOfParticles is the input of Frealign refinement
@@ -592,7 +595,7 @@ protocol. Please, set the parameters as shown in figures
 (\ref{fig:FrealignA}), (\ref{fig:FrealignB}), (\ref{fig:FrealignC})
 and (\ref{fig:FrealignD}).
 
- \begin{figure}
+ \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\textwidth]{{images/19.FrealignA}.png}
   \caption{Frealign parameters I}
