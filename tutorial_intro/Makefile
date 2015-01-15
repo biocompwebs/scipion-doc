@@ -2,4 +2,6 @@
 
 all: intro.tex
 	pdflatex intro.tex
+	bibtex intro.aux
+	pdflatex intro.tex
 	pdflatex intro.tex
