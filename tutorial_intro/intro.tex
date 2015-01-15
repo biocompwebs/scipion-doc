@@ -483,7 +483,7 @@ $SCIPION_HOME/data/tests/xmipp_tutorial/micrographs/
 
 \noindent volume \comm{BPV\_scale\_filtered\_windowed\_110.vol} with \textit{sampling rate} 6.185.
 
-In order to run projection matching protocol click on
+To run projection matching protocol click on
 \menu{3D > Refine > xmipp3 -projection matching} and choose expert mode.
 Input parameters are displayed in Figures \ref{fig:ProjMatchA}, \ref{fig:ProjMatchB},
 \ref{fig:ProjMatchC} and \ref{fig:ProjMatchD} . Here we explain only the ones we need to update
@@ -520,7 +520,7 @@ for this reconstruction. For more detail on each parameter please use the respec
   \label{fig:ProjMatchD}
  \end{figure}
  
-For this reconstruction we need to specify:
+We need to specify:
 \begin{itemize}
 \item \textit{Input particles:} Particles selected previously.
 \item \textit{Initial 3D reference volumes:}  Initial volume registered.
@@ -568,13 +568,13 @@ chimera (Figure \ref{fig:volChimera})
 
 \subsection{Frealign Refinement}
 
- If you want to refine the output volume of projection matching, you can
- use \menu{3D > Refine > grigoriefflab - frealign}. First, you need to process the set of particles
- that has been processes with projection matching with the features needed
- for frealign.
+If you want to refine the output volume of projection matching, you can
+use \menu{3D > Refine > grigoriefflab - frealign}. First, you need to process the set of particles
+that was used as input for projection matching with the features needed
+for frealign.
 
 
-To do this, the first step is to extract the particles
+To do this, extract the particles
 again, but preprocess particles as shown in Figure \ref{fig:ExtractForFrealign}.
 
   \begin{figure}[H]
@@ -584,50 +584,62 @@ again, but preprocess particles as shown in Figure \ref{fig:ExtractForFrealign}.
    \label{fig:ExtractForFrealign}
  \end{figure}
 
- Once the particles are extracted, use \menu{Particles > Set operations > union sets}
- to join extracted particles, and in second place
- the particles selected that has been used to refine a 3D reconstruction.
+ 
+Once the particles are extracted, use \menu{Particles > Set operations > scipion subset}
+to create a new set with the particles contained in this set that were used for reconstruction.
 
+Protocol input parameters are displayed in Figures \ref{fig:FrealignA}, \ref{fig:FrealignB}, \ref{fig:FrealignC}
+and \ref{fig:FrealignD} . Here we explain only the ones we need to update
+for this refinement. For more detail on each parameter please use the respective 
+\textbf{help} button.
 
-
-The new SetOfParticles is the input of Frealign refinement
-protocol. Please, set the parameters as shown in figures
-(\ref{fig:FrealignA}), (\ref{fig:FrealignB}), (\ref{fig:FrealignC})
-and (\ref{fig:FrealignD}).
 
  \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\textwidth]{{images/19.FrealignA}.png}
-  \caption{Frealign parameters I}
+  \caption{Frealign: Input}
   \label{fig:FrealignA}
  \end{figure}
 
- \begin{figure}
+ \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\textwidth]{{images/19.FrealignB}.png}
-  \caption{Frealign parameters II}
+  \caption{Frealign: Flow Control}
   \label{fig:FrealignB}
  \end{figure}
 
-  \begin{figure}
+  \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\textwidth]{{images/19.FrealignC}.png}
-  \caption{Frealign parameters III}
+  \caption{Frealign: General Parameters}
   \label{fig:FrealignC}
  \end{figure}
 
-  \begin{figure}
+  \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\textwidth]{{images/19.FrealignD}.png}
-  \caption{Frealign parameters IV}
+  \caption{Frealign: 3D Reconstruction}
   \label{fig:FrealignD}
  \end{figure}
+ 
+We need to specify:
+\begin{itemize}
+\item \textit{Input particles:} Set of particles generated previously.
+\item \textit{Initial 3D reference volumes:}  Projection matching output volume
+\item \textit{Reconstruction radius:} Inner, 10. Outer, 315.
+\item \textit{Point group symmetry:} I1.
+\item \textit{Resolution of reconstruction:} 15. 
+\item \textit{Resolution in refinement:} Low, 200. High, 20. 
+\item \textit{High resolution for classification:} 20. 
+
+\end{itemize}
+and execute protocol.
 
 Again, in order to visualize the obtained results click on
 \textbf{Analyze Results} button. You will see a GUI as the one shown in
-figure (\ref{fig:FrealignViewer}).
+Figure \ref{fig:FrealignViewer}.
 
- \begin{figure}
+ \begin{figure}[H]
  \centering
  \includegraphics[width=0.75\textwidth]{{images/20.FrealignViewer}.png}
  \caption{Frealign viewer}
