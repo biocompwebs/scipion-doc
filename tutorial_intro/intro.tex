@@ -124,9 +124,10 @@ briefly the process in the next sections. For the full documentation please refe
 
 \subsection{Xmipp}
 
-Xmipp is one of the main EM software packages supported in \scipion. To download
+Xmipp is one of the main EM software packages supported in \scipion. Since  automatic
+installation is not supported yet to download
 %One of the main components of \scipion is the Xmipp package. To get
-the latest version use:
+the latest version please use:
 
 \begin{command}
 git clone http://git.code.sf.net/p/newxmipp/code xmipp
@@ -140,7 +141,7 @@ then change to the \directory{xmipp} directory and run the installation with
 \end{command}
 
 %\subsection{Scipion and Extra Packages}
-\subsection{Scipion}
+\subsection{Scipion with all Packages}
 
 To get the latest version of \scipion run
 
@@ -149,15 +150,16 @@ git clone http://git.code.sf.net/p/pyworkflow/code scipion
 \end{command}
 
 \noindent
-and then change into the \directory{scipion} directory. Finally run:
+Then change to the \directory{scipion} directory. Finally run:
 
 \begin{command}
 ./scipion install --with-all-packages --with-xmipp=\$XMIPP\_HOME
 \end{command}
 
 \noindent
-where \verb+$XMIPP_HOME+ points to the directory with your local
-installation of Xmipp.
+We use \comm{with-all-packages} to install the majority of the packages supported, eg:
+Relion, Eman, Brandeis, Spider, etc; To specify the Xmipp installation folder we 
+configure \verb+$XMIPP_HOME+.
 
 
 \section{Reconstruction of a Viral Capsid}
@@ -456,7 +458,7 @@ volume that is similar to the volume to be reconstructed (initial
 model) with the images obtained from the microscope.
 
 A possible approach is to generate equidistant projections from the
-initial model. The experimental data set is then compared (for
+initial model. The experimental dataset is then compared (for
 example, by cross correlation) to each reference projection.  A
 “similarity” coefficient (for example, crosscorrelation coefficient)
 is generated between each experimental particle and reference
@@ -520,11 +522,10 @@ for this reconstruction. For more detail on each parameter please use the respec
   \label{fig:ProjMatchD}
  \end{figure}
  
-We need to specify:
+We need to specify parameters below and execute protocol.
 \begin{itemize}
 \item \textit{Input particles:} Particles selected previously.
 \item \textit{Initial 3D reference volumes:}  Initial volume registered.
-\item \textit{Resolution limit for grouping(A):} 10.  To correct CTF we need to specify maximum resolution to consider CTF differences among different groups of particles. 
 \item \textit{Mask reference volumes:} Circular. Masking the reference volume will increase the signal to noise ratio. 
 \item \textit{Radius of spherical mask(px):} 55. Since particles size is 110 radius of spherical mask should be 55.
 \item \textit{Inner radius for rotational correlation:} 28. Particles will be correlated considering points covered 
@@ -535,10 +536,10 @@ by inner and outer radius for rotational correlation.
 the  resolution computed with resolution\_fsc(FSC=0.5) plus the value provided in this field.
 
 \end{itemize}
-and execute protocol.
+
 
 Finally, in order to visualize volume reconstructed click on
-\textbf{Analyze Results} button. Protocol viewer will be displayed (Figure \ref{fig:ProjMatchViewer}).
+\keys{Analyze Results} button. Protocol viewer will be displayed (Figure \ref{fig:ProjMatchViewer}).
 
  \begin{figure}[H]
   \centering
@@ -588,10 +589,9 @@ again, but preprocess particles as shown in Figure \ref{fig:ExtractForFrealign}.
 Once the particles are extracted, use \menu{Particles > Set operations > scipion subset}
 to create a new set with the particles contained in this set that were used for reconstruction.
 
-Protocol input parameters are displayed in Figures \ref{fig:FrealignA}, \ref{fig:FrealignB}, \ref{fig:FrealignC}
+Input parameters are displayed in Figures \ref{fig:FrealignA}, \ref{fig:FrealignB}, \ref{fig:FrealignC}
 and \ref{fig:FrealignD} . Here we explain only the ones we need to update
-for this refinement. For more detail on each parameter please use the respective 
-\textbf{help} button.
+for this refinement. 
 
 
  \begin{figure}[H]
@@ -624,19 +624,23 @@ for this refinement. For more detail on each parameter please use the respective
  
 We need to specify:
 \begin{itemize}
-\item \textit{Input particles:} Set of particles generated previously.
+\item \textit{Input particles:} Set of particles that was used as input for projection matching 
+with the features needed for frealign.
 \item \textit{Initial 3D reference volumes:}  Projection matching output volume
-\item \textit{Reconstruction radius:} Inner, 10. Outer, 315.
-\item \textit{Point group symmetry:} I1.
-\item \textit{Resolution of reconstruction:} 15. 
-\item \textit{Resolution in refinement:} Low, 200. High, 20. 
-\item \textit{High resolution for classification:} 20. 
+\item \textit{Reconstruction radius:} Inner, 10. Outer, 315. Inner and outer radius of the volume to be reconstructed.
+\item \textit{Point group symmetry:} I1. Virus symmetry
+\item \textit{Resolution of reconstruction:} 15. Resolution to which the reconstruction is calculated.
+\item \textit{Resolution in refinement:} Low, 200. High, 20. Resolution of the data included in the search/refinement.
+\item \textit{High resolution for classification:} 20. Resolution of the data included in the search/refine. It should typically be set to the same resolution
+limit used for the refinement.
 
 \end{itemize}
-and execute the protocol.
+Then we execute the protocol.
 
-Again, in order to visualize the obtained results click on the
-\textbf{Analyze Results} button. You will see a GUI as the one shown in
+
+Finally we have obtained the 3D reconstruction of a \emph{Bovine Papillomavirus}.
+In order to visualize volume refined click on \keys{Analyze Results}
+button or open output volume registered.
 Figure \ref{fig:FrealignViewer}.
 
  \begin{figure}[H]
@@ -645,6 +649,11 @@ Figure \ref{fig:FrealignViewer}.
  \caption{Frealign viewer}
  \label{fig:FrealignViewer}
  \end{figure}
+ 
+We hope this tutorial was of use to you as a general introduction to Scipion.
+Our goal is to allow the users like you to execute workflows combining different software tools, while taking care of formats and conversions. 
+
+
 
 \bibliographystyle{apalike}
 \bibliography{../tutorial_common/em.bib}
