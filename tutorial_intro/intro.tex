@@ -118,9 +118,10 @@ future editions, by writing to
 \section{Software Installation}
 
 The first step is to download %before starting to work on your projects is to download
-and install \scipion and related software packages. We describe
+and install \scipion and related EM software packages. We describe
 briefly the process in the next sections. For the full documentation please refer to
-\url{http://scipionwiki.cnb.csic.es/bin/view/TWiki/NewInstallation}.
+\href{http://scipion.cnb.csic.es/docs/bin/view/TWiki/NewInstallation}{Scipion installation page}.
+
 
 \subsection{Xmipp}
 
@@ -157,14 +158,15 @@ Then change to the \directory{scipion} directory. Finally run:
 \end{command}
 
 \noindent
-We use \comm{with-all-packages} to install the majority of the packages supported, eg:
-Relion, Eman, Brandeis, Spider, etc; To specify the Xmipp installation folder we 
-configure \verb+$XMIPP_HOME+.
+We use \comm{with-all-packages} to install the packages supported, eg:
+Relion, Eman, Frealign, Spider, etc; We can also use local installations
+of specific packages by providing a path to \comm{--with-package} option.
+For example, we have specified the Xmipp location passing \verb+$XMIPP_HOME+ as argument.
 
 
 \section{Reconstruction of a Viral Capsid}
 
-In this demo, we use the \emph{single particle analysis} approach to obtain
+In this demo, we use the \emph{single particle analysis (SPA)}  approach to obtain
 a 3D reconstruction of a \emph{Bovine Papillomavirus}. The EM images have been kindly
 provided by \href{http://grigoriefflab.janelia.org/}{Dr.~Grigorieff’s Lab}. Micrographs were
 collected at 300 $kV$ and a calibrated magnification of 56,588,
@@ -183,12 +185,17 @@ scipion testdata --download xmipp\_tutorial
 It will be downloaded to \$\directory{SCIPION\_HOME/data/tests}. 
 
 To start image processing in \scipion we need to run \comm{scipion} from the command line.
-For this tutorial we register a new project by clicking the \keys{Create Project}
-button and specifying project name. Then we navigate to project window (Figure \ref{fig:Project}).  
-Left panel displays active workflow (Protocols SPA) 
-and its different reconstruction tasks listing protocols available.
-Top right panel displays the sequence of protocols executed by the user and its state: running, finished, aborted. Users can visualize it using list or tree views.
-Finally bottom right panel displays information for the selected run, such as inputs and outputs, execution logs or documentation - also provides "Analyze Results" button to visualize outputs.
+After that, the window with all projects should appears. If this is your first time with 
+\scipion, the list will be empty. 
+
+For this tutorial we will create a new project by clicking the \keys{Create Project}
+button and specifying project name. The project window will pop up as shown in Figure \ref{fig:Project}.  
+Left panel displays a tree with the processing tasks (protocols) that 
+can be used for some workflow (SPA is the default one).
+Top right panel displays the sequence of protocols executed (runs) by the user and its state: running, finished, aborted. 
+Users can visualize the runs in a list or tree views.
+Finally, bottom right panel displays information for the selected run, such as inputs and outputs, execution logs or documentation.
+The special \keys{Analyze Results} button can be used to visualize outputs and plot results.
 
 \begin{figure}[H]
 \centering
@@ -235,9 +242,12 @@ Figure \ref{fig:ProjectGUI}. If we press the \keys{Analyze Results} button impor
 After importing the micrographs we can
 perform the next step: \textbf{Preprocess Micrographs}. This protocol
 combines multiple Xmipp programs in order to perform different operations
-over the micrographs (Figure \ref{fig:Preprocess}). We want to downsample micrographs with
-a downsample factor of 5. To fill the \textit{Input micrographs} field, simply click on the
+over the micrographs (Figure \ref{fig:Preprocess}). We want to reduce the micrographs size
+by a factor of 5 (this operation is usually called downsampling or binning). 
+To fill the \textit{Input micrographs} field, simply click on the
 magnifying glass button and select the output from the previous step.
+
+%TODO: Explain better (and concisely) why to perform a downsampling
 
 \begin{figure}[H]
 \centering
@@ -251,13 +261,10 @@ magnifying glass button and select the output from the previous step.
 The next step is to estimate the CTFs (Contrast Transfer Functions) of
 the micrographs either using \textit{CTFFind} \citep{Mindell2003} or
 \textit{Xmipp CTF estimation}. These protocols estimate the PSD (Power Spectral Density) of the
-micrographs to then estimate the parameters of the CTF (defocus U,
+micrographs and the parameters of the CTF (defocus U,
 defocus V, defocus angle, etc).  They cut the micrographs into plenty
 of images with the desired window size. After that, they compute the Fourier
 Transform of each image and make an average.
-
-
-
 
 To estimate the CTF you will need some parameters
 describing the frequency region to be analyzed. The parameters shown
@@ -269,9 +276,6 @@ see the full available options, choose the \verb+Expert Level+ in the
 dropdown menu.  Please note that the range of defocus search is
 usually larger than the one used in this example, and it must be
 chosen according to your data set.
-
-
-
 
 
 \begin{figure}
@@ -320,8 +324,7 @@ button.
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{{images/17.CTFREsults}.png}
-\caption{Output visualization of the CTFFind protocol that shows the
-CTFs of all the micrographs, and different related parameters.}
+\caption{Protocol CTFFind output that shows the estimated CTFs for all micrographs.}
 \label{fig:CTFResult}
 \end{figure}
 
@@ -329,7 +332,7 @@ CTFs of all the micrographs, and different related parameters.}
 
 Now you are ready to pick particles from micrographs. You can pick particles with either \textit{Xmipp supervised picking},
 \textit{Eman boxer} or \textit{Bsoft particle picking} . We illustrate here
-particle picking with Eman and Xmipp using as particle size 110.
+particle picking with Eman and Xmipp using as particle size 110 pixels.
 
 \begin{description}
 
