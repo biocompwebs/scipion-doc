@@ -119,20 +119,24 @@ future editions, by writing to
 
 The first step is to download %before starting to work on your projects is to download
 and install \scipion and related EM software packages. We describe
-briefly the process in the next sections. For the full documentation please refer to
+briefly the process in the next sections. For the full documentation please refer to the
 \href{http://scipion.cnb.csic.es/docs/bin/view/TWiki/NewInstallation}{Scipion installation page}.
 
 
 \subsection{Xmipp}
 
-Xmipp is one of the main EM software packages supported in \scipion. Since  automatic
-installation is not supported yet to download
+Xmipp is one of the main EM software packages supported in Scipion. Since  automatic
+installation is not supported yet, to download
 %One of the main components of \scipion is the Xmipp package. To get
 the latest version please use:
 
 \begin{command}
 git clone http://git.code.sf.net/p/newxmipp/code xmipp
 \end{command}
+
+% TODO: maybe we prefer to say:
+%   git clone --depth 1 http://git.code.sf.net/p/newxmipp/code xmipp
+% because if not, the installation of xmipp downloads a loooot of data.
 
 \noindent
 then change to the \directory{xmipp} directory and run the installation with
@@ -158,10 +162,10 @@ Then change to the \directory{scipion} directory. Finally run:
 \end{command}
 
 \noindent
-We use \comm{with-all-packages} to install the packages supported, eg:
-Relion, Eman, Frealign, Spider, etc; We can also use local installations
-of specific packages by providing a path to \comm{--with-package} option.
-For example, we have specified the Xmipp location passing \verb+$XMIPP_HOME+ as argument.
+We use \comm{--with-all-packages} to install all the packages supported, eg:
+Relion, Eman, Frealign, Spider, etc. We can also use local installations
+of specific packages by providing a path to the \comm{--with-package} option.
+For example, we have specified the Xmipp location by passing \verb+$XMIPP_HOME+ as argument.
 
 
 \section{Reconstruction of a Viral Capsid}
@@ -171,14 +175,14 @@ a 3D reconstruction of a \emph{Bovine Papillomavirus}. The EM images have been k
 provided by \href{http://grigoriefflab.janelia.org/}{Dr.~Grigorieff’s Lab}. Micrographs were
 collected at 300 $kV$ and a calibrated magnification of 56,588,
 giving a pixel
-size of 1.237 \AA  \citep{Wolf2010}. 
+size of 1.237 \AA {} \citep{Wolf2010}.
 
 \subsection{Getting Started}
 
 To download the data required for this tutorial use the following command:
 
 \begin{command}
-scipion testdata --download xmipp\_tutorial
+./scipion testdata --download xmipp\_tutorial
 \end{command}
 
 \noindent
