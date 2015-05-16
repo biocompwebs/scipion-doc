@@ -1,0 +1,645 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Design based on a template by Roberto and following the format of
+% the xmipp tutorials. In turn, they seem to be based on a template
+% from http://www.latextemplates.com
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[12pt]{article} % Default font size is 12pt, it can be changed here
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{listings} % To include source code
+\usepackage{caption}
+\usepackage{geometry} % Required to change the page size to A4
+%\geometry{a4paper} % Set the page size to be A4 as opposed to the default US Letter
+\usepackage{framed}
+\usepackage{url}
+\usepackage{graphicx} % Required for including pictures
+\usepackage{natbib}
+\usepackage{float} % Allows putting an [H] in \begin{figure} to specify the exact location of the figure
+\usepackage{hyperref}
+\usepackage{menukeys}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[RO]{{Mix-and-Match Tutorial}}
+\fancyhead[LO]{Scipion}
+%\fancyhead[RO]{{\leftmark}}
+\fancyfoot[RO]{\thepage}
+
+\linespread{1.2} % Line spacing
+
+%\setlength\parindent{0pt} % Uncomment to remove all indentation from paragraphs
+
+\newcommand{\scipion}{\textsc{Scipion} }
+\newenvironment{command}{\tt\begin{quote}}{\end{quote}}
+\newcommand{\comm}[1]{\texttt{#1}}
+
+\begin{document}
+
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{titlepage}
+
+% New command for horizontal lines. Change thickness here.
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\center % Center everything on the page
+
+\includegraphics{../tutorial_common/images/scipion_logo.png}
+
+{\large Scipion Tutorial Series}\\[1.0cm]
+
+\textsc{\LARGE National Center for Biotechnology}\\[0.5cm]
+\textsc{\Large Biocomputing Unit}\\[0.5cm]
+
+\HRule\\[0.4cm]
+{ \huge \bfseries Mix-and-Match Tutorial}\\[0.4cm] % Title of your document
+\HRule \\[1.5cm]
+
+%{\large \today}\\[3cm] % Date, change the \today to a set date if you want to be precise
+
+\includegraphics[width=0.5\textwidth]{images/betagal.png}
+
+\vfill % Fill the rest of the page with whitespace
+%\begin{minipage}{0.4\textwidth}
+\begin{flushright}
+ \large
+%\emph{Author:}\\
+  \textsc{Scipion Team} % Your name
+\end{flushright}
+%\end{minipage}
+
+\end{titlepage}
+
+
+%----------------------------------------------------------------------------------------
+%	OBJETIVOS
+%----------------------------------------------------------------------------------------
+
+
+\subsection*{Intended audience}
+
+This tutorial presents a general image processing workflow to obtain
+3D models of macromolecular complexes using Electron Microscopy (EM).
+It is designed to demonstrate how to combine
+different EM software packages in Scipion. No prior knowledge is required
+about Scipion, but some basic knowledge about 3DEM image processing is asumed
+and basic computer skills.
+
+\subsection*{We'd like to hear from you}
+
+We have tested and verified the different steps described in this demo
+to the best of our knowledge, but since our programs are in continuous
+development you may find inaccuracies and errors in this text. Please
+let us know about any errors, as well as your suggestions for
+future editions, by writing to
+\href{mailto:scipion@cnb.csic.es}{scipion@cnb.csic.es}.
+
+\newpage
+
+
+%----------------------------------------------------------------------------------------
+%	TABLE OF CONTENTS
+%----------------------------------------------------------------------------------------
+
+\tableofcontents % Include a table of contents
+
+\newpage % Begins on a new page instead of on the same page as the table of contents
+
+
+\section{Software Installation}
+
+To follow this tutorial you will need to have \scipion properly installed
+in your system. To do so, you can execute the following commands:
+
+%TODO: how to add multiline commands?
+\begin{verbatim} 
+git clone https://github.com/biocompwebs/scipion.git
+cd scipion
+./scipion install -j 5
+\end{verbatim}
+
+You will also need to install other EM software packages like: 
+CTFFind, Spider, Relion, Eman. For the full documentation please refer to the
+\href{http://scipion.cnb.csic.es/docs/bin/view/TWiki/NewInstallation}{Scipion installation page}.
+
+
+\section{Reconstruction of beta-galactosidase}
+
+In this demo, we use the \emph{single particle analysis (SPA)}  approach to obtain
+a 3D reconstruction of \emph{beta-galactosidase}. It uses the same test data set than
+in Relion 1.3 tutorial, which is subset of the micrographs used in various beta-galactosidase reconstructions.[9, 2, 13].
+To reduce
+the computational load, these data were 2x down-sampled.
+
+
+\subsection{Getting Started}
+
+The test data may be downloaded and unpacked using the following commands:
+
+\begin{verbatim}
+wget ftp://ftp.mrc-lmb.cam.ac.uk/pub/scheres/relion13_tutorial.tar.gz
+gunzip relion13_tutorial.tar.gz
+tar -xf relion13_tutorial.tar
+\end{verbatim}
+
+After downloading the test data, we will create a project with the workflow pre-loaded
+by typing the following command:
+
+\begin{command}
+ scipion tutorial betagal
+\end{command}
+
+The project windows should appears as shown in Figure \ref{fig:Project}. The previous command has done two 
+steps: (1) create a new project. (2) import an existing workflow template. In this way, 
+we have a basic template that will made easier to follow the processing pipeline. 
+\textbf{NOTE}: The ability to export/import workflows in Scipion is a great way to 
+reproduce previous processing steps. It is particularly useful to repeat steps
+on similar samples or to share knowledge between experimental users.
+
+In the project windows, the left panel displays a tree with the processing tasks (protocols) that 
+can be used. The protocols shown can be filtered by perspective (SPA is the default one) or found by Ctrl + F.
+Top right panel displays the sequence of protocols executed (runs) by the user and its state: running, finished, aborted. 
+Users can visualize the runs in a list or tree views. Finally, bottom right panel displays information for the selected run, 
+such as inputs and outputs, execution logs or documentation.
+The special \keys{Analyze Results} button can be used to visualize outputs and plot results.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]
+{{images/00.Project}.png}
+\caption{Project window}
+\label{fig:Project}
+\end{figure}
+
+
+\subsection{Importing Data}
+
+\subsubsection{Movies import}
+
+The first step is to import the micrographs to your scipion
+project. To do this, double-click the \keys{Import Micrographs}
+button. Micrographs are available at:
+
+\verb+$SCIPION_HOME/data/tests/xmipp_tutorial/micrographs/*.mrc+
+
+\noindent Acquisition info is displayed  in Figure \ref{fig:ImportMics}.  
+Modify input and click on execute to run protocol. The project window will present the new information as shown in
+Figure \ref{fig:ProjectGUI}. If we press the \keys{Analyze Results} button imported micrographs will be loaded.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]
+{{images/01.Import_Mics}.png}
+\caption{Import Micrographs Protocol.}
+\label{fig:ImportMics}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{{images/02.Project_GUI}.png}
+\caption{Project window after processing Import Micrographs protocol.}
+\label{fig:ProjectGUI}
+\end{figure}
+
+
+
+\subsubsection{Movies alignment}
+
+After importing the micrographs we can
+perform the next step: \textbf{Preprocess Micrographs}. This protocol
+combines multiple Xmipp programs in order to perform different operations
+over the micrographs (Figure \ref{fig:Preprocess}). We want to reduce the micrographs size
+by a factor of 5 (this operation is usually called downsampling or binning). 
+To fill the \textit{Input micrographs} field, simply click on the
+magnifying glass button and select the output from the previous step.
+
+%TODO: Explain better (and concisely) why to perform a downsampling
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{{images/03.Downsampling_Mics}.png}
+\caption{Preprocess Micrographs Protocol.}
+\label{fig:Preprocess}
+\end{figure}
+
+\subsubsection{Micrographs import}
+
+
+\subsection{Estimating CTF}
+
+\subsubsection{Using CTFFIND}
+The next step is to estimate the CTFs (Contrast Transfer Functions) of
+the micrographs either using \textit{CTFFind} \citep{Mindell2003} or
+\textit{Xmipp CTF estimation}. These protocols estimate the PSD (Power Spectral Density) of the
+micrographs and the parameters of the CTF (defocus U,
+defocus V, defocus angle, etc).  They cut the micrographs into plenty
+of images with the desired window size. After that, they compute the Fourier
+Transform of each image and make an average.
+
+\subsubsection{Using Xmipp}
+To estimate the CTF you will need some parameters
+describing the frequency region to be analyzed. The parameters shown
+in Figure \ref{fig:CTFFind} are the proper ones for this example.
+The limiting frequencies must be such that all zeros of the PSD are
+contained within those frequencies. There is a wizard, shown in Figure
+\ref{fig:CTFwizard}, that helps in choosing those frequencies. To
+see the full available options, choose the \verb+Expert Level+ in the
+dropdown menu.  Please note that the range of defocus search is
+usually larger than the one used in this example, and it must be
+chosen according to your data set.
+
+\subsubsection{Recalculating CTF}
+
+\begin{figure}
+\minipage{0.47\textwidth}
+  \includegraphics[width=\linewidth]{{images/04.CTFFind}.png}
+  \caption{CTFFind protocol.}
+  \label{fig:CTFFind}
+\endminipage\hfill
+\minipage{0.51\textwidth}
+  \includegraphics[width=\linewidth]{{images/16.CTFWizard}.png}
+  \caption{Wizard to choose the frequencies.}
+  \label{fig:CTFwizard}
+\endminipage\hfill
+\end{figure}
+
+The CTFs of good micrographs typically have multiple concentric rings, shown
+in Figure \ref{fig:CTFs} left, extending from the image center towards its edges.
+Bad micrographs may lack rings or have very few rings that hardly extend from
+the image center. A reason to discard micrographs may be the presence of
+strongly asymmetric rings (astigmatism, Figure \ref{fig:CTFs} center) or rings
+that fade in a particular direction (drift, Figure \ref{fig:CTFs} right).
+
+\begin{figure}
+\centering
+\includegraphics[width=0.75\textwidth]{images/images-016.jpg}
+\caption{CTFs of good, astigmatic and drift micrographs respectively.}
+\label{fig:CTFs}
+\end{figure}
+
+When the protocol (either CTFFind or Xmipp CTF estimation) is finished
+you may click on the \keys{Analyze Results} button (Figure
+\ref{fig:CTFResult}). To discard micrographs with bad CTFs you may
+click with the mouse right button and press \textbf{Disable}. Once you
+finish the selection, press on the \keys{Micrographs} button to
+create your subset of micrographs with only the enabled ones.
+
+Sometimes the CTF estimation algorithm may fail to find the rings even
+if they can be seen by eye. If this is the case, you may help the
+algorithm to find the rings by clicking on the image with the mouse
+right-button and choosing \textbf{Recalculate CTF} on the menu that
+appears. A graphical interface will help you to correctly identify the
+CTF. You must provide the first CTF zero and the search range, and then
+press \verb+OK+. When you finish, press the \keys{Recalculate CTFs}
+button.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.75\textwidth]{{images/17.CTFREsults}.png}
+\caption{Protocol CTFFind output that shows the estimated CTFs for all micrographs.}
+\label{fig:CTFResult}
+\end{figure}
+
+\subsubsection{Particle Picking}
+
+Now you are ready to pick particles from micrographs. You can pick particles with either \textit{Xmipp supervised picking},
+\textit{Eman boxer} or \textit{Bsoft particle picking} . We illustrate here
+particle picking with Eman and Xmipp using as particle size 110 pixels.
+
+\begin{description}
+
+\item[EMAN boxer] \hfill \\
+
+Eman boxer has manual picking and several modes of
+automatic picking, with fast outcome. Please refer to its
+\href{http://blake.bcm.edu/emanwiki/EMAN2}{webpage} for futher
+information. When you are done picking particles you are asked if you want to register output.  If you choose
+\keys{Yes}, output coordinates are generated.
+
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{{images/05.EmanPicking}.png}
+\caption{EMAN boxer, an interface for particle picking.}
+\label{fig:EmanPP}
+\end{figure}
+
+\item[Xmipp particle picking] \hfill \\
+
+
+Xmipp supervised picking has manual and automatic picking. Automatic picking is activated using autopick.
+Particles added or removed manually after autopick are used to correct classifier. 
+When you are done picking particles you can click on \keys{Add Coordinates} to register output.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{{images/05.XmippPicking}.png}
+\caption{Xmipp supervised picking, a different interface for particle picking.}
+\label{fig:XmippPickingParticles}
+\end{figure}
+
+
+
+\begin{itemize}
+\item Use \keys{\shift + mouse wheel} in the overview window to zoom
+  in and out.
+\item Mark particles with the \keys{mouse left} button. You may move
+  its position by clicking the left mouse button on the selected
+  particle and dragging it to the new position.
+\item Use \keys{\shift + left mouse} over a selected particle in order
+  to remove it.
+\item You can apply filters to the micrographs, so that you may see
+  the particles better. Select in the
+  menu \menu{Filters} as many filters
+  as you like.
+
+
+\end{itemize}
+
+\end{description}
+
+\subsection{Extract Particles}
+
+Click on \menu{Particles > Extract > xmipp3 - extract particles}.
+This will launch our next protocol that will allow you
+to extract, normalize and correct the CTF phase of your picked
+particles, among other things. Modify the default parameters according
+to the ones shown in Figures \ref{fig:XmippPP}, 
+\ref{fig:ExtractParams}. They will contain:
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.75\textwidth]{{images/06.Extract_Particles2}.png}
+  \caption{Extract particles protocol (tab \texttt{Input})}
+  \label{fig:XmippPP}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.75\textwidth]{{images/06.Extract_ParticlesB}.png}
+  \caption{Extract particles protocol (tab \texttt{Preprocess})}
+  \label{fig:ExtractParams}
+\end{figure}
+
+\begin{itemize}
+\item The \textit{coordinates} of the particles in the micrographs,
+  which are taken from the results of the previous step. Also in the
+  same tab, the \textit{particle box size} in pixels (in this case 110
+  px).
+\item The \textit{invert contrast} flag. If activated, bright
+  regions become dark regions and the other way around. This flag
+  should be set so that the extracted particles are white over a dark
+  background.
+\item The \textit{phase flipping} flag. If activated,
+  the protocol corrects the CTF phase of your particles. We need to activate this flag 
+  since we plan to use projection matching to reconstruct volume.
+\item The \textit{normalize} flag. If activated (recommended), the
+  particles are normalized to have zero mean and a standard deviation
+  of one for the background pixels.
+\end{itemize}
+
+
+% TODO: see the definition of zscore and explain this a bit more.
+
+The protocol also can sort the particles based on general statistics
+assigning to each particle a z-score value. Particles with low z-score
+are reliable and the ones with large z-score are outliers. Press the
+\keys{Analyze Results} button in the main window to check the
+extracted and normalized images.
+
+\subsubsection{Particles Selection}
+
+By default, particles displayed are sorted by
+z-score. If you want to remove some particles, eg: because they are outliers, you can use 
+\menu{right click > disable }
+To create a new set of particles you can click on \keys{Add Particles} button 
+(\ref{fig:SubsetSelection})).
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.75\textwidth]{{images/08.ImgsSelection}.png}
+  \caption{Analyze Results window of the Extract Particles protocol.}
+  \label{fig:SubsetSelection}
+\end{figure}
+
+\subsection{3D Reconstruction: Projection Matching}
+
+Having the right angles of each projection is crucial for making a 3D
+reconstruction.  However, in 3DEM you don’t know a priori the angles
+and you have to estimate them as part of the problem. The most popular
+way of estimating them is by comparing somehow the projections of a
+volume that is similar to the volume to be reconstructed (initial
+model) with the images obtained from the microscope.
+
+A possible approach is to generate equidistant projections from the
+initial model. The experimental dataset is then compared (for
+example, by cross correlation) to each reference projection.  A
+“similarity” coefficient (for example, crosscorrelation coefficient)
+is generated between each experimental particle and reference
+projection. Each individual experimental particle is matched to the
+reference projection that gave the highest “similarity”
+coefficient. Therefore, it is assumed that this experimental particle
+was projected with the same Euler angles as the reference projection.
+
+As an initial map is necessary, we provide initial volume. Click on 
+\menu{Imports > Import Volume} and import from
+
+% TODO: explain where. Which dialog? which menu?
+% Maybe it's \menu{3D > Preprocess > xmipp3 - preprocess volumes}
+% but I don't know.
+
+% TODO: acutally, from this point below (and the last paragraph), it
+% is not clear where to click on things, or how the flow is going. I
+% think it should be revisited.
+
+
+\begin{verbatim}
+$SCIPION_HOME/data/tests/xmipp_tutorial/micrographs/
+\end{verbatim}
+
+\noindent volume \comm{BPV\_scale\_filtered\_windowed\_110.vol} with \textit{sampling rate} 6.185.
+
+To run the projection matching protocol click on
+\menu{3D > Refine > xmipp3 -projection matching} and choose expert mode.
+Input parameters are displayed in Figures \ref{fig:ProjMatchA}, \ref{fig:ProjMatchB},
+\ref{fig:ProjMatchC} and \ref{fig:ProjMatchD} . Here we explain only the ones we need to update
+for this reconstruction. For more detail on each parameter please use the respective 
+\textbf{help} button.
+
+
+
+ \begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\textwidth]{{images/09.ProjMatchA}.png}
+  \caption{Projection Matching: Input}
+  \label{fig:ProjMatchA}
+ \end{figure}
+
+ \begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\textwidth]{{images/09.ProjMatchB}.png}
+  \caption{Projection Matching: CTF Correction \& Mask}
+  \label{fig:ProjMatchB}
+ \end{figure}
+
+  \begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\textwidth]{{images/09.ProjMatchC}.png}
+  \caption{Projection Matching: Projection Matching}
+  \label{fig:ProjMatchC}
+ \end{figure}
+
+  \begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\textwidth]{{images/09.ProjMatchD}.png}
+  \caption{Projection Matching: 3D Reconstruction}
+  \label{fig:ProjMatchD}
+ \end{figure}
+ 
+We need to specify parameters below and execute protocol.
+\begin{itemize}
+\item \textit{Input particles:} Particles selected previously.
+\item \textit{Initial 3D reference volumes:}  Initial volume registered.
+\item \textit{Mask reference volumes:} Circular. Masking the reference volume will increase the signal to noise ratio. 
+\item \textit{Radius of spherical mask(px):} 55. Since particles size is 110 radius of spherical mask should be 55.
+\item \textit{Inner radius for rotational correlation:} 28. Particles will be correlated considering points covered 
+by inner and outer radius for rotational correlation.
+\item \textit{Outer radius for rotational correlation:} 55. Since particles size is 110 outer radius for rotational correlation should be 55.
+\item \textit{Point group symmetry:} i1. Virus type of symmetry.
+\item \textit{Constant to be added to the estimated resolution:} -0.05. The volume will be filtered at a frequency equal to
+the  resolution computed with resolution\_fsc(FSC=0.5) plus the value provided in this field.
+
+\end{itemize}
+
+
+Finally, in order to visualize volume reconstructed click on
+\keys{Analyze Results} button. Protocol viewer will be displayed (Figure \ref{fig:ProjMatchViewer}).
+
+ \begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\textwidth]{{images/11.ProjMatchViewer}.png}
+  \caption{Projection matching viewer}
+  \label{fig:ProjMatchViewer}
+ \end{figure}
+
+In the field 
+\textit{Display volume with slices } press the \textbf {eye} button and you will see the 
+volume slice by slice (Figure \ref{fig:volShowj}). To visualize the volume with chimera select
+chimera (Figure \ref{fig:volChimera}).
+
+ \begin{figure}
+  \centering
+  \includegraphics[width=0.75\textwidth]{{images/12.VolumeGalleries}.png}
+  \caption{Reconstructed volume slices}
+  \label{fig:volShowj}
+ \end{figure}
+
+ \begin{figure}
+  \centering
+  \includegraphics[width=0.75\textwidth]{{images/12.VolumeChimera}.png}
+  \caption{Reconstructed volume}
+  \label{fig:volChimera}
+ \end{figure}
+
+\subsection{Frealign Refinement}
+
+If you want to refine the output volume of projection matching, you can
+use \menu{3D > Refine > grigoriefflab - frealign}. First, you need to process the set of particles
+that was used as input for projection matching with the features needed
+for frealign.
+
+
+To do this, extract the particles
+again, but preprocess particles as shown in Figure \ref{fig:ExtractForFrealign}.
+
+  \begin{figure}[H]
+   \centering
+   \includegraphics[width=0.75\textwidth]{{images/06.Extract_ParticlesC}.png}
+   \caption{Extract particles for frealign}
+   \label{fig:ExtractForFrealign}
+ \end{figure}
+
+ 
+Once the particles are extracted, use \menu{Particles > Set operations > scipion subset}
+to create a new set with the particles contained in this set that were used for reconstruction.
+
+Input parameters are displayed in Figures \ref{fig:FrealignA}, \ref{fig:FrealignB}, \ref{fig:FrealignC}
+and \ref{fig:FrealignD} . Here we explain only the ones we need to update
+for this refinement. 
+
+
+ \begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\textwidth]{{images/19.FrealignA}.png}
+  \caption{Frealign: Input}
+  \label{fig:FrealignA}
+ \end{figure}
+
+ \begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\textwidth]{{images/19.FrealignB}.png}
+  \caption{Frealign: Flow Control}
+  \label{fig:FrealignB}
+ \end{figure}
+
+  \begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\textwidth]{{images/19.FrealignC}.png}
+  \caption{Frealign: General Parameters}
+  \label{fig:FrealignC}
+ \end{figure}
+
+  \begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\textwidth]{{images/19.FrealignD}.png}
+  \caption{Frealign: 3D Reconstruction}
+  \label{fig:FrealignD}
+ \end{figure}
+ 
+We need to specify:
+\begin{itemize}
+\item \textit{Input particles:} Set of particles that was used as input for projection matching 
+with the features needed for frealign.
+\item \textit{Initial 3D reference volumes:}  Projection matching output volume
+\item \textit{Reconstruction radius:} Inner, 10. Outer, 315. Inner and outer radius of the volume to be reconstructed.
+\item \textit{Point group symmetry:} I1. Virus symmetry
+\item \textit{Resolution of reconstruction:} 15. Resolution to which the reconstruction is calculated.
+\item \textit{Resolution in refinement:} Low, 200. High, 20. Resolution of the data included in the search/refinement.
+\item \textit{High resolution for classification:} 20. Resolution of the data included in the search/refine. It should typically be set to the same resolution
+limit used for the refinement.
+
+\end{itemize}
+Then we execute the protocol.
+
+
+Finally we have obtained the 3D reconstruction of a \emph{Bovine Papillomavirus}.
+In order to visualize volume refined click on \keys{Analyze Results}
+button or open output volume registered.
+Figure \ref{fig:FrealignViewer}.
+
+ \begin{figure}[H]
+ \centering
+ \includegraphics[width=0.75\textwidth]{{images/20.FrealignViewer}.png}
+ \caption{Frealign viewer}
+ \label{fig:FrealignViewer}
+ \end{figure}
+ 
+We hope this tutorial was of use to you as a general introduction to Scipion.
+Our goal is to allow the users like you to execute workflows combining different software tools, while taking care of formats and conversions. 
+
+
+
+\bibliographystyle{apalike}
+\bibliography{../tutorial_common/em.bib}
+
+\end{document}
