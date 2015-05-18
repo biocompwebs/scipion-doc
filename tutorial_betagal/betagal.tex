@@ -240,16 +240,16 @@ Aligning the individual frames of movies is necessary to correct the BIM image b
 and restore important high resolution information. In \scipion we have develop a protocol
 that combines both the global and local alignment to produce the final averaged micrograph.
 
-The alignment method used in Li et al. (2013b) consists of a pure inplane drift correction in 
+The alignment method used in \citep{Li2013} consists of a pure inplane drift correction in 
 which a step of the sub-frame translational alignment is introduced by dividing each frame into a number of
 sub-frames This approach is fast if running on GPUs, and at the end, an ‘‘average’’ micrograph is generated for each
 movie via the summation of all corrected frames. The method is certainly appropriate for global sample movements
 but is not the best option if the sample motion is local. 
 
-The alignment method proposed in Abrishami 201X (cite) is based on Optical Flow (OF) and works best at a local level 
+The alignment method proposed in \citep{Abrishami2015} is based on Optical Flow (OF) and works best at a local level 
 and is therefore particularly suited for those cases in which the BIM pattern presents a high degree of local movements, as in the Falcon II data.
 If the BIM pattern is characterized primarily by global movements, OF will have only a minor effect on the final average. 
-Still, even for those latter cases, we have found it advantageous to use the Li et al. (2013b) method combined with OF,
+Still, even for those latter cases, we have found it advantageous to use the \citep{Li2013} method combined with OF,
 to obtain an additional level of refinement and a highly intuitive graphical representation of the total BIM pattern.
 
 In our workflow, we can now open the \keys{movie alignment} box (Figure \ref{fig:MovAlignment}) and, since the parameters are filled,
