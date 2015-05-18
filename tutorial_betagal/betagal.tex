@@ -283,7 +283,7 @@ visual inspection. This protocol should produce as output a new \emph{SetOfMicro
 \subsubsection{Micrographs import}
 If you already have your movies aligned, then it is possible to import directly the micrograph data.
 The import form is very similar to the one for movies. The main different is that for micrograph 
-we could import also from EMX format \href{http://i2pc.cnb.csic.es/emx} and from Xmipp 3 metadata.
+we could import also from \href{http://i2pc.cnb.csic.es/emx}{EMX} format and from Xmipp 3 metadata.
 In these cases, CTF information can also be associated with the micrographs. After importing micrographs
 we should have an output \emph{SetOfMicrographs} (the same type of output from the movie alignment)
 that can be used in further steps.
@@ -308,41 +308,41 @@ the transformations applied.
 
 \subsection{Estimating CTF}
 
-\subsubsection{Using CTFFIND}
+\subsubsection{Using CTFFind and Xmipp}
+
 The next step is to estimate the CTFs (Contrast Transfer Functions) of
 the micrographs either using \textit{CTFFind} \citep{Mindell2003} or
-\textit{Xmipp CTF estimation}. These protocols estimate the PSD (Power Spectral Density) of the
-micrographs and the parameters of the CTF (defocus U,
-defocus V, defocus angle, etc).  They cut the micrographs into plenty
+\textit{Xmipp CTF estimation} (cite). These protocols estimate the PSD (Power Spectral Density) of the
+micrographs and the parameters of the CTF (defocus U, defocus V, defocus angle, etc).  They cut the micrographs into plenty
 of images with the desired window size. After that, they compute the Fourier
 Transform of each image and make an average.
 
-\subsubsection{Using Xmipp}
-To estimate the CTF you will need some parameters
-describing the frequency region to be analyzed. The parameters shown
-in Figure \ref{fig:CTFFind} are the proper ones for this example.
+We have develop the protocols for CTFFind and Xmipp in such a way that the 
+parameters are very similar. To estimate the CTF you will need select the frequency region
+to be analyzed (Figure \ref{fig:CTFFind}). 
 The limiting frequencies must be such that all zeros of the PSD are
 contained within those frequencies. There is a wizard, shown in Figure
-\ref{fig:CTFwizard}, that helps in choosing those frequencies. To
-see the full available options, choose the \verb+Expert Level+ in the
-dropdown menu.  Please note that the range of defocus search is
-usually larger than the one used in this example, and it must be
-chosen according to your data set.
+\ref{fig:CTFWizard}, that helps in choosing those frequencies. To
+see the full available options, choose the \emph{Advanced} expert level
+and click on the \keys{Help} button for an specific parameter.
+The CTFFind protocol allows to use either ctffind3 or ctffind4 programs,
+the lastest have been reported to be like ten times faster.
 
-\subsubsection{Recalculating CTF}
-
-\begin{figure}
-\minipage{0.47\textwidth}
-  \includegraphics[width=\linewidth]{{images/04.CTFFind}.png}
-  \caption{CTFFind protocol.}
-  \label{fig:CTFFind}
-\endminipage\hfill
-\minipage{0.51\textwidth}
-  \includegraphics[width=\linewidth]{{images/16.CTFWizard}.png}
-  \caption{Wizard to choose the frequencies.}
-  \label{fig:CTFwizard}
-\endminipage\hfill
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{{images/06.CTFFind}.png}
+\caption{CTFFind protocol}
+\label{fig:CTFFind}
 \end{figure}
+
+\begin{figure}[H]
+\centering
+  \includegraphics[width=0.7\textwidth]{{images/07.CTFWizard}.png}
+  \caption{Wizard to help selecting the frequency region.}
+  \label{fig:CTFWizard}
+\end{figure}
+
+\subsubsection{Analyzing CTF results}
 
 The CTFs of good micrographs typically have multiple concentric rings, shown
 in Figure \ref{fig:CTFs} left, extending from the image center towards its edges.
@@ -363,7 +363,12 @@ you may click on the \keys{Analyze Results} button (Figure
 \ref{fig:CTFResult}). To discard micrographs with bad CTFs you may
 click with the mouse right button and press \textbf{Disable}. Once you
 finish the selection, press on the \keys{Micrographs} button to
-create your subset of micrographs with only the enabled ones.
+create a subset of micrographs with only the enabled ones. 
+
+\textbf{NOTE}: The creation of user selected subsets is tracked in \scipion
+as another operation, so this action is stored in the project workflow.
+In the EM packages this kind of operations is usually done by editing
+the metadata files, but the action is not longer tracked.
 
 Sometimes the CTF estimation algorithm may fail to find the rings even
 if they can be seen by eye. If this is the case, you may help the
@@ -374,18 +379,51 @@ CTF. You must provide the first CTF zero and the search range, and then
 press \verb+OK+. When you finish, press the \keys{Recalculate CTFs}
 button.
 
+It is also possible to analyze the CTF profiles by right-click on a micrograph row
+and selecting the \emph{Show CTF profile} option which should open a windows
+as shown in Figure \ref{fig:CTFProfile}. The profile for the Xmipp CTF estimation
+show some additional options such as the Envelop. In the CTFFind case, there is
+an option to show the CTF fitting as shown in Figure \ref{fig:CTFFitting}.
+
 \begin{figure}
 \centering
-\includegraphics[width=0.75\textwidth]{{images/17.CTFREsults}.png}
+\includegraphics[width=0.9\textwidth]{{images/08.CTFResult}.png}
 \caption{Protocol CTFFind output that shows the estimated CTFs for all micrographs.}
 \label{fig:CTFResult}
 \end{figure}
 
-\subsubsection{Particle Picking}
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{{images/09.CTFProfile}.png}
+\caption{Protocol CTFFind output that shows the estimated CTFs for all micrographs.}
+\label{fig:CTFProfile}
+\end{figure}
 
-Now you are ready to pick particles from micrographs. You can pick particles with either \textit{Xmipp supervised picking},
-\textit{Eman boxer} or \textit{Bsoft particle picking} . We illustrate here
-particle picking with Eman and Xmipp using as particle size 110 pixels.
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth]{{images/10.CTFFitting}.png}
+\caption{Protocol CTFFind output that shows the estimated CTFs for all micrographs.}
+\label{fig:CTFFitting}
+\end{figure}
+
+\subsection{Particle Picking}
+
+Particle picking is an important step to select your ''particles'' from the micrograph images.
+Manual picking can be very tedious and each tool is more or less convenient depending on 
+the sample and the personal preferences. In \scipion, we have integrated different 
+picking tools, so the user can select which one better fits its needs, or combine some of them to 
+obtain the final coordinates. Currently, the following tools are available:
+Eman boxer, Xmipp supervised/automatic, Appion DoG picker, Sparx Gaussian (packaged with Eman), 
+Relion autopick and Bsoft manual picking. In this section we will illustrate the usage
+of some of them.
+
+
+\subsection{Using Eman boxer}
+In this tutorial, before launching the Eman boxer, we will select a subset of 3 micrographs.
+To do so, we can open the results from the CTF estimation, order the micrographs by defocus
+and select one at the top, one at the middle and one at the end. We can register this new
+subset and put a meaningful name that can be easily remembered. This small set will be used
+later during Relion picking.
 
 \begin{description}
 
