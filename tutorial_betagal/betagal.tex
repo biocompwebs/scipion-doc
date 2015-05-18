@@ -161,6 +161,7 @@ by typing the following command:
 The project windows should appears as shown in Figure \ref{fig:Project}. The previous command has done two 
 steps: (1) create a new project. (2) import an existing workflow template. In this way, 
 we have a basic template that will made easier to follow the processing pipeline. 
+
 \textbf{NOTE}: The ability to export/import workflows in Scipion is a great way to 
 reproduce previous processing steps. It is particularly useful to repeat steps
 on similar samples or to share knowledge between experimental users.
@@ -174,65 +175,136 @@ The special \keys{Analyze Results} button can be used to visualize outputs and p
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.7\textwidth]
+\includegraphics[width=0.9\textwidth]
 {{images/00.Project}.png}
 \caption{Project window}
 \label{fig:Project}
 \end{figure}
 
 
-\subsection{Importing Data}
+\subsection{Importing Data and Preprocessing}
+
+In \scipion the \emph{import} is almost the only place where the user needs to deal
+directly with files. In our model, each protocol have a very well defined 
+inputs and outputs, which are data objects. These objects (SetOfMovies, SetOfParticles, Volume, CTFModel, etc)
+encapsulate the underlying files and formats. 
+
+When importing data, like SetOfMovies, SetOfMicrographs or SetOfParticles, the user provides
+critical information (such as the Pixel Size). This information will not be requested
+any more and will be properly propagated.
+
+\textbf{NOTE}: Since important information is provided during the \emph{import} step, it is recommended
+to take your time to check that all provided parameters are correct. When importing, the binary files
+are not copied to the project to avoid data duplication. Instead, a soft link is created pointing 
+to the file locations. If you move your project to another computer these links may be broken. There 
+is an advanced option where you can set \emph{Copy files?} to Yes. The project is more self-contained
+at the price of using more disk space.
+
 
 \subsubsection{Movies import}
+With the development of the direct electron detectors (DD) low-dose images obtained by electron cryo-microscopy (cryo-EM)
+are recorded as frames of movies. The DD have confirmed that the beam-induced motion (BIM) of the sample substantially degrades resolution.
+In this section we will show how to import movies and align them to correct the BIM using a combination of global and local movement 
+corrections.
 
-The first step is to import the micrographs to your scipion
-project. To do this, double-click the \keys{Import Micrographs}
-button. Micrographs are available at:
+To import the movie files, double-click the \keys{import movies} box. The protocol form will be open to fill the paremeters
+as shown in Figure \ref{fig:ImportMovs}. In this case, the right values for all the acquisition parameters have been loaded
+from the template. Then, we only need to provide the path to the movies files from the downloaded Relion 1.3 data set.
+You can either use the \keys{Browse} icon to select the path or type in the entry field.
 
-\verb+$SCIPION_HOME/data/tests/xmipp_tutorial/micrographs/*.mrc+
-
-\noindent Acquisition info is displayed  in Figure \ref{fig:ImportMics}.  
-Modify input and click on execute to run protocol. The project window will present the new information as shown in
-Figure \ref{fig:ProjectGUI}. If we press the \keys{Analyze Results} button imported micrographs will be loaded.
+After selecting the path to the movies, we can press the \keys{Execute} button. This operation should be very fast
+since it only search for the files inside the path that match the selected pattern and register a new SetOfMovies
+with the provided acquisition information. After executed, the \keys{import movies} box should become green and 
+the status should be \emph{finished}. Moreover, the summary tab should display some information such as the number
+of movies imported. Now we can click on the \keys{Analyze Results} button and check the list of movies as shown in Figure \ref{fig:MovsList}.
+We can right-click in any entry and select \keys{Open} to visualize all the frames in that movie.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.7\textwidth]
-{{images/01.Import_Mics}.png}
-\caption{Import Micrographs Protocol.}
-\label{fig:ImportMics}
+{{images/01.Import_Movs}.png}
+\caption{Import Movies protocol. In this case, only the path needs to be filled.}
+\label{fig:ImportMovs}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.9\textwidth]{{images/02.Project_GUI}.png}
-\caption{Project window after processing Import Micrographs protocol.}
-\label{fig:ProjectGUI}
+\includegraphics[width=0.9\textwidth]
+{{images/02.MovsList}.png}
+\caption{Visualization of the resulting set of movies. We can open each movie and visualize its frames. }
+\label{fig:MovsList}
 \end{figure}
-
-
 
 \subsubsection{Movies alignment}
+Aligning the individual frames of movies is necessary to correct the BIM image blurring 
+and restore important high resolution information. In \scipion we have develop a protocol
+that combines both the global and local alignment to produce the final averaged micrograph.
 
-After importing the micrographs we can
-perform the next step: \textbf{Preprocess Micrographs}. This protocol
-combines multiple Xmipp programs in order to perform different operations
-over the micrographs (Figure \ref{fig:Preprocess}). We want to reduce the micrographs size
-by a factor of 5 (this operation is usually called downsampling or binning). 
-To fill the \textit{Input micrographs} field, simply click on the
-magnifying glass button and select the output from the previous step.
+The alignment method used in Li et al. (2013b) consists of a pure inplane drift correction in 
+which a step of the sub-frame translational alignment is introduced by dividing each frame into a number of
+sub-frames This approach is fast if running on GPUs, and at the end, an ‘‘average’’ micrograph is generated for each
+movie via the summation of all corrected frames. The method is certainly appropriate for global sample movements
+but is not the best option if the sample motion is local. 
 
-%TODO: Explain better (and concisely) why to perform a downsampling
+The alignment method proposed in Abrishami 201X (cite) is based on Optical Flow (OF) and works best at a local level 
+and is therefore particularly suited for those cases in which the BIM pattern presents a high degree of local movements, as in the Falcon II data.
+If the BIM pattern is characterized primarily by global movements, OF will have only a minor effect on the final average. 
+Still, even for those latter cases, we have found it advantageous to use the Li et al. (2013b) method combined with OF,
+to obtain an additional level of refinement and a highly intuitive graphical representation of the total BIM pattern.
+
+In our workflow, we can now open the \keys{movie alignment} box (Figure \ref{fig:MovAlignment}) and, since the parameters are filled,
+we can execute the protocol. In a general case, we can use the \keys{Search} icon to select the SetOfMovies to be used as input (the options
+to select are the objects of this type registered. No more files selection at this point.). In this tutorial we have choose to use \emph{optical flow}
+only to be able to used with/without GPU. If the latter is available, then we can try combining both \emph{dosefgpu + optical flow}.
+We can also select to exclude some frames from the alignment process.
+
+When finished, we can again click on the \keys{Analyze Results} button. to see the list of the resulting micrographs (Figure \ref{fig:MovAnalyze}).
+The first column should be a composite image with half of the PSD of the unaligned micrograph and half of the PSD of the aligned one.
+The two plots reflects the average shifts between each pair of frames. The plot in polar coordinates helps to evaluate the magnitude of the movements
+while the one in cartesian represents better the direction. The name of each resulting micrographs appears in the last column and can also be opened to 
+visual inspection. This protocol should produce as output a new \emph{SetOfMicrographs} that will serve as input to further processing steps.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.75\textwidth]{{images/03.Downsampling_Mics}.png}
-\caption{Preprocess Micrographs Protocol.}
-\label{fig:Preprocess}
+\includegraphics[width=0.7\textwidth]
+{{images/03.MovAlignment}.png}
+\caption{Movie alignment Protocol. }
+\label{fig:MovAlignment}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]
+{{images/04.MovAnalyze}.png}
+\caption{Visualization of the Movie alignment outputs. }
+\label{fig:MovAnalyze}
 \end{figure}
 
 \subsubsection{Micrographs import}
+If you already have your movies aligned, then it is possible to import directly the micrograph data.
+The import form is very similar to the one for movies. The main different is that for micrograph 
+we could import also from EMX format \href{http://i2pc.cnb.csic.es/emx} and from Xmipp 3 metadata.
+In these cases, CTF information can also be associated with the micrographs. After importing micrographs
+we should have an output \emph{SetOfMicrographs} (the same type of output from the movie alignment)
+that can be used in further steps.
 
+
+\subsubsection{Micrographs preprocessing}
+
+Another useful protocol in \scipion is \keys{preprocess - micrographs} which combines multiple 
+Xmipp 3 programs in order to perform different operations over the micrographs (Figure \ref{fig:MicPreprocess}).
+Depending on the micrographs, sometimes is necessary perform some preprocessing operations such us: reduce 
+the micrograph size (usually referred as \emph{downsampling} or \emph{binning}), crop some pixels from the borders
+or remove bad pixels applying a filtering operation. In the protocol form we can select the input micrographs
+and the operations to perform and execute as usual. The result should be a new \emph{SetOfMicrographs} with 
+the transformations applied.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{{images/05.MicPreprocess}.png}
+\caption{Preprocess Micrographs Protocol.}
+\label{fig:Preprocess}
+\end{figure}
 
 \subsection{Estimating CTF}
 
