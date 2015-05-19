@@ -591,123 +591,20 @@ To create a new set of particles you can click on \keys{Particles} red button.
 
 \tipnote{The GUI to visualize particles can be used with other protocols to create subsets based on some quality parameter.
 Particles can be easily ordered by any column and then make selection base on that order to discard bad particles.}
-\subsection{3D Reconstruction: Projection Matching}
-
-Having the right angles of each projection is crucial for making a 3D
-reconstruction.  However, in 3DEM you don’t know a priori the angles
-and you have to estimate them as part of the problem. The most popular
-way of estimating them is by comparing somehow the projections of a
-volume that is similar to the volume to be reconstructed (initial
-model) with the images obtained from the microscope.
-
-A possible approach is to generate equidistant projections from the
-initial model. The experimental dataset is then compared (for
-example, by cross correlation) to each reference projection.  A
-“similarity” coefficient (for example, crosscorrelation coefficient)
-is generated between each experimental particle and reference
-projection. Each individual experimental particle is matched to the
-reference projection that gave the highest “similarity”
-coefficient. Therefore, it is assumed that this experimental particle
-was projected with the same Euler angles as the reference projection.
-
-As an initial map is necessary, we provide initial volume. Click on 
-\menu{Imports > Import Volume} and import from
-
-% TODO: explain where. Which dialog? which menu?
-% Maybe it's \menu{3D > Preprocess > xmipp3 - preprocess volumes}
-% but I don't know.
-
-% TODO: acutally, from this point below (and the last paragraph), it
-% is not clear where to click on things, or how the flow is going. I
-% think it should be revisited.
 
 
-\begin{verbatim}
-$SCIPION_HOME/data/tests/xmipp_tutorial/micrographs/
-\end{verbatim}
-
-\noindent volume \comm{BPV\_scale\_filtered\_windowed\_110.vol} with \textit{sampling rate} 6.185.
-
-To run the projection matching protocol click on
-\menu{3D > Refine > xmipp3 -projection matching} and choose expert mode.
-Input parameters are displayed in Figures \ref{fig:ProjMatchA}, \ref{fig:ProjMatchB},
-\ref{fig:ProjMatchC} and \ref{fig:ProjMatchD} . Here we explain only the ones we need to update
-for this reconstruction. For more detail on each parameter please use the respective 
-\textbf{help} button.
+\subsection{2D Alignment and Classification}
+\subsubsection{Xmipp CL2D}
+\subsubsection{Relion 2D classification}
+\subsubsection{Spider MDA analysis}
 
 
- 
-We need to specify parameters below and execute protocol.
-\begin{itemize}
-\item \textit{Input particles:} Particles selected previously.
-\item \textit{Initial 3D reference volumes:}  Initial volume registered.
-\item \textit{Mask reference volumes:} Circular. Masking the reference volume will increase the signal to noise ratio. 
-\item \textit{Radius of spherical mask(px):} 55. Since particles size is 110 radius of spherical mask should be 55.
-\item \textit{Inner radius for rotational correlation:} 28. Particles will be correlated considering points covered 
-by inner and outer radius for rotational correlation.
-\item \textit{Outer radius for rotational correlation:} 55. Since particles size is 110 outer radius for rotational correlation should be 55.
-\item \textit{Point group symmetry:} i1. Virus type of symmetry.
-\item \textit{Constant to be added to the estimated resolution:} -0.05. The volume will be filtered at a frequency equal to
-the  resolution computed with resolution\_fsc(FSC=0.5) plus the value provided in this field.
-
-\end{itemize}
-
-
-Finally, in order to visualize volume reconstructed click on
-\keys{Analyze Results} button. Protocol viewer will be displayed (Figure \ref{fig:ProjMatchViewer}).
-
-
-In the field 
-\textit{Display volume with slices } press the \textbf {eye} button and you will see the 
-volume slice by slice (Figure \ref{fig:volShowj}). To visualize the volume with chimera select
-chimera (Figure \ref{fig:volChimera}).
-
-
-\subsection{Frealign Refinement}
-
-If you want to refine the output volume of projection matching, you can
-use \menu{3D > Refine > grigoriefflab - frealign}. First, you need to process the set of particles
-that was used as input for projection matching with the features needed
-for frealign.
-
-
-To do this, extract the particles
-again, but preprocess particles as shown in Figure \ref{fig:ExtractForFrealign}.
-
- 
-Once the particles are extracted, use \menu{Particles > Set operations > scipion subset}
-to create a new set with the particles contained in this set that were used for reconstruction.
-
-Input parameters are displayed in Figures \ref{fig:FrealignA}, \ref{fig:FrealignB}, \ref{fig:FrealignC}
-and \ref{fig:FrealignD} . Here we explain only the ones we need to update
-for this refinement. 
-
-
-
-We need to specify:
-\begin{itemize}
-\item \textit{Input particles:} Set of particles that was used as input for projection matching 
-with the features needed for frealign.
-\item \textit{Initial 3D reference volumes:}  Projection matching output volume
-\item \textit{Reconstruction radius:} Inner, 10. Outer, 315. Inner and outer radius of the volume to be reconstructed.
-\item \textit{Point group symmetry:} I1. Virus symmetry
-\item \textit{Resolution of reconstruction:} 15. Resolution to which the reconstruction is calculated.
-\item \textit{Resolution in refinement:} Low, 200. High, 20. Resolution of the data included in the search/refinement.
-\item \textit{High resolution for classification:} 20. Resolution of the data included in the search/refine. It should typically be set to the same resolution
-limit used for the refinement.
-
-\end{itemize}
-Then we execute the protocol.
-
-
-Finally we have obtained the 3D reconstruction of a \emph{Bovine Papillomavirus}.
-In order to visualize volume refined click on \keys{Analyze Results}
-button or open output volume registered.
-Figure \ref{fig:FrealignViewer}.
-
- 
-We hope this tutorial was of use to you as a general introduction to Scipion.
-Our goal is to allow the users like you to execute workflows combining different software tools, while taking care of formats and conversions. 
+\subsection{3D Classification and Refinement}
+\subsubsection{Relion 3D classification}
+\subsubsection{Relion 3D auto-refinement}
+\subsubsection{Frealign classification and refinement}
+\subsubsection{Xmipp projection matching}
+\subsubsection{Eman refine easy}
 
 
 
