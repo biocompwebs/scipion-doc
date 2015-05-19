@@ -36,6 +36,8 @@
 %\setlength\parindent{0pt} % Uncomment to remove all indentation from paragraphs
 
 \newcommand{\scipion}{\textsc{Scipion} }
+\newcommand{\tipnote}[1]{\begin{description}\item \textbf{NOTE}  #1\end{description}}
+                                                           
 \newenvironment{command}{\tt\begin{quote}}{\end{quote}}
 \newcommand{\comm}[1]{\texttt{#1}}
 
@@ -162,9 +164,9 @@ The project windows should appears as shown in Figure \ref{fig:Project}. The pre
 steps: (1) create a new project. (2) import an existing workflow template. In this way, 
 we have a basic template that will made easier to follow the processing pipeline. 
 
-\textbf{NOTE}: The ability to export/import workflows in Scipion is a great way to 
+\tipnote{The ability to export/import workflows in \scipion is a great way to 
 reproduce previous processing steps. It is particularly useful to repeat steps
-on similar samples or to share knowledge between experimental users.
+on similar samples or to share knowledge between experimental users.}
 
 In the project windows, the left panel displays a tree with the processing tasks (protocols) that 
 can be used. The protocols shown can be filtered by perspective (SPA is the default one) or found by Ctrl + F.
@@ -193,12 +195,12 @@ When importing data, like SetOfMovies, SetOfMicrographs or SetOfParticles, the u
 critical information (such as the Pixel Size). This information will not be requested
 any more and will be properly propagated.
 
-\textbf{NOTE}: Since important information is provided during the \emph{import} step, it is recommended
+\tipnote{Since important information is provided during the \emph{import} step, it is recommended
 to take your time to check that all provided parameters are correct. When importing, the binary files
 are not copied to the project to avoid data duplication. Instead, a soft link is created pointing 
 to the file locations. If you move your project to another computer these links may be broken. There 
 is an advanced option where you can set \emph{Copy files?} to Yes. The project is more self-contained
-at the price of using more disk space.
+at the price of using more disk space.}
 
 
 \subsubsection{Movies import}
@@ -303,7 +305,7 @@ the transformations applied.
 \centering
 \includegraphics[width=0.7\textwidth]{{images/05.MicPreprocess}.png}
 \caption{Preprocess Micrographs Protocol.}
-\label{fig:Preprocess}
+\label{fig:MicPreprocess}
 \end{figure}
 
 \subsection{Estimating CTF}
@@ -351,7 +353,7 @@ the image center. A reason to discard micrographs may be the presence of
 strongly asymmetric rings (astigmatism, Figure \ref{fig:CTFs} center) or rings
 that fade in a particular direction (drift, Figure \ref{fig:CTFs} right).
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{images/images-016.jpg}
 \caption{CTFs of good, astigmatic and drift micrographs respectively.}
@@ -365,10 +367,10 @@ click with the mouse right button and press \textbf{Disable}. Once you
 finish the selection, press on the \keys{Micrographs} button to
 create a subset of micrographs with only the enabled ones. 
 
-\textbf{NOTE}: The creation of user selected subsets is tracked in \scipion
+\tipnote{The creation of user selected subsets is tracked in \scipion
 as another operation, so this action is stored in the project workflow.
 In the EM packages this kind of operations is usually done by editing
-the metadata files, but the action is not longer tracked.
+the metadata files, but the action is not longer tracked.}
 
 Sometimes the CTF estimation algorithm may fail to find the rings even
 if they can be seen by eye. If this is the case, you may help the
@@ -385,23 +387,23 @@ as shown in Figure \ref{fig:CTFProfile}. The profile for the Xmipp CTF estimatio
 show some additional options such as the Envelop. In the CTFFind case, there is
 an option to show the CTF fitting as shown in Figure \ref{fig:CTFFitting}.
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.9\textwidth]{{images/08.CTFResult}.png}
 \caption{Protocol CTFFind output that shows the estimated CTFs for all micrographs.}
 \label{fig:CTFResult}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.9\textwidth]{{images/09.CTFProfile}.png}
+\includegraphics[width=0.7\textwidth]{{images/09.CTFProfile}.png}
 \caption{Protocol CTFFind output that shows the estimated CTFs for all micrographs.}
 \label{fig:CTFProfile}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.7\textwidth]{{images/10.CTFFitting}.png}
+\includegraphics[width=0.6\textwidth]{{images/10.CTFFitting}.png}
 \caption{Protocol CTFFind output that shows the estimated CTFs for all micrographs.}
 \label{fig:CTFFitting}
 \end{figure}
@@ -418,47 +420,47 @@ Relion autopick and Bsoft manual picking. In this section we will illustrate the
 of some of them.
 
 
-\subsection{Using Eman boxer}
+\subsubsection{Using Eman boxer}
 In this tutorial, before launching the Eman boxer, we will select a subset of 3 micrographs.
 To do so, we can open the results from the CTF estimation, order the micrographs by defocus
 and select one at the top, one at the middle and one at the end. We can register this new
 subset and put a meaningful name that can be easily remembered. This small set will be used
 later during Relion picking.
 
-\begin{description}
-
-\item[EMAN boxer] \hfill \\
-
 Eman boxer has manual picking and several modes of
 automatic picking, with fast outcome. Please refer to its
 \href{http://blake.bcm.edu/emanwiki/EMAN2}{webpage} for futher
-information. When you are done picking particles you are asked if you want to register output.  If you choose
-\keys{Yes}, output coordinates are generated.
+information. 
 
-
+We need to open the \keys{eman - boxer} box and executed it, after that we should see the 
+boxer GUI as in Figure. For this tutorial we will use a box size of 64 pixels and the 
+Swarm tool.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.75\textwidth]{{images/05.EmanPicking}.png}
+\includegraphics[width=0.9\textwidth]{{images/11.EmanBoxer}.png}
 \caption{EMAN boxer, an interface for particle picking.}
-\label{fig:EmanPP}
+\label{fig:EmanBoxer}
 \end{figure}
 
-\item[Xmipp particle picking] \hfill \\
+After finished with picking particles with one micrograph, we can move to the next one
+and pick all of this small set. At the end, we can click in the \keys{Done} button
+in the Boxer GUI and then a dialog should appears asking to register the output
+in the project. After that, a \emph{SetOfCoordinates} should appears as output
+of this run in the Summary tab.
 
+\subsubsection{Using Xmipp picking}
 
-Xmipp supervised picking has manual and automatic picking. Automatic picking is activated using autopick.
-Particles added or removed manually after autopick are used to correct classifier. 
-When you are done picking particles you can click on \keys{Add Coordinates} to register output.
+Xmipp particle picking is divided in two steps: (1) manual/supervised picking and (2) completed automatic
+picking. For the manual supervised picking, we open the \keys{xmipp3 - manual picking} box, select the 
+input micrographs and execute it. This box will become light yellow, what means that is interactive job
+that we can relaunch any time. 
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.75\textwidth]{{images/05.XmippPicking}.png}
-\caption{Xmipp supervised picking, a different interface for particle picking.}
-\label{fig:XmippPickingParticles}
-\end{figure}
-
-
+The Xmipp picking GUI (Figure \ref{fig:XmippPick}) contains a control panel with the list of micrographs
+and some other parameters. The micrograph where we are picking is displayed in a separated window and
+we can apply a number of filters/enhancements (like Gaussian blurring, Invert contrast, adjust histogram)
+just to improve the visualization of particles and its selection. Following is a summary of the control
+actions:
 
 \begin{itemize}
 \item Use \keys{\shift + mouse wheel} in the overview window to zoom
@@ -469,79 +471,126 @@ When you are done picking particles you can click on \keys{Add Coordinates} to r
 \item Use \keys{\shift + left mouse} over a selected particle in order
   to remove it.
 \item You can apply filters to the micrographs, so that you may see
-  the particles better. Select in the
-  menu \menu{Filters} as many filters
+  the particles better. Select in the menu \menu{Filters} as many filters
   as you like.
-
-
 \end{itemize}
 
-\end{description}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{{images/12.XmippPick}.png}
+\caption{Xmipp picking interface.}
+\label{fig:XmippPick}
+\end{figure}
 
-\subsection{Extract Particles}
+In the manual/supervised step, we should start picking manually a few micrographs and then mark the \emph{Autopick}
+checkbox. At this point, it will train a classifier based in machine learning and will propose some coordinates
+automatically. You can ''correct'' the classifier by adding missing particles or removing wrongly picked. 
+After training with a few more micrographs, we can register the output coordinates by clicking on the \keys{Coordinates}
+red button.
 
-Click on \menu{Particles > Extract > xmipp3 - extract particles}.
-This will launch our next protocol that will allow you
+Then we can close the GUI and open the \keys{xmipp3 - automatic} box and select the previous execution of 
+manual/supervised as input. When executing, this will pick the rest of micrographs completely automatic.
+At the end, we can review the picking coordinates and we still have the chance to add/remove particles.
+
+\tipnote{Once we have trained the classifier in the manual/supervised step, we can even pick another
+set of micrographs of new collected data in an automatic fashion.}
+
+\subsubsection{Using Sparx Gaussian}
+The Sparx Gaussian picking tool is packaged into Eman. In this picking, we only need to adjust a few
+paramters and it will picking particles based on a Gaussian distribution of what is considered particle.
+In that sense, it reduce the introduced bias by our eyes or our conception of what is particle.
+
+To use this picking, we can open another Eman boxer run and then select the Gaussian tool. 
+After adjusting the parameters for a few micrographs, we should click on the \keys{Done} button, answer yes to 
+register the output and it will pick all the input micrographs.
+
+\subsubsection{Using Appion DoG picker}
+The Appion DoG picker is based on a difference of gaussians and works in a similar way of the Sparx gaussian.
+This picking tool have not GUI, so we should try with some parameters and later visualize the picked coordinates
+using the Xmipp GUI. 
+
+\subsubsection{Using Relion auto-picking}
+The protocols for Relion auto-picking in \scipion have been divided in two steps: (1) computing the figure-of-merit (FOM) maps and (2)
+Adjusting the parameter and picking the rest of the micrographs. The Relion picker is based on a template matching approach, so it
+needs to have some 2D averages to search for particles. So you will need to go a bit ahead to the 2D section and produce some classes
+and go back to Relion and use them as references. 
+
+In the first step, the FOM maps are written to disc for just a few micrographs, which are recommended to be representative of your whole
+data set(high and low-defocus one, and/or with thin or thick ice). Then in the second step, there is a wizard, which will launch again
+the Relion program but now reading the previous FOM maps in order to speed up the computation. On this way, adjusting the parameters becomes
+more interactive. After we are happy with the results for this few micrographs, we can then launch the auto-picking for the full set 
+of micrographs in a completed automatic way. When finished, we can again review the output particles with the Xmipp GUI and add/remove
+particles.
+
+\subsubsection{Extracting Particles}
+
+Once we have any set of coordinates, we can proceed to extract these particles with Xmipp.
+We need to be careful with the options selected here, since this will affect later steps.
+The extract protocol (Figure \ref{fig:XmippExtract}) will allow us 
 to extract, normalize and correct the CTF phase of your picked
-particles, among other things. Modify the default parameters according
-to the ones shown in Figures \ref{fig:XmippPP}, 
-\ref{fig:ExtractParams}. They will contain:
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.75\textwidth]{{images/06.Extract_Particles2}.png}
-  \caption{Extract particles protocol (tab \texttt{Input})}
-  \label{fig:XmippPP}
-\end{figure}
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.75\textwidth]{{images/06.Extract_ParticlesB}.png}
-  \caption{Extract particles protocol (tab \texttt{Preprocess})}
-  \label{fig:ExtractParams}
-\end{figure}
+particles, among other things. The options are summarized below:
 
 \begin{itemize}
 \item The \textit{coordinates} of the particles in the micrographs,
   which are taken from the results of the previous step. Also in the
-  same tab, the \textit{particle box size} in pixels (in this case 110
+  same tab, the \textit{particle box size} in pixels (in this case 64
   px).
 \item The \textit{invert contrast} flag. If activated, bright
-  regions become dark regions and the other way around. This flag
-  should be set so that the extracted particles are white over a dark
-  background.
+  regions become dark regions and the other way around. 
+
 \item The \textit{phase flipping} flag. If activated,
-  the protocol corrects the CTF phase of your particles. We need to activate this flag 
-  since we plan to use projection matching to reconstruct volume.
+  the protocol corrects the CTF phase of your particles. 
+
 \item The \textit{normalize} flag. If activated (recommended), the
   particles are normalized to have zero mean and a standard deviation
   of one for the background pixels.
 \end{itemize}
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{{images/13.XmippExtract}.png}
+\caption{Extract particles protocol. Available options are shown.}
+\label{fig:XmippExtract}
+\end{figure}
 
 % TODO: see the definition of zscore and explain this a bit more.
 
-The protocol also can sort the particles based on general statistics
+In this case, we have choose to invert the contrast, since we will use 
+Relion later for 2D and 3D classification, and it expects the particles
+to be white over black. In the case of Frealign, it expect the particles 
+on the other way, black over white. We have also choose not to do phase 
+flipping, because Relion also likes to handle that correction internally.
+If we were going to use some Xmipp programs in the later steps, it is 
+recommended to do phase flipping here.
+
+We have also checked the \emph{Sort by statistics} option, which 
+tell the protocol to sort the particles based on general statistics
 assigning to each particle a z-score value. Particles with low z-score
 are reliable and the ones with large z-score are outliers. Press the
 \keys{Analyze Results} button in the main window to check the
-extracted and normalized images.
+extracted and normalized images (Figure \ref{fig:XmippExtract2} and \ref{fig:XmippExtract3}). 
+If the \emph{Sort by statistics} was 
+checked, the particles will be sorted (ascending) by the z-score value
+and the z-score will also be plot. If you want to remove some particles, eg: because they are outliers, you can use 
+\menu{right click > disable }.
+To create a new set of particles you can click on \keys{Particles} red button.
 
-\subsubsection{Particles Selection}
-
-By default, particles displayed are sorted by
-z-score. If you want to remove some particles, eg: because they are outliers, you can use 
-\menu{right click > disable }
-To create a new set of particles you can click on \keys{Add Particles} button 
-(\ref{fig:SubsetSelection})).
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.75\textwidth]{{images/08.ImgsSelection}.png}
-  \caption{Analyze Results window of the Extract Particles protocol.}
-  \label{fig:SubsetSelection}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{{images/13.XmippExtract2}.png}
+\caption{List of particles after extraction, sorted by z-score.}
+\label{fig:XmippExtract2}
 \end{figure}
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{{images/13.XmippExtract3}.png}
+\caption{Plot of the z-score values.}
+\label{fig:XmippExtract3}
+\end{figure}
+
+\tipnote{The GUI to visualize particles can be used with other protocols to create subsets based on some quality parameter.
+Particles can be easily ordered by any column and then make selection base on that order to discard bad particles.}
 \subsection{3D Reconstruction: Projection Matching}
 
 Having the right angles of each projection is crucial for making a 3D
@@ -587,34 +636,6 @@ for this reconstruction. For more detail on each parameter please use the respec
 \textbf{help} button.
 
 
-
- \begin{figure}[H]
-  \centering
-  \includegraphics[width=0.75\textwidth]{{images/09.ProjMatchA}.png}
-  \caption{Projection Matching: Input}
-  \label{fig:ProjMatchA}
- \end{figure}
-
- \begin{figure}[H]
-  \centering
-  \includegraphics[width=0.75\textwidth]{{images/09.ProjMatchB}.png}
-  \caption{Projection Matching: CTF Correction \& Mask}
-  \label{fig:ProjMatchB}
- \end{figure}
-
-  \begin{figure}[H]
-  \centering
-  \includegraphics[width=0.75\textwidth]{{images/09.ProjMatchC}.png}
-  \caption{Projection Matching: Projection Matching}
-  \label{fig:ProjMatchC}
- \end{figure}
-
-  \begin{figure}[H]
-  \centering
-  \includegraphics[width=0.75\textwidth]{{images/09.ProjMatchD}.png}
-  \caption{Projection Matching: 3D Reconstruction}
-  \label{fig:ProjMatchD}
- \end{figure}
  
 We need to specify parameters below and execute protocol.
 \begin{itemize}
@@ -635,31 +656,12 @@ the  resolution computed with resolution\_fsc(FSC=0.5) plus the value provided i
 Finally, in order to visualize volume reconstructed click on
 \keys{Analyze Results} button. Protocol viewer will be displayed (Figure \ref{fig:ProjMatchViewer}).
 
- \begin{figure}[H]
-  \centering
-  \includegraphics[width=0.75\textwidth]{{images/11.ProjMatchViewer}.png}
-  \caption{Projection matching viewer}
-  \label{fig:ProjMatchViewer}
- \end{figure}
 
 In the field 
 \textit{Display volume with slices } press the \textbf {eye} button and you will see the 
 volume slice by slice (Figure \ref{fig:volShowj}). To visualize the volume with chimera select
 chimera (Figure \ref{fig:volChimera}).
 
- \begin{figure}
-  \centering
-  \includegraphics[width=0.75\textwidth]{{images/12.VolumeGalleries}.png}
-  \caption{Reconstructed volume slices}
-  \label{fig:volShowj}
- \end{figure}
-
- \begin{figure}
-  \centering
-  \includegraphics[width=0.75\textwidth]{{images/12.VolumeChimera}.png}
-  \caption{Reconstructed volume}
-  \label{fig:volChimera}
- \end{figure}
 
 \subsection{Frealign Refinement}
 
@@ -672,13 +674,6 @@ for frealign.
 To do this, extract the particles
 again, but preprocess particles as shown in Figure \ref{fig:ExtractForFrealign}.
 
-  \begin{figure}[H]
-   \centering
-   \includegraphics[width=0.75\textwidth]{{images/06.Extract_ParticlesC}.png}
-   \caption{Extract particles for frealign}
-   \label{fig:ExtractForFrealign}
- \end{figure}
-
  
 Once the particles are extracted, use \menu{Particles > Set operations > scipion subset}
 to create a new set with the particles contained in this set that were used for reconstruction.
@@ -688,34 +683,7 @@ and \ref{fig:FrealignD} . Here we explain only the ones we need to update
 for this refinement. 
 
 
- \begin{figure}[H]
-  \centering
-  \includegraphics[width=0.75\textwidth]{{images/19.FrealignA}.png}
-  \caption{Frealign: Input}
-  \label{fig:FrealignA}
- \end{figure}
 
- \begin{figure}[H]
-  \centering
-  \includegraphics[width=0.75\textwidth]{{images/19.FrealignB}.png}
-  \caption{Frealign: Flow Control}
-  \label{fig:FrealignB}
- \end{figure}
-
-  \begin{figure}[H]
-  \centering
-  \includegraphics[width=0.75\textwidth]{{images/19.FrealignC}.png}
-  \caption{Frealign: General Parameters}
-  \label{fig:FrealignC}
- \end{figure}
-
-  \begin{figure}[H]
-  \centering
-  \includegraphics[width=0.75\textwidth]{{images/19.FrealignD}.png}
-  \caption{Frealign: 3D Reconstruction}
-  \label{fig:FrealignD}
- \end{figure}
- 
 We need to specify:
 \begin{itemize}
 \item \textit{Input particles:} Set of particles that was used as input for projection matching 
@@ -737,12 +705,6 @@ In order to visualize volume refined click on \keys{Analyze Results}
 button or open output volume registered.
 Figure \ref{fig:FrealignViewer}.
 
- \begin{figure}[H]
- \centering
- \includegraphics[width=0.75\textwidth]{{images/20.FrealignViewer}.png}
- \caption{Frealign viewer}
- \label{fig:FrealignViewer}
- \end{figure}
  
 We hope this tutorial was of use to you as a general introduction to Scipion.
 Our goal is to allow the users like you to execute workflows combining different software tools, while taking care of formats and conversions. 
