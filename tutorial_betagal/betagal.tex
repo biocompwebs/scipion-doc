@@ -239,7 +239,7 @@ We can right-click in any entry and select \keys{Open} to visualize all the fram
 
 \subsubsection{Movies alignment}
 Aligning the individual frames of movies is necessary to correct the BIM image blurring 
-and restore important high resolution information. In \scipion we have develop a protocol
+and restore important high resolution information. In \scipion we have developed a protocol
 that combines both the global and local alignment to produce the final averaged micrograph.
 
 The alignment method used in \citep{Li2013} consists of a pure inplane drift correction in 
@@ -283,9 +283,10 @@ visual inspection. This protocol should produce as output a new \emph{SetOfMicro
 \end{figure}
 
 \subsubsection{Micrographs import}
+
 If you already have your movies aligned, then it is possible to import directly the micrograph data.
-The import form is very similar to the one for movies. The main different is that for micrograph 
-we could import also from \href{http://i2pc.cnb.csic.es/emx}{EMX} format and from Xmipp 3 metadata.
+The import form is very similar to the one for movies, the main difference is that for micrograph 
+we can also import from \href{http://i2pc.cnb.csic.es/emx}{EMX} format and from Xmipp 3 metadata.
 In these cases, CTF information can also be associated with the micrographs. After importing micrographs
 we should have an output \emph{SetOfMicrographs} (the same type of output from the movie alignment)
 that can be used in further steps.
@@ -295,7 +296,7 @@ that can be used in further steps.
 
 Another useful protocol in \scipion is \keys{preprocess - micrographs} which combines multiple 
 Xmipp 3 programs in order to perform different operations over the micrographs (Figure \ref{fig:MicPreprocess}).
-Depending on the micrographs, sometimes is necessary perform some preprocessing operations such us: reduce 
+Depending on the micrographs, sometimes is necessary to perform some preprocessing operations such us: reduce 
 the micrograph size (usually referred as \emph{downsampling} or \emph{binning}), crop some pixels from the borders
 or remove bad pixels applying a filtering operation. In the protocol form we can select the input micrographs
 and the operations to perform and execute as usual. The result should be a new \emph{SetOfMicrographs} with 
@@ -319,8 +320,8 @@ micrographs and the parameters of the CTF (defocus U, defocus V, defocus angle, 
 of images with the desired window size. After that, they compute the Fourier
 Transform of each image and make an average.
 
-We have develop the protocols for CTFFind and Xmipp in such a way that the 
-parameters are very similar. To estimate the CTF you will need select the frequency region
+We have developed the protocols for CTFFind and Xmipp in such a way that the 
+parameters are very similar. To estimate the CTF you will need to select the frequency region
 to be analyzed (Figure \ref{fig:CTFFind}). 
 The limiting frequencies must be such that all zeros of the PSD are
 contained within those frequencies. There is a wizard, shown in Figure
@@ -328,7 +329,7 @@ contained within those frequencies. There is a wizard, shown in Figure
 see the full available options, choose the \emph{Advanced} expert level
 and click on the \keys{Help} button for an specific parameter.
 The CTFFind protocol allows to use either ctffind3 or ctffind4 programs,
-the lastest have been reported to be like ten times faster.
+the lastest has been reported to be like ten times faster.
 
 \begin{figure}[H]
 \centering
@@ -443,7 +444,7 @@ Swarm tool.
 \label{fig:EmanBoxer}
 \end{figure}
 
-After finished with picking particles with one micrograph, we can move to the next one
+After we finished with picking particles with one micrograph, we can move to the next one
 and pick all of this small set. At the end, we can click in the \keys{Done} button
 in the Boxer GUI and then a dialog should appears asking to register the output
 in the project. After that, a \emph{SetOfCoordinates} should appears as output
@@ -497,7 +498,7 @@ set of micrographs of new collected data in an automatic fashion.}
 
 \subsubsection{Using Sparx Gaussian}
 The Sparx Gaussian picking tool is packaged into Eman. In this picking, we only need to adjust a few
-paramters and it will picking particles based on a Gaussian distribution of what is considered particle.
+parameters and it will picking particles based on a Gaussian distribution of what is considered a particle.
 In that sense, it reduce the introduced bias by our eyes or our conception of what is particle.
 
 To use this picking, we can open another Eman boxer run and then select the Gaussian tool. 
@@ -506,7 +507,7 @@ register the output and it will pick all the input micrographs.
 
 \subsubsection{Using Appion DoG picker}
 The Appion DoG picker is based on a difference of gaussians and works in a similar way of the Sparx gaussian.
-This picking tool have not GUI, so we should try with some parameters and later visualize the picked coordinates
+This picking tool have no GUI, so we should try with some parameters and later visualize the picked coordinates
 using the Xmipp GUI. 
 
 \subsubsection{Using Relion auto-picking}
